@@ -1,0 +1,23 @@
+{
+  "name": "chance-generators",
+  "version": "1.0.0",
+  "description": "Random generators, changejs",
+  "main": "lib/chance-generators.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "testing",
+    "random"
+  ],
+  "author": "Sune Simonsen",
+  "license": "MIT",
+  "dependencies": {
+    "chance": "^0.8.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.4",
+    "standard": "^5.4.1",
+    "unexpected": "^10.5.1"
+  }
+}
