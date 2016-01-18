@@ -16,6 +16,22 @@ expect.addAssertion('<array> to have unique items', function (expect, arr) {
 })
 
 describe('chance-generators', function () {
+  describe('constructor', () => {
+    describe('given a seed', () => {
+      it('uses the seed to produce random values', () => {
+        expect(new Chance(13).integer(), 'to equal', new Chance(13).integer())
+      })
+    })
+
+    it('uses a random seed by default', () => {
+      expect(new Chance().integer(), 'to be a number')
+    })
+
+    it('can be called without new', () => {
+      expect(Chance(13).integer(), 'to equal', new Chance(13).integer())
+    })
+  })
+
   describe('integer', function () {
     it('produces a random integer', () => {
       expect(chance.integer(), 'to be a number')

@@ -4,6 +4,7 @@
   "description": "Random generators, changejs",
   "main": "lib/chance-generators.js",
   "scripts": {
+    "coverage": "istanbul cover node_modules/.bin/_mocha",
     "test": "mocha"
   },
   "keywords": [
@@ -16,6 +17,7 @@
     "chance": "^0.8.0"
   },
   "devDependencies": {
+    "istanbul": "^0.4.2",
     "mocha": "^2.3.4",
     "standard": "^5.4.1",
     "unexpected": "^10.5.1"
