@@ -1,7 +1,7 @@
 {
   "name": "chance-generators",
   "version": "1.0.0",
-  "description": "Random generators, changejs",
+  "description": "Random generators based on changejs",
   "main": "lib/chance-generators.js",
   "scripts": {
     "coverage": "istanbul cover node_modules/.bin/_mocha",
