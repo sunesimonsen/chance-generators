@@ -47,8 +47,8 @@ expect(smallStrings(), 'to equal', 'GlheH#y')
 expect(smallStrings(), 'to equal', '0Wbe)19')
 ```
 
-The only exception to rule is the `n` and `unique`, they don't dereference the
-generators given as the first argument:
+The only exception to this rule is the `n` and `unique` functions, they don't
+dereference the generator given as the first argument:
 
 ```js
 var g = require('./lib/chance-generators')(42)
