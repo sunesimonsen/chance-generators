@@ -5,6 +5,7 @@
   "main": "lib/chance-generators.js",
   "scripts": {
     "coverage": "istanbul cover node_modules/.bin/_mocha",
+    "lint": "standard",
     "test": "mocha"
   },
   "keywords": [
