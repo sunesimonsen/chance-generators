@@ -93,6 +93,18 @@ describe('chance-generators', function () {
                'to have items satisfying', 'to be a string')
       })
     })
+
+    describe('shrink', () => {
+      it('result a new generator that work on the provided data', () => {
+        var generator = chance.n(chance.string, chance.integer({ min: 2, max: 4 }))
+        for (var i = 0; i < 3; i += 1) {
+          var generatedValue = generator()
+          generator = generator.shrink(generatedValue)
+          expect(generator, 'when called', 'to have items satisfying',
+                 'to be contained by', generatedValue)
+        }
+      })
+    })
   })
 
   describe('shuffle', () => {
