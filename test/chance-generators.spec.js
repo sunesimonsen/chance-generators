@@ -10,7 +10,7 @@ expect.addAssertion('<any> [not] to be contained by <array>', function (expect, 
 expect.addAssertion('<array> to have unique items', function (expect, arr) {
   var seen = []
   expect(arr, 'to have items satisfying', function (item) {
-    expect(item, 'not to be contained by', seen)
+    expect(seen.indexOf(item), 'to be', -1)
     seen.push(item)
   })
 })
