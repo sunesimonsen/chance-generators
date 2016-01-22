@@ -42,6 +42,12 @@ describe('chance-generators', function () {
         expect(chance.integer({ min: 0, max: 10 }), 'when called', 'to be within', 0, 10)
       })
     })
+
+    describe('toString', () => {
+      it('returns the name of the generator', () => {
+        expect(chance.integer({ max: 10 }).toString(), 'to be', 'integer')
+      })
+    })
   })
 
   describe('string', function () {
