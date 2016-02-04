@@ -163,4 +163,39 @@ describe('chance-generators', function () {
       })
     })
   })
+
+  describe('identity', () => {
+    it('generate the given value', () => {
+      expect(chance.identity({ foo: 'bar' }), 'when called', 'to equal', {
+        foo: 'bar'
+      })
+    })
+
+    it('always generates the given value', () => {
+      const value = { foo: 'bar' }
+      for (var i = 0; i < 5; i += 1) {
+        expect(chance.identity(value), 'when called', 'to be', value)
+      }
+    })
+
+    it('does not unwrap generators', () => {
+      expect(chance.identity(chance.integer), 'when called', 'to be a function')
+    })
+  })
+
+  describe('shape', () => {
+    describe('given an object', () => {
+      it('unwraps generators in the object', () => {
+        expect(chance.shape({
+          constant: 42,
+          x: chance.integer,
+          y: chance.integer
+        }), 'when called', 'to satisfy', {
+          constant: 42,
+          x: expect.it('to be a number'),
+          y: expect.it('to be a number')
+        })
+      })
+    })
+  })
 })

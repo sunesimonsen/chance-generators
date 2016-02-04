@@ -65,6 +65,39 @@ expect(stringArrays(), 'to equal', [
 expect(stringArrays(), 'to equal', [])
 ```
 
+## Additional generators
+
+### identity
+
+Always generates the given value.
+
+```js
+var g = require('./lib/chance-generators')(42)
+
+expect(g.identity(42), 'to equal', 42)
+```
+
+### shape
+
+Generates values of the given shape, if the structure contains generators they
+will be unwrapped.
+
+```js
+expect(chance.shape({
+  constant: 42,
+  point: {
+    x: chance.integer,
+    y: chance.integer
+  }
+}), 'when called', 'to satisfy', {
+  constant: 42,
+  point: {
+    x: expect.it('to be a number'),
+    y: expect.it('to be a number')
+  }
+})
+```
+
 ## MIT License
 
 Copyright (c) 2016 Sune Simonsen <sune@we-knowhow.dk>
