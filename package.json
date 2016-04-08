@@ -15,7 +15,7 @@
   "author": "Sune Simonsen",
   "license": "MIT",
   "dependencies": {
-    "chance": "0.8.0"
+    "chance": "1.0.1"
   },
   "devDependencies": {
     "istanbul": "0.4.2",
