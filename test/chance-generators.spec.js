@@ -197,5 +197,25 @@ describe('chance-generators', function () {
         })
       })
     })
+
+    describe('shrink', () => {
+      it('result a new generator that work on the provided data', () => {
+        var generator = chance.shape({
+          constant: 42,
+          x: chance.integer({ min: 2, max: 4 }),
+          y: chance.integer({ min: 2, max: 4 })
+        })
+
+        for (var i = 0; i < 3; i += 1) {
+          var generatedValue = generator()
+          generator = generator.shrink(generatedValue)
+          expect(generator, 'when called', 'to satisfy', {
+            constant: 42,
+            x: expect.it('to be less than or equal to', generatedValue.x),
+            y: expect.it('to be less than or equal to', generatedValue.y)
+          })
+        }
+      })
+    })
   })
 })
