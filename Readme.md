@@ -74,7 +74,25 @@ Always generates the given value.
 ```js
 var g = require('./lib/chance-generators')(42)
 
-expect(g.identity(42), 'to equal', 42)
+expect(g.identity(42), 'when called', 'to equal', 42)
+```
+
+### array
+
+Same as `n` but defaults to generate arrays between 0-50 items when no count is
+supplied.
+
+```js
+var g = require('./lib/chance-generators')(42)
+
+expect(
+  chance.array(chance.natural({ max: 10 })),
+  'when called',
+  'to equal', [
+    8, 10, 2, 8, 8, 6, 6, 1, 4,
+    1, 1, 0, 5, 9, 3, 6, 1, 7, 7
+  ]
+)
 ```
 
 ### shape

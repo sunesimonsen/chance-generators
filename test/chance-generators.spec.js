@@ -107,6 +107,54 @@ describe('chance-generators', function () {
     })
   })
 
+  describe('array', () => {
+    describe('given a generator function', function () {
+      it('returns a new generator producing arrays with instance of the given generator of length 0-50', function () {
+        expect(chance.array(chance.string), 'when called', 'to satisfy', (array) => {
+          expect(array, 'to satisfy', {
+            length: expect.it('to be within', 0, 50)
+          }).and('to have items satisfying', 'to be a string')
+        })
+      })
+    })
+
+    describe('given a generator function and a number', () => {
+      it('returns a new generator producing arrays with the specified length', function () {
+        expect(chance.array(chance.string, 3), 'when called', 'to have length', 3)
+      })
+
+      it('returns a new generator producing arrays with instances of the given generator', function () {
+        expect(chance.array(chance.string, 3), 'when called',
+               'to have items satisfying', 'to be a string')
+      })
+    })
+
+    describe('given a generator function and another generator producing numbers', () => {
+      it('returns a new generator producing arrays with the length specified by the second generator', function () {
+        expect(chance.array(chance.string, chance.integer({ min: 2, max: 4 })), 'when called', 'to satisfy', {
+          length: expect.it('to be within', 2, 4)
+        })
+      })
+
+      it('returns a new generator producing arrays with instances of the given generator', function () {
+        expect(chance.array(chance.string, chance.integer({ min: 2, max: 4 })), 'when called',
+               'to have items satisfying', 'to be a string')
+      })
+    })
+
+    describe('shrink', () => {
+      it('result a new generator that work on the provided data', () => {
+        var generator = chance.array(chance.string)
+        for (var i = 0; i < 3; i += 1) {
+          var generatedValue = generator()
+          generator = generator.shrink(generatedValue)
+          expect(generator, 'when called', 'to have items satisfying',
+                 'to be contained by', generatedValue)
+        }
+      })
+    })
+  })
+
   describe('shuffle', () => {
     describe('given an array', () => {
       it('returns a new generator producing shuffled versions of the given array', () => {
