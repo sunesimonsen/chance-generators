@@ -87,7 +87,9 @@ Always generates the given value.
 ```js
 let { identity } = new Generators(42)
 
-expect(identity(42), 'when called', 'to equal', 42)
+let constantNumberGenerator = identity(42)
+expect(constantNumberGenerator, 'when called', 'to equal', 42)
+expect(constantNumberGenerator, 'when called', 'to equal', 42)
 ```
 
 ### array
