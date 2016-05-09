@@ -71,11 +71,11 @@ produce a random value:</p>
   <div>expect<span style="color: #999">(</span>smallStrings<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'(n25S'</span><span style="color: #999">)</span></div>
   <div>expect<span style="color: #999">(</span>smallStrings<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'GlheH#y'</span><span style="color: #999">)</span></div>
   <div>expect<span style="color: #999">(</span>smallStrings<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'0Wbe)19'</span><span style="color: #999">)</span></div>
-</div><p>The only exception to this rule is the <code>n</code> and <code>unique</code> functions, they don&#39;t
-dereference the generator given as the first argument:</p>
+</div><p>The only exception to this rule is the <code>array</code>, <code>n</code> and <code>unique</code> functions, they
+don&#39;t dereference the generator given as the first argument:</p>
 <div class="code lang-javascript">
-  <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;array<span style="color: #999">,</span>&nbsp;string<span style="color: #999">,</span>&nbsp;integer&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
-  <div><span style="color: #F92672">let</span>&nbsp;stringArrays&nbsp;<span style="color: #F92672">=</span>&nbsp;array<span style="color: #999">(</span>string<span style="color: #999">,</span>&nbsp;integer<span style="color: #999">({</span>&nbsp;min<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">0</span><span style="color: #999">,</span>&nbsp;max<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">10</span>&nbsp;<span style="color: #999">}))</span></div>
+  <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;n<span style="color: #999">,</span>&nbsp;string<span style="color: #999">,</span>&nbsp;integer&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
+  <div><span style="color: #F92672">let</span>&nbsp;stringArrays&nbsp;<span style="color: #F92672">=</span>&nbsp;n<span style="color: #999">(</span>string<span style="color: #999">,</span>&nbsp;integer<span style="color: #999">({</span>&nbsp;min<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">0</span><span style="color: #999">,</span>&nbsp;max<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">10</span>&nbsp;<span style="color: #999">}))</span></div>
   <div>&nbsp;</div>
   <div>expect<span style="color: #999">(</span>stringArrays<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #999">[</span></div>
   <div>&nbsp;&nbsp;<span style="color: #E6DB74">'(n25SSlGlheH#ySk0'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'be)19*pan]nTwTM'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'FbvMT'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'kdv[BrHg6To'</span></div>
@@ -127,7 +127,7 @@ will be unwrapped.</p>
   <div>&nbsp;&nbsp;<span style="color: #999">}</span></div>
   <div><span style="color: #999">})</span></div>
 </div><h2 id="mit-license">MIT License</h2>
-<p>Copyright (c) 2016 Sune Simonsen <a href="&#109;&#97;&#x69;&#108;&#x74;&#x6f;&#58;&#115;&#x75;&#x6e;&#101;&#64;&#x77;&#x65;&#45;&#x6b;&#x6e;&#x6f;&#x77;&#x68;&#x6f;&#x77;&#x2e;&#x64;&#107;">&#115;&#x75;&#x6e;&#101;&#64;&#x77;&#x65;&#45;&#x6b;&#x6e;&#x6f;&#x77;&#x68;&#x6f;&#x77;&#x2e;&#x64;&#107;</a></p>
+<p>Copyright (c) 2016 Sune Simonsen <a href="&#x6d;&#97;&#105;&#108;&#x74;&#111;&#x3a;&#115;&#x75;&#x6e;&#101;&#x40;&#119;&#x65;&#x2d;&#x6b;&#110;&#x6f;&#119;&#104;&#x6f;&#119;&#x2e;&#100;&#107;">&#115;&#x75;&#x6e;&#101;&#x40;&#119;&#x65;&#x2d;&#x6b;&#110;&#x6f;&#119;&#104;&#x6f;&#119;&#x2e;&#100;&#107;</a></p>
 <p>Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
 &#39;Software&#39;), to deal in the Software without restriction, including
