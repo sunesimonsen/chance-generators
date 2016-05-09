@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="static/normalize.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="static/main.css" type="text/css" media="screen" />
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="static/bug-icon-black.ico">
+    <title>chance-generators</title>
+</head>
+<body class="sidebar-hidden">
+    <header>
+        <div class="logo-icon"></div>
+        <nav>
+            <ul>
+                <li class="menu-toggle-item">
+                    <button class="menu-toggle" onclick="toggleSidebar()"></button>
+                </li>
+                
+                <li class="active"><a href="">chance-generators</a></li>
+                
+                
+                
+                
+            </ul>
+        </nav>
+        <div class="search" style="visibility: hidden">
+            <input id="search" placeholder="Search..." value="">
+            <div id="searchDropDown" class="dropDown">
+                <ul id="searchResults"></ul>
+            </div>
+        </div>
+    </header>
+
+<div class="main theme-dark" tabindex="-1">
+    <div class="content">
+        <h1 id="chance-generators">chance-generators</h1>
+<p>This module is thin wrapper around the excellent <a href="http://chancejs.com/">chance</a>
+library for doing composable generators.</p>
+<h2 id="installation">Installation</h2>
+<div class="code lang-">
+  <div>npm&nbsp;install&nbsp;--save&nbsp;chance-generators</div>
+</div><h2 id="usage">Usage</h2>
+<div class="code lang-javascript">
+  <div><span style="color: #F92672">var</span>&nbsp;Generators&nbsp;<span style="color: #F92672">=</span>&nbsp;require<span style="color: #999">(</span><span style="color: #E6DB74">'chance-generators'</span><span style="color: #999">)</span></div>
+</div><div class="code lang-javascript">
+  <div><span style="color: #F92672">let</span>&nbsp;seed&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">42</span></div>
+  <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;email<span style="color: #999">,</span>&nbsp;pickone&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span>seed<span style="color: #999">)</span></div>
+  <div><span style="color: #F92672">let</span>&nbsp;emails&nbsp;<span style="color: #F92672">=</span>&nbsp;email<span style="color: #999">({</span>&nbsp;domain<span style="color: #999">:</span>&nbsp;pickone<span style="color: #999">([</span><span style="color: #E6DB74">'example.com'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'mail.me'</span><span style="color: #999">])</span>&nbsp;<span style="color: #999">})</span></div>
+  <div>expect<span style="color: #999">(</span>emails<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'gotsalda@example.com'</span><span style="color: #999">)</span></div>
+  <div>expect<span style="color: #999">(</span>emails<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'satacwuw@example.com'</span><span style="color: #999">)</span></div>
+  <div>expect<span style="color: #999">(</span>emails<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'uf@example.com'</span><span style="color: #999">)</span></div>
+</div><p>When you call any of the functions documented on
+<a href="http://www.chancejs.com/">www.chancejs.com</a>
+with one of more arguments a new generator function is returned instead of just
+generating the result:</p>
+<div class="code lang-javascript">
+  <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;integer&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
+  <div><span style="color: #F92672">let</span>&nbsp;positiveIntegers&nbsp;<span style="color: #F92672">=</span>&nbsp;integer<span style="color: #999">({</span>&nbsp;min<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">0</span>&nbsp;<span style="color: #999">})</span></div>
+  <div>expect<span style="color: #999">(</span>positiveIntegers<span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;be&nbsp;a&nbsp;function'</span><span style="color: #999">)</span></div>
+  <div>expect<span style="color: #999">(</span>positiveIntegers<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;be&nbsp;a&nbsp;number'</span><span style="color: #999">)</span></div>
+</div><p>If you call a generator without any arguments it will produce a new value.</p>
+<div class="code lang-javascript">
+  <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;integer&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
+  <div>expect<span style="color: #999">(</span>integer<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;be&nbsp;a&nbsp;number'</span><span style="color: #999">)</span></div>
+</div><p>Any generators passed as parameters to other generators will be called to
+produce a random value:</p>
+<div class="code lang-javascript">
+  <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;integer<span style="color: #999">,</span>&nbsp;string&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
+  <div><span style="color: #F92672">let</span>&nbsp;smallStrings&nbsp;<span style="color: #F92672">=</span>&nbsp;string<span style="color: #999">({</span>&nbsp;length<span style="color: #999">:</span>&nbsp;integer<span style="color: #999">({</span>&nbsp;min<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">3</span><span style="color: #999">,</span>&nbsp;max<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">9</span>&nbsp;<span style="color: #999">})</span>&nbsp;<span style="color: #999">})</span></div>
+  <div>expect<span style="color: #999">(</span>smallStrings<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'(n25S'</span><span style="color: #999">)</span></div>
+  <div>expect<span style="color: #999">(</span>smallStrings<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'GlheH#y'</span><span style="color: #999">)</span></div>
+  <div>expect<span style="color: #999">(</span>smallStrings<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'0Wbe)19'</span><span style="color: #999">)</span></div>
+</div><p>The only exception to this rule is the <code>n</code> and <code>unique</code> functions, they don&#39;t
+dereference the generator given as the first argument:</p>
+<div class="code lang-javascript">
+  <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;array<span style="color: #999">,</span>&nbsp;string<span style="color: #999">,</span>&nbsp;integer&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
+  <div><span style="color: #F92672">let</span>&nbsp;stringArrays&nbsp;<span style="color: #F92672">=</span>&nbsp;array<span style="color: #999">(</span>string<span style="color: #999">,</span>&nbsp;integer<span style="color: #999">({</span>&nbsp;min<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">0</span><span style="color: #999">,</span>&nbsp;max<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">10</span>&nbsp;<span style="color: #999">}))</span></div>
+  <div>&nbsp;</div>
+  <div>expect<span style="color: #999">(</span>stringArrays<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #999">[</span></div>
+  <div>&nbsp;&nbsp;<span style="color: #E6DB74">'(n25SSlGlheH#ySk0'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'be)19*pan]nTwTM'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'FbvMT'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'kdv[BrHg6To'</span></div>
+  <div><span style="color: #999">])</span></div>
+  <div>&nbsp;</div>
+  <div>expect<span style="color: #999">(</span>stringArrays<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #999">[</span></div>
+  <div>&nbsp;&nbsp;<span style="color: #E6DB74">'[RId@SYmHea(*'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'P7CwbhrYrGYjTK9cm^Ct'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'X3xFMpO'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'nc)!5H*D%&amp;S1&amp;y'</span></div>
+  <div><span style="color: #999">])</span></div>
+  <div>&nbsp;</div>
+  <div>expect<span style="color: #999">(</span>stringArrays<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #999">[])</span></div>
+</div><h2 id="additional-generators">Additional generators</h2>
+<h3 id="identity">identity</h3>
+<p>Always generates the given value.</p>
+<div class="code lang-javascript">
+  <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;identity&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
+  <div>&nbsp;</div>
+  <div>expect<span style="color: #999">(</span>identity<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">),</span>&nbsp;<span style="color: #E6DB74">'when&nbsp;called'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
+</div><h3 id="array">array</h3>
+<p>Same as <code>n</code> but defaults to generate arrays between 0-50 items when no count is
+supplied.</p>
+<div class="code lang-javascript">
+  <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;array<span style="color: #999">,</span>&nbsp;natural&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
+  <div>&nbsp;</div>
+  <div>expect<span style="color: #999">(</span></div>
+  <div>&nbsp;&nbsp;array<span style="color: #999">(</span>natural<span style="color: #999">({</span>&nbsp;max<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">10</span>&nbsp;<span style="color: #999">})),</span></div>
+  <div>&nbsp;&nbsp;<span style="color: #E6DB74">'when&nbsp;called'</span><span style="color: #999">,</span></div>
+  <div>&nbsp;&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #999">[</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #66D9EF; font-weight: bold">8</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">10</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">2</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">8</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">8</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">6</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">6</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">1</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">4</span><span style="color: #999">,</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #66D9EF; font-weight: bold">1</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">1</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">0</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">5</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">9</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">3</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">6</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">1</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">7</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">7</span></div>
+  <div>&nbsp;&nbsp;<span style="color: #999">]</span></div>
+  <div><span style="color: #999">)</span></div>
+</div><h3 id="shape">shape</h3>
+<p>Generates values of the given shape, if the structure contains generators they
+will be unwrapped.</p>
+<div class="code lang-javascript">
+  <div><span style="color: #F92672">var</span>&nbsp;<span style="color: #999">{</span>&nbsp;integer<span style="color: #999">,</span>&nbsp;shape<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
+  <div>&nbsp;</div>
+  <div>expect<span style="color: #999">(</span>shape<span style="color: #999">({</span></div>
+  <div>&nbsp;&nbsp;constant<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">,</span></div>
+  <div>&nbsp;&nbsp;point<span style="color: #999">:</span>&nbsp;<span style="color: #999">{</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;x<span style="color: #999">:</span>&nbsp;integer<span style="color: #999">,</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;y<span style="color: #999">:</span>&nbsp;integer</div>
+  <div>&nbsp;&nbsp;<span style="color: #999">}</span></div>
+  <div><span style="color: #999">}),</span>&nbsp;<span style="color: #E6DB74">'when&nbsp;called'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;satisfy'</span><span style="color: #999">,</span>&nbsp;<span style="color: #999">{</span></div>
+  <div>&nbsp;&nbsp;constant<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">,</span></div>
+  <div>&nbsp;&nbsp;point<span style="color: #999">:</span>&nbsp;<span style="color: #999">{</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;x<span style="color: #999">:</span>&nbsp;expect<span style="color: #999">.</span>it<span style="color: #999">(</span><span style="color: #E6DB74">'to&nbsp;be&nbsp;a&nbsp;number'</span><span style="color: #999">),</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;y<span style="color: #999">:</span>&nbsp;expect<span style="color: #999">.</span>it<span style="color: #999">(</span><span style="color: #E6DB74">'to&nbsp;be&nbsp;a&nbsp;number'</span><span style="color: #999">)</span></div>
+  <div>&nbsp;&nbsp;<span style="color: #999">}</span></div>
+  <div><span style="color: #999">})</span></div>
+</div><h2 id="mit-license">MIT License</h2>
+<p>Copyright (c) 2016 Sune Simonsen <a href="&#109;&#x61;&#105;&#x6c;&#x74;&#x6f;&#58;&#115;&#x75;&#x6e;&#101;&#64;&#x77;&#x65;&#x2d;&#x6b;&#x6e;&#111;&#119;&#x68;&#x6f;&#119;&#x2e;&#100;&#107;">&#115;&#x75;&#x6e;&#101;&#64;&#x77;&#x65;&#x2d;&#x6b;&#x6e;&#111;&#119;&#x68;&#x6f;&#119;&#x2e;&#100;&#107;</a></p>
+<p>Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+&#39;Software&#39;), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED &#39;AS IS&#39;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+    </div>
+    <a class="github-ribbon" href="https://github.com/sunesimonsen/chance-generators"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+</div>
+<script type="text/javascript">
+    baseUrl = '';
+</script>
+<script type="text/javascript" src="static/toggleSidebar.js"></script>
+<script type="text/javascript" src="static/rememberScrollPosition.js"></script>
+<script type="text/javascript" src="static/focusMain.js"></script>
+<script type="text/javascript" src="static/search.js"></script>
+</body>
+</html>
+
