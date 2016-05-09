@@ -92,7 +92,9 @@ don&#39;t dereference the generator given as the first argument:</p>
 <div class="code lang-javascript">
   <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;identity&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
   <div>&nbsp;</div>
-  <div>expect<span style="color: #999">(</span>identity<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">),</span>&nbsp;<span style="color: #E6DB74">'when&nbsp;called'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
+  <div><span style="color: #F92672">let</span>&nbsp;constantNumberGenerator&nbsp;<span style="color: #F92672">=</span>&nbsp;identity<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
+  <div>expect<span style="color: #999">(</span>constantNumberGenerator<span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'when&nbsp;called'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
+  <div>expect<span style="color: #999">(</span>constantNumberGenerator<span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'when&nbsp;called'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
 </div><h3 id="array">array</h3>
 <p>Same as <code>n</code> but defaults to generate arrays between 0-50 items when no count is
 supplied.</p>
@@ -127,7 +129,7 @@ will be unwrapped.</p>
   <div>&nbsp;&nbsp;<span style="color: #999">}</span></div>
   <div><span style="color: #999">})</span></div>
 </div><h2 id="mit-license">MIT License</h2>
-<p>Copyright (c) 2016 Sune Simonsen <a href="&#x6d;&#97;&#105;&#108;&#x74;&#111;&#x3a;&#115;&#x75;&#x6e;&#101;&#x40;&#119;&#x65;&#x2d;&#x6b;&#110;&#x6f;&#119;&#104;&#x6f;&#119;&#x2e;&#100;&#107;">&#115;&#x75;&#x6e;&#101;&#x40;&#119;&#x65;&#x2d;&#x6b;&#110;&#x6f;&#119;&#104;&#x6f;&#119;&#x2e;&#100;&#107;</a></p>
+<p>Copyright (c) 2016 Sune Simonsen <a href="&#109;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#115;&#x75;&#x6e;&#101;&#64;&#x77;&#101;&#x2d;&#x6b;&#110;&#x6f;&#x77;&#104;&#111;&#119;&#46;&#x64;&#107;">&#115;&#x75;&#x6e;&#101;&#64;&#x77;&#101;&#x2d;&#x6b;&#110;&#x6f;&#x77;&#104;&#111;&#119;&#46;&#x64;&#107;</a></p>
 <p>Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
 &#39;Software&#39;), to deal in the Software without restriction, including
