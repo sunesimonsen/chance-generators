@@ -60,12 +60,12 @@ expect(smallStrings(), 'to equal', 'GlheH#y')
 expect(smallStrings(), 'to equal', '0Wbe)19')
 ```
 
-The only exception to this rule is the `n` and `unique` functions, they don't
-dereference the generator given as the first argument:
+The only exception to this rule is the `array`, `n` and `unique` functions, they
+don't dereference the generator given as the first argument:
 
 ```js
-let { array, string, integer } = new Generators(42)
-let stringArrays = array(string, integer({ min: 0, max: 10 }))
+let { n, string, integer } = new Generators(42)
+let stringArrays = n(string, integer({ min: 0, max: 10 }))
 
 expect(stringArrays(), 'to equal', [
   '(n25SSlGlheH#ySk0', 'be)19*pan]nTwTM', 'FbvMT', 'kdv[BrHg6To'
