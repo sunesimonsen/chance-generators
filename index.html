@@ -56,9 +56,9 @@ with one of more arguments a new generator function is returned instead of just
 generating the result:</p>
 <div class="code lang-javascript">
   <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;integer&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
-  <div><span style="color: #F92672">let</span>&nbsp;positiveIntegers&nbsp;<span style="color: #F92672">=</span>&nbsp;integer<span style="color: #999">({</span>&nbsp;min<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">0</span>&nbsp;<span style="color: #999">})</span></div>
+  <div><span style="color: #F92672">let</span>&nbsp;positiveIntegers&nbsp;<span style="color: #F92672">=</span>&nbsp;integer<span style="color: #999">({</span>&nbsp;min<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">1</span>&nbsp;<span style="color: #999">})</span></div>
   <div>expect<span style="color: #999">(</span>positiveIntegers<span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;be&nbsp;a&nbsp;function'</span><span style="color: #999">)</span></div>
-  <div>expect<span style="color: #999">(</span>positiveIntegers<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;be&nbsp;a&nbsp;number'</span><span style="color: #999">)</span></div>
+  <div>expect<span style="color: #999">(</span>positiveIntegers<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;be&nbsp;positive'</span><span style="color: #999">)</span></div>
 </div><p>If you call a generator without any arguments it will produce a new value.</p>
 <div class="code lang-javascript">
   <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;integer&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
@@ -129,7 +129,7 @@ will be unwrapped.</p>
   <div>&nbsp;&nbsp;<span style="color: #999">}</span></div>
   <div><span style="color: #999">})</span></div>
 </div><h2 id="mit-license">MIT License</h2>
-<p>Copyright (c) 2016 Sune Simonsen <a href="&#109;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#115;&#x75;&#x6e;&#101;&#64;&#x77;&#101;&#x2d;&#x6b;&#110;&#x6f;&#x77;&#104;&#111;&#119;&#46;&#x64;&#107;">&#115;&#x75;&#x6e;&#101;&#64;&#x77;&#101;&#x2d;&#x6b;&#110;&#x6f;&#x77;&#104;&#111;&#119;&#46;&#x64;&#107;</a></p>
+<p>Copyright (c) 2016 Sune Simonsen <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#115;&#117;&#110;&#x65;&#x40;&#x77;&#101;&#45;&#x6b;&#110;&#x6f;&#119;&#x68;&#111;&#119;&#x2e;&#x64;&#x6b;">&#115;&#117;&#110;&#x65;&#x40;&#x77;&#101;&#45;&#x6b;&#110;&#x6f;&#119;&#x68;&#111;&#119;&#x2e;&#x64;&#x6b;</a></p>
 <p>Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
 &#39;Software&#39;), to deal in the Software without restriction, including
