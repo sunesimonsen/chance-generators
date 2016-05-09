@@ -6,7 +6,9 @@
   "scripts": {
     "coverage": "istanbul cover node_modules/.bin/_mocha",
     "lint": "standard",
-    "test": "mocha"
+    "test": "mocha ./documentation/**/*.md ./test/**/*.js && npm run lint",
+    "generate-site": "generate-site --require ./bootstrap-unexpected-markdown.js",
+    "update-examples": "generate-site --require ./bootstrap-unexpected-markdown.js --update-examples"
   },
   "keywords": [
     "testing",
@@ -21,6 +23,8 @@
     "istanbul": "0.4.2",
     "mocha": "2.3.4",
     "standard": "5.4.1",
-    "unexpected": "10.5.1"
+    "unexpected": "10.5.1",
+    "unexpected-documentation-site-generator": "4.2.0",
+    "unexpected-markdown": "1.6.1"
   }
 }
