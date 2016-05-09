@@ -37,9 +37,9 @@ generating the result:
 
 ```js
 let { integer } = new Generators(42)
-let positiveIntegers = integer({ min: 0 })
+let positiveIntegers = integer({ min: 1 })
 expect(positiveIntegers, 'to be a function')
-expect(positiveIntegers(), 'to be a number')
+expect(positiveIntegers(), 'to be positive')
 ```
 
 If you call a generator without any arguments it will produce a new value.
