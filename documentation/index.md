@@ -18,7 +18,7 @@ npm install --save chance-generators
 ## Usage
 
 ```js#evaluate:false
-var Generators = require('chance-generators')
+const Generators = require('chance-generators')
 ```
 
 ```js
