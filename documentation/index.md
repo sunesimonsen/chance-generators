@@ -24,7 +24,9 @@ const Generators = require('chance-generators')
 ```js
 let seed = 42
 let { email, pickone } = new Generators(seed)
+
 let emails = email({ domain: pickone(['example.com', 'mail.me']) })
+
 expect(emails(), 'to equal', 'gotsalda@example.com')
 expect(emails(), 'to equal', 'satacwuw@example.com')
 expect(emails(), 'to equal', 'uf@example.com')
@@ -37,7 +39,9 @@ generating the result:
 
 ```js
 let { integer } = new Generators(42)
+
 let positiveIntegers = integer({ min: 1 })
+
 expect(positiveIntegers, 'to be a function')
 expect(positiveIntegers(), 'to be positive')
 ```
@@ -46,6 +50,7 @@ If you call a generator without any arguments it will produce a new value.
 
 ```js
 let { integer } = new Generators(42)
+
 expect(integer(), 'to be a number')
 ```
 
@@ -54,7 +59,9 @@ produce a random value:
 
 ```js
 let { integer, string } = new Generators(42)
+
 let smallStrings = string({ length: integer({ min: 3, max: 9 }) })
+
 expect(smallStrings(), 'to equal', '(n25S')
 expect(smallStrings(), 'to equal', 'GlheH#y')
 expect(smallStrings(), 'to equal', '0Wbe)19')
@@ -65,6 +72,7 @@ don't dereference the generator given as the first argument:
 
 ```js
 let { n, string, integer } = new Generators(42)
+
 let stringArrays = n(string, integer({ min: 0, max: 10 }))
 
 expect(stringArrays(), 'to equal', [
@@ -88,6 +96,7 @@ Always generates the given value.
 let { identity } = new Generators(42)
 
 let constantNumberGenerator = identity(42)
+
 expect(constantNumberGenerator, 'when called', 'to equal', 42)
 expect(constantNumberGenerator, 'when called', 'to equal', 42)
 ```
