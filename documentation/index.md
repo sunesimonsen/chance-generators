@@ -125,7 +125,7 @@ Generates values of the given shape, if the structure contains generators they
 will be unwrapped.
 
 ```js
-var { integer, shape} = new Generators(42)
+let { integer, shape } = new Generators(42)
 
 expect(shape({
   constant: 42,
@@ -140,6 +140,24 @@ expect(shape({
     y: expect.it('to be a number')
   }
 })
+```
+
+## Mapping generators
+
+All generators has a `map` method that can be used to map the stream of
+generated values into something else. A mapped generator supports shrinking by
+shrinking the original generator.
+
+```js
+let { email, name, shape } = new Generators(42)
+
+const nameAndEmail = shape({
+  email,
+  name
+}).map(({ email, name }) => `${name} ${email}`)
+
+expect(nameAndEmail, 'when called', 'to equal', 'Manuel Lyons ofosid@daej.co.uk')
+expect(nameAndEmail, 'when called', 'to equal', 'Nathaniel Parks ur@gafgohrak.com')
 ```
 
 ## MIT License

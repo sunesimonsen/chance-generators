@@ -26,5 +26,10 @@
     "unexpected": "10.5.1",
     "unexpected-documentation-site-generator": "4.2.0",
     "unexpected-markdown": "1.6.1"
+  },
+  "standard": {
+    "globals": [
+      "beforeEach"
+    ]
   }
 }

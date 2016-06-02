@@ -1,6 +1,5 @@
 /*global describe, it*/
 var Chance = require('../lib/chance-generators')
-var chance = new Chance(42)
 var expect = require('unexpected')
 
 expect.addAssertion('<any> [not] to be contained by <array>', function (expect, item, array) {
@@ -16,6 +15,12 @@ expect.addAssertion('<array> to have unique items', function (expect, arr) {
 })
 
 describe('chance-generators', function () {
+  var chance
+
+  beforeEach(() => {
+    chance = new Chance(42)
+  })
+
   describe('constructor', () => {
     describe('given a seed', () => {
       it('uses the seed to produce random values', () => {
@@ -48,6 +53,26 @@ describe('chance-generators', function () {
         expect(chance.integer({ max: 10 }).toString(), 'to be', 'integer')
       })
     })
+
+    describe('map', () => {
+      it('returns a new generator where the generated values are mapped with the given function', () => {
+        expect(
+          chance.integer({ min: -10, max: 10 }).map(v => v + 10),
+          'when called',
+          'to be within', 0, 20
+        )
+      })
+
+      describe('shrink', () => {
+        it('returns a new generator where the input is shrunken with with regards to the original generator', () => {
+          var generator = chance.integer({ min: -10, max: 10 }).map(v => v + 10)
+          while (generator.shrink) {
+            generator = generator.shrink(generator())
+          }
+          expect(generator, 'when called', 'to equal', 10)
+        })
+      })
+    })
   })
 
   describe('string', function () {
@@ -58,6 +83,32 @@ describe('chance-generators', function () {
     describe('given a length', function () {
       it('returns a new generator function honoring the given constraints', function () {
         expect(chance.string({ length: 4 }), 'when called', 'to have length', 4)
+      })
+    })
+
+    describe('map', () => {
+      it('returns a new generator where the generated values are mapped with the given function', () => {
+        var generator = chance.string.map(s => s.toUpperCase()).map(s => s.replace(/[^A-Z]/g, '-'))
+
+        expect(
+          generator,
+          'when called',
+          'to match', /[A-Z-]*/
+        )
+      })
+
+      describe('shrink', () => {
+        it('returns a new generator where the input is shrunken with with regards to the original generator', () => {
+          var generator = chance.string({ length: chance.natural({ max: 10 }) })
+              .map(s => s.toUpperCase())
+              .map(s => s.replace(/[^A-Z]/g, '-'))
+
+          while (generator.shrink) {
+            generator = generator.shrink(generator())
+          }
+
+          expect(generator, 'when called', 'to equal', '')
+        })
       })
     })
   })
@@ -95,7 +146,7 @@ describe('chance-generators', function () {
     })
 
     describe('shrink', () => {
-      it('result a new generator that work on the provided data', () => {
+      it('returns a new generator that work on the provided data', () => {
         var generator = chance.n(chance.string, chance.integer({ min: 2, max: 4 }))
         for (var i = 0; i < 3; i += 1) {
           var generatedValue = generator()
@@ -143,14 +194,12 @@ describe('chance-generators', function () {
     })
 
     describe('shrink', () => {
-      it('result a new generator that work on the provided data', () => {
+      it('returns a new generator that work on the provided data', () => {
         var generator = chance.array(chance.string)
-        for (var i = 0; i < 3; i += 1) {
-          var generatedValue = generator()
-          generator = generator.shrink(generatedValue)
-          expect(generator, 'when called', 'to have items satisfying',
-                 'to be contained by', generatedValue)
+        while (generator.shrink) {
+          generator = generator.shrink(generator())
         }
+        expect(generator, 'when called', 'to be empty')
       })
     })
   })
@@ -247,7 +296,7 @@ describe('chance-generators', function () {
     })
 
     describe('shrink', () => {
-      it('result a new generator that work on the provided data', () => {
+      it('returns a new generator that work on the provided data', () => {
         var generator = chance.shape({
           constant: 42,
           x: chance.integer({ min: 2, max: 4 }),
@@ -263,6 +312,36 @@ describe('chance-generators', function () {
             y: expect.it('to be less than or equal to', generatedValue.y)
           })
         }
+      })
+    })
+
+    describe('map', () => {
+      it('returns a new generator where the generated values are mapped with the given function', () => {
+        var generator = chance.shape({
+          x: chance.integer,
+          y: chance.integer
+        }).map(coordinate => `${coordinate.x},${coordinate.y}`)
+
+        expect(
+          generator,
+          'when called',
+          'to match', /\d+,\d+/
+        )
+      })
+
+      describe('shrink', () => {
+        it('returns a new generator where the input is shrunken with with regards to the original generator', () => {
+          var generator = chance.shape({
+            x: chance.integer({ min: -20, max: 20 }),
+            y: chance.integer({ min: -20, max: 20 })
+          }).map(coordinate => `${coordinate.x},${coordinate.y}`)
+
+          for (var i = 0; i < 10; i += 1) {
+            generator = generator.shrink(generator())
+          }
+
+          expect(generator, 'when called', 'to equal', '0,0')
+        })
       })
     })
   })
