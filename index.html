@@ -46,7 +46,9 @@ library for doing composable generators.</p>
 </div><div class="code lang-javascript">
   <div><span style="color: #F92672">let</span>&nbsp;seed&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">42</span></div>
   <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;email<span style="color: #999">,</span>&nbsp;pickone&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span>seed<span style="color: #999">)</span></div>
+  <div>&nbsp;</div>
   <div><span style="color: #F92672">let</span>&nbsp;emails&nbsp;<span style="color: #F92672">=</span>&nbsp;email<span style="color: #999">({</span>&nbsp;domain<span style="color: #999">:</span>&nbsp;pickone<span style="color: #999">([</span><span style="color: #E6DB74">'example.com'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'mail.me'</span><span style="color: #999">])</span>&nbsp;<span style="color: #999">})</span></div>
+  <div>&nbsp;</div>
   <div>expect<span style="color: #999">(</span>emails<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'gotsalda@example.com'</span><span style="color: #999">)</span></div>
   <div>expect<span style="color: #999">(</span>emails<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'satacwuw@example.com'</span><span style="color: #999">)</span></div>
   <div>expect<span style="color: #999">(</span>emails<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'uf@example.com'</span><span style="color: #999">)</span></div>
@@ -56,18 +58,23 @@ with one of more arguments a new generator function is returned instead of just
 generating the result:</p>
 <div class="code lang-javascript">
   <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;integer&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
+  <div>&nbsp;</div>
   <div><span style="color: #F92672">let</span>&nbsp;positiveIntegers&nbsp;<span style="color: #F92672">=</span>&nbsp;integer<span style="color: #999">({</span>&nbsp;min<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">1</span>&nbsp;<span style="color: #999">})</span></div>
+  <div>&nbsp;</div>
   <div>expect<span style="color: #999">(</span>positiveIntegers<span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;be&nbsp;a&nbsp;function'</span><span style="color: #999">)</span></div>
   <div>expect<span style="color: #999">(</span>positiveIntegers<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;be&nbsp;positive'</span><span style="color: #999">)</span></div>
 </div><p>If you call a generator without any arguments it will produce a new value.</p>
 <div class="code lang-javascript">
   <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;integer&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
+  <div>&nbsp;</div>
   <div>expect<span style="color: #999">(</span>integer<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;be&nbsp;a&nbsp;number'</span><span style="color: #999">)</span></div>
 </div><p>Any generators passed as parameters to other generators will be called to
 produce a random value:</p>
 <div class="code lang-javascript">
   <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;integer<span style="color: #999">,</span>&nbsp;string&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
+  <div>&nbsp;</div>
   <div><span style="color: #F92672">let</span>&nbsp;smallStrings&nbsp;<span style="color: #F92672">=</span>&nbsp;string<span style="color: #999">({</span>&nbsp;length<span style="color: #999">:</span>&nbsp;integer<span style="color: #999">({</span>&nbsp;min<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">3</span><span style="color: #999">,</span>&nbsp;max<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">9</span>&nbsp;<span style="color: #999">})</span>&nbsp;<span style="color: #999">})</span></div>
+  <div>&nbsp;</div>
   <div>expect<span style="color: #999">(</span>smallStrings<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'(n25S'</span><span style="color: #999">)</span></div>
   <div>expect<span style="color: #999">(</span>smallStrings<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'GlheH#y'</span><span style="color: #999">)</span></div>
   <div>expect<span style="color: #999">(</span>smallStrings<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'0Wbe)19'</span><span style="color: #999">)</span></div>
@@ -75,6 +82,7 @@ produce a random value:</p>
 don&#39;t dereference the generator given as the first argument:</p>
 <div class="code lang-javascript">
   <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;n<span style="color: #999">,</span>&nbsp;string<span style="color: #999">,</span>&nbsp;integer&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
+  <div>&nbsp;</div>
   <div><span style="color: #F92672">let</span>&nbsp;stringArrays&nbsp;<span style="color: #F92672">=</span>&nbsp;n<span style="color: #999">(</span>string<span style="color: #999">,</span>&nbsp;integer<span style="color: #999">({</span>&nbsp;min<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">0</span><span style="color: #999">,</span>&nbsp;max<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">10</span>&nbsp;<span style="color: #999">}))</span></div>
   <div>&nbsp;</div>
   <div>expect<span style="color: #999">(</span>stringArrays<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #999">[</span></div>
@@ -93,6 +101,7 @@ don&#39;t dereference the generator given as the first argument:</p>
   <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;identity&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
   <div>&nbsp;</div>
   <div><span style="color: #F92672">let</span>&nbsp;constantNumberGenerator&nbsp;<span style="color: #F92672">=</span>&nbsp;identity<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
+  <div>&nbsp;</div>
   <div>expect<span style="color: #999">(</span>constantNumberGenerator<span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'when&nbsp;called'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
   <div>expect<span style="color: #999">(</span>constantNumberGenerator<span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'when&nbsp;called'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
 </div><h3 id="array">array</h3>
@@ -113,7 +122,7 @@ supplied.</p>
 <p>Generates values of the given shape, if the structure contains generators they
 will be unwrapped.</p>
 <div class="code lang-javascript">
-  <div><span style="color: #F92672">var</span>&nbsp;<span style="color: #999">{</span>&nbsp;integer<span style="color: #999">,</span>&nbsp;shape<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
+  <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;integer<span style="color: #999">,</span>&nbsp;shape&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
   <div>&nbsp;</div>
   <div>expect<span style="color: #999">(</span>shape<span style="color: #999">({</span></div>
   <div>&nbsp;&nbsp;constant<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">,</span></div>
@@ -128,8 +137,22 @@ will be unwrapped.</p>
   <div>&nbsp;&nbsp;&nbsp;&nbsp;y<span style="color: #999">:</span>&nbsp;expect<span style="color: #999">.</span>it<span style="color: #999">(</span><span style="color: #E6DB74">'to&nbsp;be&nbsp;a&nbsp;number'</span><span style="color: #999">)</span></div>
   <div>&nbsp;&nbsp;<span style="color: #999">}</span></div>
   <div><span style="color: #999">})</span></div>
+</div><h2 id="mapping-generators">Mapping generators</h2>
+<p>All generators has a <code>map</code> method that can be used to map the stream of
+generated values into something else. A mapped generator supports shrinking by
+shrinking the original generator.</p>
+<div class="code lang-javascript">
+  <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;email<span style="color: #999">,</span>&nbsp;name<span style="color: #999">,</span>&nbsp;shape&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
+  <div>&nbsp;</div>
+  <div>const&nbsp;nameAndEmail&nbsp;<span style="color: #F92672">=</span>&nbsp;shape<span style="color: #999">({</span></div>
+  <div>&nbsp;&nbsp;email<span style="color: #999">,</span></div>
+  <div>&nbsp;&nbsp;name</div>
+  <div><span style="color: #999">}).</span>map<span style="color: #999">(({</span>&nbsp;email<span style="color: #999">,</span>&nbsp;name&nbsp;<span style="color: #999">})</span>&nbsp;<span style="color: #F92672">=&gt;</span>&nbsp;`$<span style="color: #999">{</span>name<span style="color: #999">}</span>&nbsp;$<span style="color: #999">{</span>email<span style="color: #999">}</span>`<span style="color: #999">)</span></div>
+  <div>&nbsp;</div>
+  <div>expect<span style="color: #999">(</span>nameAndEmail<span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'when&nbsp;called'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'Manuel&nbsp;Lyons&nbsp;ofosid@daej.co.uk'</span><span style="color: #999">)</span></div>
+  <div>expect<span style="color: #999">(</span>nameAndEmail<span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'when&nbsp;called'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'Nathaniel&nbsp;Parks&nbsp;ur@gafgohrak.com'</span><span style="color: #999">)</span></div>
 </div><h2 id="mit-license">MIT License</h2>
-<p>Copyright (c) 2016 Sune Simonsen <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#115;&#117;&#110;&#x65;&#x40;&#x77;&#101;&#45;&#x6b;&#110;&#x6f;&#119;&#x68;&#111;&#119;&#x2e;&#x64;&#x6b;">&#115;&#117;&#110;&#x65;&#x40;&#x77;&#101;&#45;&#x6b;&#110;&#x6f;&#119;&#x68;&#111;&#119;&#x2e;&#x64;&#x6b;</a></p>
+<p>Copyright (c) 2016 Sune Simonsen <a href="&#109;&#x61;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#115;&#x75;&#110;&#101;&#x40;&#119;&#101;&#45;&#x6b;&#110;&#x6f;&#119;&#104;&#111;&#x77;&#x2e;&#x64;&#x6b;">&#115;&#x75;&#110;&#101;&#x40;&#119;&#101;&#45;&#x6b;&#110;&#x6f;&#119;&#104;&#111;&#x77;&#x2e;&#x64;&#x6b;</a></p>
 <p>Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
 &#39;Software&#39;), to deal in the Software without restriction, including
