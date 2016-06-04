@@ -148,12 +148,10 @@ describe('chance-generators', function () {
     describe('shrink', () => {
       it('returns a new generator that work on the provided data', () => {
         var generator = chance.n(chance.string, chance.integer({ min: 2, max: 4 }))
-        for (var i = 0; i < 3; i += 1) {
-          var generatedValue = generator()
-          generator = generator.shrink(generatedValue)
-          expect(generator, 'when called', 'to have items satisfying',
-                 'to be contained by', generatedValue)
+        while (generator.shrink) {
+          generator = generator.shrink(generator())
         }
+        expect(generator, 'when called', 'to have length', 2)
       })
     })
   })
@@ -336,7 +334,7 @@ describe('chance-generators', function () {
             y: chance.integer({ min: -20, max: 20 })
           }).map(coordinate => `${coordinate.x},${coordinate.y}`)
 
-          for (var i = 0; i < 10; i += 1) {
+          while (generator.shrink) {
             generator = generator.shrink(generator())
           }
 
