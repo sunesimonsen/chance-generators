@@ -327,6 +327,18 @@ describe('chance-generators', function () {
         )
       })
 
+      it('should not unwrap Object subclasses', () => {
+        function Foo (value) {
+          this.value = value
+        }
+
+        expect(
+          chance.integer({min: 0, max: 10}).map(value => new Foo(value)),
+          'when called',
+          'to be a', Foo
+        )
+      })
+
       describe('shrink', () => {
         it('returns a new generator where the input is shrunken with with regards to the original generator', () => {
           var generator = chance.shape({
