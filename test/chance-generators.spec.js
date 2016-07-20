@@ -268,13 +268,21 @@ describe('chance-generators', function () {
 
     it('always generates the given value', () => {
       const value = { foo: 'bar' }
+      const generator = chance.constant(value)
       for (var i = 0; i < 5; i += 1) {
-        expect(chance.constant(value), 'when called', 'to be', value)
+        expect(generator, 'when called', 'to be', value)
       }
     })
 
     it('does not unwrap generators', () => {
       expect(chance.constant(chance.integer), 'when called', 'to be a function')
+    })
+
+    it('supports the map method', () => {
+      const generator = chance.constant(42).map((value) => {
+        return chance.natural({ max: value })
+      })
+      expect(generator, 'when called', 'to be within', 0, 42)
     })
   })
 
