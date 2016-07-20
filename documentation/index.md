@@ -88,14 +88,14 @@ expect(stringArrays(), 'to equal', [])
 
 ## Additional generators
 
-### identity
+### constant
 
 Always generates the given value.
 
 ```js
-let { identity } = new Generators(42)
+let { constant } = new Generators(42)
 
-let constantNumberGenerator = identity(42)
+let constantNumberGenerator = constant(42)
 
 expect(constantNumberGenerator, 'when called', 'to equal', 42)
 expect(constantNumberGenerator, 'when called', 'to equal', 42)
