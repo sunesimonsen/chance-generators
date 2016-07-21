@@ -1,6 +1,6 @@
 {
   "name": "chance-generators",
-  "version": "1.17.0",
+  "version": "1.17.1",
   "description": "Random generators based on changejs",
   "main": "lib/chance-generators.js",
   "scripts": {
