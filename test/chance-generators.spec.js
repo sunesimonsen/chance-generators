@@ -6,6 +6,10 @@ expect.addAssertion('<any> [not] to be contained by <array>', function (expect, 
   expect(array, '[not] to contain', item)
 })
 
+expect.addAssertion('<string> to have length satisfying <assertion>', function (expect, value) {
+  expect.shift(value.length)
+})
+
 expect.addAssertion('<array> to have unique items', function (expect, arr) {
   var seen = []
   expect(arr, 'to have items satisfying', function (item) {
@@ -360,9 +364,21 @@ describe('chance-generators', function () {
         }
 
         expect(
-          chance.integer({min: 0, max: 10}).map(value => new Foo(value)),
+          chance.integer({ min: 0, max: 10 }).map(value => new Foo(value)),
           'when called',
           'to be a', Foo
+        )
+      })
+
+      it('provides the generator instance as the second parameter to the mapper function', () => {
+        expect(
+          chance.integer({ min: 0, max: 10 }).map((length, { array, string }) => (
+            array(string({ length }))
+          )),
+          'when called',
+          'to have items satisfying',
+          'to have length satisfying',
+          'to be within', 0, 10
         )
       })
 
