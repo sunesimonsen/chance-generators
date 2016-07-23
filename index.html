@@ -95,12 +95,12 @@ don&#39;t dereference the generator given as the first argument:</p>
   <div>&nbsp;</div>
   <div>expect<span style="color: #999">(</span>stringArrays<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #999">[])</span></div>
 </div><h2 id="additional-generators">Additional generators</h2>
-<h3 id="identity">identity</h3>
+<h3 id="constant">constant</h3>
 <p>Always generates the given value.</p>
 <div class="code lang-javascript">
-  <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;identity&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
+  <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;constant&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
   <div>&nbsp;</div>
-  <div><span style="color: #F92672">let</span>&nbsp;constantNumberGenerator&nbsp;<span style="color: #F92672">=</span>&nbsp;identity<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
+  <div><span style="color: #F92672">let</span>&nbsp;constantNumberGenerator&nbsp;<span style="color: #F92672">=</span>&nbsp;constant<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
   <div>&nbsp;</div>
   <div>expect<span style="color: #999">(</span>constantNumberGenerator<span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'when&nbsp;called'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
   <div>expect<span style="color: #999">(</span>constantNumberGenerator<span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'when&nbsp;called'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
@@ -138,9 +138,11 @@ will be unwrapped.</p>
   <div>&nbsp;&nbsp;<span style="color: #999">}</span></div>
   <div><span style="color: #999">})</span></div>
 </div><h2 id="mapping-generators">Mapping generators</h2>
-<p>All generators has a <code>map</code> method that can be used to map the stream of
+<p>All generators have a <code>map</code> method that can be used to map the stream of
 generated values into something else. A mapped generator supports shrinking by
 shrinking the original generator.</p>
+<p>The first parameter to the mapper function is the value and the second parameter
+is the generators instance.</p>
 <div class="code lang-javascript">
   <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;email<span style="color: #999">,</span>&nbsp;name<span style="color: #999">,</span>&nbsp;shape&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
   <div>&nbsp;</div>
@@ -152,7 +154,7 @@ shrinking the original generator.</p>
   <div>expect<span style="color: #999">(</span>nameAndEmail<span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'when&nbsp;called'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'Manuel&nbsp;Lyons&nbsp;ofosid@daej.co.uk'</span><span style="color: #999">)</span></div>
   <div>expect<span style="color: #999">(</span>nameAndEmail<span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'when&nbsp;called'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'Nathaniel&nbsp;Parks&nbsp;ur@gafgohrak.com'</span><span style="color: #999">)</span></div>
 </div><h2 id="mit-license">MIT License</h2>
-<p>Copyright (c) 2016 Sune Simonsen <a href="&#109;&#x61;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#115;&#x75;&#110;&#101;&#x40;&#119;&#101;&#45;&#x6b;&#110;&#x6f;&#119;&#104;&#111;&#x77;&#x2e;&#x64;&#x6b;">&#115;&#x75;&#110;&#101;&#x40;&#119;&#101;&#45;&#x6b;&#110;&#x6f;&#119;&#104;&#111;&#x77;&#x2e;&#x64;&#x6b;</a></p>
+<p>Copyright (c) 2016 Sune Simonsen <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#115;&#117;&#110;&#x65;&#x40;&#x77;&#x65;&#45;&#x6b;&#x6e;&#x6f;&#x77;&#x68;&#111;&#x77;&#x2e;&#x64;&#107;">&#115;&#117;&#110;&#x65;&#x40;&#x77;&#x65;&#45;&#x6b;&#x6e;&#x6f;&#x77;&#x68;&#111;&#x77;&#x2e;&#x64;&#107;</a></p>
 <p>Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
 &#39;Software&#39;), to deal in the Software without restriction, including
