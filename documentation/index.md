@@ -144,9 +144,12 @@ expect(shape({
 
 ## Mapping generators
 
-All generators has a `map` method that can be used to map the stream of
+All generators have a `map` method that can be used to map the stream of
 generated values into something else. A mapped generator supports shrinking by
 shrinking the original generator.
+
+The first parameter to the mapper function is the value and the second parameter
+is the generators instance.
 
 ```js
 let { email, name, shape } = new Generators(42)
