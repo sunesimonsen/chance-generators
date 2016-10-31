@@ -142,6 +142,45 @@ expect(shape({
 })
 ```
 
+### sequence
+
+Generates sequences of values by invoking a function, if the returned value
+contains generators they will be unwrapped. You will have a context that you can
+store information which will be available for later invocations. The context
+contains a special field named `last` that holds that last generated value.
+
+The second parameter is specifying the length of the sequences that should be
+generated. The length defaults to between 0-50 items.
+
+Here is an example showing a sequence generator that will generate shorter and
+shorter random strings:
+
+```js
+let { natural, sequence, string } = new Generators(42)
+
+const sequenceGenerator = sequence((context) => {
+  const length = 'last' in context
+    ? Math.max(0, context.last.length - 1)
+    : 10
+
+  return string({ length })
+}, natural({ max: 10 }))
+
+expect(sequenceGenerator(), 'to equal',
+  [ '(n25SSlGlh', 'H#ySk0Wbe', '19*pan]n', 'wTMaFbv' ]
+)
+
+expect(sequenceGenerator(), 'to equal',
+  [ 'Dkdv[B', 'Hg6To', 'M[RI', '@SY', 'He' ]
+)
+
+expect(sequenceGenerator(), 'to equal', [])
+
+expect(sequenceGenerator(), 'to equal',
+  [ ')', '', '', '', '', '', '', '', '', '' ]
+)
+```
+
 ## Mapping generators
 
 All generators have a `map` method that can be used to map the stream of

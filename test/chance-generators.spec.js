@@ -1,25 +1,25 @@
 /*global describe, it*/
-var Chance = require('../lib/chance-generators')
-var expect = require('unexpected')
+const Chance = require('../lib/chance-generators')
+const expect = require('unexpected')
 
-expect.addAssertion('<any> [not] to be contained by <array>', function (expect, item, array) {
+expect.addAssertion('<any> [not] to be contained by <array>', (expect, item, array) => {
   expect(array, '[not] to contain', item)
 })
 
-expect.addAssertion('<string> to have length satisfying <assertion>', function (expect, value) {
+expect.addAssertion('<string> to have length satisfying <assertion>', (expect, value) => {
   expect.shift(value.length)
 })
 
-expect.addAssertion('<array> to have unique items', function (expect, arr) {
-  var seen = []
-  expect(arr, 'to have items satisfying', function (item) {
+expect.addAssertion('<array> to have unique items', (expect, arr) => {
+  const seen = []
+  expect(arr, 'to have items satisfying', (item) => {
     expect(seen.indexOf(item), 'to be', -1)
     seen.push(item)
   })
 })
 
-describe('chance-generators', function () {
-  var chance
+describe('chance-generators', () => {
+  let chance
 
   beforeEach(() => {
     chance = new Chance(42)
@@ -41,13 +41,13 @@ describe('chance-generators', function () {
     })
   })
 
-  describe('integer', function () {
+  describe('integer', () => {
     it('produces a random integer', () => {
       expect(chance.integer(), 'to be a number')
     })
 
-    describe('given a min and max value', function () {
-      it('returns a new generator function honoring the given constraints', function () {
+    describe('given a min and max value', () => {
+      it('returns a new generator function honoring the given constraints', () => {
         expect(chance.integer({ min: 0, max: 10 }), 'when called', 'to be within', 0, 10)
       })
     })
@@ -69,7 +69,7 @@ describe('chance-generators', function () {
 
       describe('shrink', () => {
         it('returns a new generator where the input is shrunken with with regards to the original generator', () => {
-          var generator = chance.integer({ min: -10, max: 10 }).map(v => v + 10)
+          let generator = chance.integer({ min: -10, max: 10 }).map(v => v + 10)
           while (generator.shrink) {
             generator = generator.shrink(generator())
           }
@@ -79,20 +79,20 @@ describe('chance-generators', function () {
     })
   })
 
-  describe('string', function () {
+  describe('string', () => {
     it('produces a random string', () => {
       expect(chance.string(), 'to be a string')
     })
 
-    describe('given a length', function () {
-      it('returns a new generator function honoring the given constraints', function () {
+    describe('given a length', () => {
+      it('returns a new generator function honoring the given constraints', () => {
         expect(chance.string({ length: 4 }), 'when called', 'to have length', 4)
       })
     })
 
     describe('map', () => {
       it('returns a new generator where the generated values are mapped with the given function', () => {
-        var generator = chance.string.map(s => s.toUpperCase()).map(s => s.replace(/[^A-Z]/g, '-'))
+        const generator = chance.string.map(s => s.toUpperCase()).map(s => s.replace(/[^A-Z]/g, '-'))
 
         expect(
           generator,
@@ -103,7 +103,7 @@ describe('chance-generators', function () {
 
       describe('shrink', () => {
         it('returns a new generator where the input is shrunken with with regards to the original generator', () => {
-          var generator = chance.string({ length: chance.natural({ max: 10 }) })
+          let generator = chance.string({ length: chance.natural({ max: 10 }) })
               .map(s => s.toUpperCase())
               .map(s => s.replace(/[^A-Z]/g, '-'))
 
@@ -117,33 +117,33 @@ describe('chance-generators', function () {
     })
   })
 
-  describe('n', function () {
-    describe('given a generator function', function () {
-      it('returns a new generator producing arrays with instance of the given generator of length 1', function () {
+  describe('n', () => {
+    describe('given a generator function', () => {
+      it('returns a new generator producing arrays with instance of the given generator of length 1', () => {
         expect(chance.n(chance.string), 'when called', 'to satisfy',
                expect.it('to have length', 1).and('to have items satisfying', 'to be a string'))
       })
     })
 
     describe('given a generator function and a number', () => {
-      it('returns a new generator producing arrays with the specified length', function () {
+      it('returns a new generator producing arrays with the specified length', () => {
         expect(chance.n(chance.string, 3), 'when called', 'to have length', 3)
       })
 
-      it('returns a new generator producing arrays with instances of the given generator', function () {
+      it('returns a new generator producing arrays with instances of the given generator', () => {
         expect(chance.n(chance.string, 3), 'when called',
                'to have items satisfying', 'to be a string')
       })
     })
 
     describe('given a generator function and another generator producing numbers', () => {
-      it('returns a new generator producing arrays with the length specified by the second generator', function () {
+      it('returns a new generator producing arrays with the length specified by the second generator', () => {
         expect(chance.n(chance.string, chance.integer({ min: 2, max: 4 })), 'when called', 'to satisfy', {
           length: expect.it('to be within', 2, 4)
         })
       })
 
-      it('returns a new generator producing arrays with instances of the given generator', function () {
+      it('returns a new generator producing arrays with instances of the given generator', () => {
         expect(chance.n(chance.string, chance.integer({ min: 2, max: 4 })), 'when called',
                'to have items satisfying', 'to be a string')
       })
@@ -151,7 +151,7 @@ describe('chance-generators', function () {
 
     describe('shrink', () => {
       it('returns a new generator that work on the provided data', () => {
-        var generator = chance.n(chance.string, chance.integer({ min: 2, max: 4 }))
+        let generator = chance.n(chance.string, chance.integer({ min: 2, max: 4 }))
         while (generator.shrink) {
           generator = generator.shrink(generator())
         }
@@ -161,8 +161,8 @@ describe('chance-generators', function () {
   })
 
   describe('array', () => {
-    describe('given a generator function', function () {
-      it('returns a new generator producing arrays with instance of the given generator of length 0-50', function () {
+    describe('given a generator function', () => {
+      it('returns a new generator producing arrays with instance of the given generator of length 0-50', () => {
         expect(chance.array(chance.string), 'when called', 'to satisfy', (array) => {
           expect(array, 'to satisfy', {
             length: expect.it('to be within', 0, 50)
@@ -172,24 +172,24 @@ describe('chance-generators', function () {
     })
 
     describe('given a generator function and a number', () => {
-      it('returns a new generator producing arrays with the specified length', function () {
+      it('returns a new generator producing arrays with the specified length', () => {
         expect(chance.array(chance.string, 3), 'when called', 'to have length', 3)
       })
 
-      it('returns a new generator producing arrays with instances of the given generator', function () {
+      it('returns a new generator producing arrays with instances of the given generator', () => {
         expect(chance.array(chance.string, 3), 'when called',
                'to have items satisfying', 'to be a string')
       })
     })
 
     describe('given a generator function and another generator producing numbers', () => {
-      it('returns a new generator producing arrays with the length specified by the second generator', function () {
+      it('returns a new generator producing arrays with the length specified by the second generator', () => {
         expect(chance.array(chance.string, chance.integer({ min: 2, max: 4 })), 'when called', 'to satisfy', {
           length: expect.it('to be within', 2, 4)
         })
       })
 
-      it('returns a new generator producing arrays with instances of the given generator', function () {
+      it('returns a new generator producing arrays with instances of the given generator', () => {
         expect(chance.array(chance.string, chance.integer({ min: 2, max: 4 })), 'when called',
                'to have items satisfying', 'to be a string')
       })
@@ -197,7 +197,7 @@ describe('chance-generators', function () {
 
     describe('shrink', () => {
       it('returns a new generator that work on the provided data', () => {
-        var generator = chance.array(chance.string)
+        let generator = chance.array(chance.string)
         while (generator.shrink) {
           generator = generator.shrink(generator())
         }
@@ -227,14 +227,14 @@ describe('chance-generators', function () {
   describe('pick', () => {
     describe('given an array', () => {
       it('returns a new generator picking random elements from the array', () => {
-        var arr = [42, 'foo', { wat: 'taw' }]
+        const arr = [42, 'foo', { wat: 'taw' }]
         expect(chance.pick(arr), 'when called', 'to be contained by', arr)
       })
     })
 
     describe('given an array and a number', () => {
       it('returns a new generator picking the given number of random elements from the array', () => {
-        var arr = [42, 'foo', { wat: 'taw' }]
+        const arr = [42, 'foo', { wat: 'taw' }]
         expect(chance.pick(arr, 2), 'when called', 'to satisfy',
                expect.it('to have length', 2)
                        .and('to have items satisfying', 'to be contained by', arr))
@@ -254,7 +254,7 @@ describe('chance-generators', function () {
   describe('unique', () => {
     describe('given a generator and a number', () => {
       it('returns a new generator that returns the specified number of unique items generated by the given generator', () => {
-        var arr = [42, 'foo', { wat: 'taw' }]
+        const arr = [42, 'foo', { wat: 'taw' }]
         expect(chance.unique(chance.pick(arr), 3), 'when called', 'to satisfy',
                expect.it('to have length', 3)
                        .and('to have items satisfying', 'to be contained by', arr)
@@ -273,7 +273,7 @@ describe('chance-generators', function () {
     it('always generates the given value', () => {
       const value = { foo: 'bar' }
       const generator = chance.constant(value)
-      for (var i = 0; i < 5; i += 1) {
+      for (let i = 0; i < 5; i += 1) {
         expect(generator, 'when called', 'to be', value)
       }
     })
@@ -299,7 +299,7 @@ describe('chance-generators', function () {
 
     it('always generates the given value', () => {
       const value = { foo: 'bar' }
-      for (var i = 0; i < 5; i += 1) {
+      for (let i = 0; i < 5; i += 1) {
         expect(chance.identity(value), 'when called', 'to be', value)
       }
     })
@@ -326,14 +326,14 @@ describe('chance-generators', function () {
 
     describe('shrink', () => {
       it('returns a new generator that work on the provided data', () => {
-        var generator = chance.shape({
+        let generator = chance.shape({
           constant: 42,
           x: chance.integer({ min: 2, max: 4 }),
           y: chance.integer({ min: 2, max: 4 })
         })
 
-        for (var i = 0; i < 3; i += 1) {
-          var generatedValue = generator()
+        for (let i = 0; i < 3; i += 1) {
+          let generatedValue = generator()
           generator = generator.shrink(generatedValue)
           expect(generator, 'when called', 'to satisfy', {
             constant: 42,
@@ -346,7 +346,7 @@ describe('chance-generators', function () {
 
     describe('map', () => {
       it('returns a new generator where the generated values are mapped with the given function', () => {
-        var generator = chance.shape({
+        const generator = chance.shape({
           x: chance.integer,
           y: chance.integer
         }).map(coordinate => `${coordinate.x},${coordinate.y}`)
@@ -384,7 +384,7 @@ describe('chance-generators', function () {
 
       describe('shrink', () => {
         it('returns a new generator where the input is shrunken with with regards to the original generator', () => {
-          var generator = chance.shape({
+          let generator = chance.shape({
             x: chance.integer({ min: -20, max: 20 }),
             y: chance.integer({ min: -20, max: 20 })
           }).map(coordinate => `${coordinate.x},${coordinate.y}`)
@@ -395,6 +395,40 @@ describe('chance-generators', function () {
 
           expect(generator, 'when called', 'to equal', '0,0')
         })
+      })
+    })
+  })
+
+  describe('sequence', () => {
+    describe('given a function', () => {
+      it('uses the function to generate a sequence of values', () => {
+        const generator = chance.sequence((context) => {
+          context.gender = context.gender === 'female' ? 'male' : 'female'
+          return {
+            gender: context.gender,
+            age: chance.natural({ max: 100 })
+          }
+        })
+
+        expect(generator, 'when called', 'to have items satisfying', {
+          gender: expect.it('to match', /female|male/),
+          age: expect.it('to be within', 0, 100)
+        })
+      })
+    })
+
+    describe('shrink', () => {
+      it('returns a new generator that work on the provided data', () => {
+        let generator = chance.sequence((context) => {
+          const length = 'last' in context ? Math.max(0, context.last.length - 1) : 50
+          return chance.string({ length })
+        })
+
+        while (generator.shrink) {
+          generator = generator.shrink(generator())
+        }
+
+        expect(generator, 'when called', 'to be empty')
       })
     })
   })
