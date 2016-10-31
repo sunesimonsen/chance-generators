@@ -137,6 +137,39 @@ will be unwrapped.</p>
   <div>&nbsp;&nbsp;&nbsp;&nbsp;y<span style="color: #999">:</span>&nbsp;expect<span style="color: #999">.</span>it<span style="color: #999">(</span><span style="color: #E6DB74">'to&nbsp;be&nbsp;a&nbsp;number'</span><span style="color: #999">)</span></div>
   <div>&nbsp;&nbsp;<span style="color: #999">}</span></div>
   <div><span style="color: #999">})</span></div>
+</div><h3 id="sequence">sequence</h3>
+<p>Generates sequences of values by invoking a function, if the returned value
+contains generators they will be unwrapped. You will have a context that you can
+store information which will be available for later invocations. The context
+contains a special field named <code>last</code> that holds that last generated value.</p>
+<p>The second parameter is specifying the length of the sequences that should be
+generated. The length defaults to between 0-50 items.</p>
+<p>Here is an example showing a sequence generator that will generate shorter and
+shorter random strings:</p>
+<div class="code lang-javascript">
+  <div><span style="color: #F92672">let</span>&nbsp;<span style="color: #999">{</span>&nbsp;natural<span style="color: #999">,</span>&nbsp;sequence<span style="color: #999">,</span>&nbsp;string&nbsp;<span style="color: #999">}</span>&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #F92672">new</span>&nbsp;Generators<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">42</span><span style="color: #999">)</span></div>
+  <div>&nbsp;</div>
+  <div>const&nbsp;sequenceGenerator&nbsp;<span style="color: #F92672">=</span>&nbsp;sequence<span style="color: #999">((</span>context<span style="color: #999">)</span>&nbsp;<span style="color: #F92672">=&gt;</span>&nbsp;<span style="color: #999">{</span></div>
+  <div>&nbsp;&nbsp;const&nbsp;length&nbsp;<span style="color: #F92672">=</span>&nbsp;<span style="color: #E6DB74">'last'</span>&nbsp;<span style="color: #F92672">in</span>&nbsp;context</div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #F92672">?</span>&nbsp;Math<span style="color: #999">.</span>max<span style="color: #999">(</span><span style="color: #66D9EF; font-weight: bold">0</span><span style="color: #999">,</span>&nbsp;context<span style="color: #999">.</span>last<span style="color: #999">.</span>length&nbsp;<span style="color: #F92672">-</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">1</span><span style="color: #999">)</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">10</span></div>
+  <div>&nbsp;</div>
+  <div>&nbsp;&nbsp;<span style="color: #F92672">return</span>&nbsp;string<span style="color: #999">({</span>&nbsp;length&nbsp;<span style="color: #999">})</span></div>
+  <div><span style="color: #999">},</span>&nbsp;natural<span style="color: #999">({</span>&nbsp;max<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">10</span>&nbsp;<span style="color: #999">}))</span></div>
+  <div>&nbsp;</div>
+  <div>expect<span style="color: #999">(</span>sequenceGenerator<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span></div>
+  <div>&nbsp;&nbsp;<span style="color: #999">[</span>&nbsp;<span style="color: #E6DB74">'(n25SSlGlh'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'H#ySk0Wbe'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'19*pan]n'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'wTMaFbv'</span>&nbsp;<span style="color: #999">]</span></div>
+  <div><span style="color: #999">)</span></div>
+  <div>&nbsp;</div>
+  <div>expect<span style="color: #999">(</span>sequenceGenerator<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span></div>
+  <div>&nbsp;&nbsp;<span style="color: #999">[</span>&nbsp;<span style="color: #E6DB74">'Dkdv[B'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'Hg6To'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'M[RI'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'@SY'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'He'</span>&nbsp;<span style="color: #999">]</span></div>
+  <div><span style="color: #999">)</span></div>
+  <div>&nbsp;</div>
+  <div>expect<span style="color: #999">(</span>sequenceGenerator<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #999">[])</span></div>
+  <div>&nbsp;</div>
+  <div>expect<span style="color: #999">(</span>sequenceGenerator<span style="color: #999">(),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span></div>
+  <div>&nbsp;&nbsp;<span style="color: #999">[</span>&nbsp;<span style="color: #E6DB74">')'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">''</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">''</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">''</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">''</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">''</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">''</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">''</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">''</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">''</span>&nbsp;<span style="color: #999">]</span></div>
+  <div><span style="color: #999">)</span></div>
 </div><h2 id="mapping-generators">Mapping generators</h2>
 <p>All generators have a <code>map</code> method that can be used to map the stream of
 generated values into something else. A mapped generator supports shrinking by
@@ -154,7 +187,7 @@ is the generators instance.</p>
   <div>expect<span style="color: #999">(</span>nameAndEmail<span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'when&nbsp;called'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'Manuel&nbsp;Lyons&nbsp;ofosid@daej.co.uk'</span><span style="color: #999">)</span></div>
   <div>expect<span style="color: #999">(</span>nameAndEmail<span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'when&nbsp;called'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;equal'</span><span style="color: #999">,</span>&nbsp;<span style="color: #E6DB74">'Nathaniel&nbsp;Parks&nbsp;ur@gafgohrak.com'</span><span style="color: #999">)</span></div>
 </div><h2 id="mit-license">MIT License</h2>
-<p>Copyright (c) 2016 Sune Simonsen <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#115;&#117;&#110;&#x65;&#x40;&#x77;&#x65;&#45;&#x6b;&#x6e;&#x6f;&#x77;&#x68;&#111;&#x77;&#x2e;&#x64;&#107;">&#115;&#117;&#110;&#x65;&#x40;&#x77;&#x65;&#45;&#x6b;&#x6e;&#x6f;&#x77;&#x68;&#111;&#x77;&#x2e;&#x64;&#107;</a></p>
+<p>Copyright (c) 2016 Sune Simonsen <a href="&#109;&#97;&#105;&#x6c;&#x74;&#111;&#x3a;&#x73;&#117;&#x6e;&#x65;&#64;&#x77;&#101;&#45;&#x6b;&#110;&#111;&#119;&#x68;&#111;&#119;&#x2e;&#x64;&#107;">&#x73;&#117;&#x6e;&#x65;&#64;&#x77;&#101;&#45;&#x6b;&#110;&#111;&#119;&#x68;&#111;&#119;&#x2e;&#x64;&#107;</a></p>
 <p>Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
 &#39;Software&#39;), to deal in the Software without restriction, including
