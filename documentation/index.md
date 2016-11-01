@@ -146,8 +146,8 @@ expect(shape({
 
 Generates sequences of values by invoking a function, if the returned value
 contains generators they will be unwrapped. You will have a context that you can
-store information which will be available for later invocations. The context
-contains a special field named `last` that holds that last generated value.
+store information which will be available for later invocations. In addition the
+second parameter for the callback is the previous generated value.
 
 The second parameter is specifying the length of the sequences that should be
 generated. The length defaults to between 0-50 items.
@@ -158,10 +158,10 @@ shorter random strings:
 ```js
 let { natural, sequence, string } = new Generators(42)
 
-const sequenceGenerator = sequence((context) => {
-  const length = 'last' in context
-    ? Math.max(0, context.last.length - 1)
-    : 10
+const sequenceGenerator = sequence((context, previous) => {
+  const length = previous === undefined
+    ? 10
+    : Math.max(0, previous.length - 1)
 
   return string({ length })
 }, natural({ max: 10 }))

@@ -419,8 +419,11 @@ describe('chance-generators', () => {
 
     describe('shrink', () => {
       it('returns a new generator that work on the provided data', () => {
-        let generator = chance.sequence((context) => {
-          const length = 'last' in context ? Math.max(0, context.last.length - 1) : 50
+        let generator = chance.sequence((context, previous) => {
+          const length = previous === undefined
+                ? 50
+                : Math.max(0, previous.length - 1)
+
           return chance.string({ length })
         })
 
