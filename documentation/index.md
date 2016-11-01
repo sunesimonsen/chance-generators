@@ -166,19 +166,58 @@ const sequenceGenerator = sequence((context, previous) => {
   return string({ length })
 }, natural({ max: 10 }))
 
-expect(sequenceGenerator(), 'to equal',
-  [ '(n25SSlGlh', 'H#ySk0Wbe', '19*pan]n', 'wTMaFbv' ]
-)
+expect(sequenceGenerator(), 'to equal', [
+  '(n25SSlGlh', 'H#ySk0Wbe', '19*pan]n', 'wTMaFbv'
+])
 
-expect(sequenceGenerator(), 'to equal',
-  [ 'Dkdv[B', 'Hg6To', 'M[RI', '@SY', 'He' ]
-)
+expect(sequenceGenerator(), 'to equal', [
+  'Dkdv[BrHg6', 'oCM[RId@S', 'mHea(*)P', 'CwbhrYr', 'YjTK9c'
+])
 
-expect(sequenceGenerator(), 'to equal', [])
+expect(sequenceGenerator(), 'to equal', [
+  'CtnX3xFMpO'
+])
 
-expect(sequenceGenerator(), 'to equal',
-  [ ')', '', '', '', '', '', '', '', '', '' ]
-)
+expect(sequenceGenerator(), 'to equal', [
+  'c)!5H*D%&S', '&ygQoMd)y', 'C3uN9RA)', 'SOukv7m', 'b]F5Do', 'ab8o0'
+])
+```
+
+Generate random events based on a state machine.
+
+```js
+let { natural, pickone, sequence } = new Generators(42)
+const StateMachine = require('javascript-state-machine')
+
+const createStateMachine = () => StateMachine.create({
+  initial: 'green',
+  events: [
+    { name: 'warn',  from: 'green',  to: 'yellow' },
+    { name: 'panic', from: 'yellow', to: 'red'    },
+    { name: 'calm',  from: 'red',    to: 'yellow' },
+    { name: 'clear', from: 'yellow', to: 'green'  }
+]})
+
+const eventSequence = sequence((context, previous) => {
+  if (previous) {
+    // transition the state machine with the previously generated event
+    context.fsm[previous]()
+  } else {
+    context.fsm = createStateMachine()
+  }
+  // find the possible transtions
+  const transitions = context.fsm.transitions()
+  // pick a random one.
+  return pickone(transitions)
+}, natural({ max: 10 }))
+
+expect(eventSequence(), 'to equal', [
+  'warn', 'clear', 'warn', 'clear'
+])
+
+expect(eventSequence(), 'to equal', [
+  'warn', 'clear', 'warn', 'panic', 'calm', 'panic', 'calm', 'panic'
+])
 ```
 
 ## Mapping generators
