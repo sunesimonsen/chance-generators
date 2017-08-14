@@ -75,6 +75,14 @@ describe('chance-generators', () => {
           }
           expect(generator, 'when called', 'to equal', 10)
         })
+
+        it('keeps the map even when called out of order', () => {
+          let generator = chance.integer({ min: -10, max: 10 }).map(v => '' + v)
+          const val = generator()
+          generator()
+          generator = generator.shrink(val)
+          expect(generator, 'when called', 'to be a string')
+        })
       })
     })
   })
