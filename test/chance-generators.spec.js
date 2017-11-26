@@ -85,6 +85,25 @@ describe('chance-generators', () => {
         })
       })
     })
+
+    describe('grow', () => {
+      it('returns a new generator that work on the provided data plus random data from the origin generator', () => {
+        const originalGenerator = chance.integer({ min: -10, max: 10 })
+        const grownGenerator = originalGenerator.grow(0)
+
+        expect([
+          grownGenerator(),
+          grownGenerator(),
+          grownGenerator(),
+          grownGenerator(),
+          grownGenerator(),
+          grownGenerator(),
+          grownGenerator()
+        ], 'to equal', [
+          0, 9, 0, 0, -7, -7, -9
+        ])
+      })
+    })
   })
 
   describe('string', () => {
@@ -148,6 +167,27 @@ describe('chance-generators', () => {
 
           expect(generator, 'when called', 'to equal', '')
         })
+      })
+    })
+
+    describe('grow', () => {
+      it('returns a new generator that work on the provided data plus random data from the origin generator', () => {
+        const lengthGenerator = chance.natural({ max: 30 })
+        const originalGenerator = chance.string({ length: lengthGenerator })
+        const grownGenerator = originalGenerator.grow('foobarbaz')
+
+        expect([
+          grownGenerator(),
+          grownGenerator(),
+          grownGenerator(),
+          grownGenerator(),
+          grownGenerator(),
+          grownGenerator(),
+          grownGenerator()
+        ], 'to equal', [
+          '(foobarbaze', '9*faobarbazaF', 'a(foobarbazYr', 'nfoobarbazc',
+          'gQfoobarbazN9', '65foobarba!UH', '41foobarbazib'
+        ])
       })
     })
   })
@@ -269,6 +309,22 @@ describe('chance-generators', () => {
           generator = generator.shrink(generator())
         }
         expect(generator, 'when called', 'to have length', 2)
+      })
+    })
+
+    describe('grow', () => {
+      it('returns a new generator that work on the provided data plus random data from the origin generator', () => {
+        const valueGenerator = chance.string
+        const lengthGenerator = chance.integer({ min: 2, max: 4 })
+        const originalGenerator = chance.n(valueGenerator, lengthGenerator)
+        const grownGenerator = originalGenerator.grow(['foo', 'bar', 'baz'])
+
+        expect([grownGenerator(), grownGenerator(), grownGenerator(), grownGenerator()], 'to equal', [
+          [ 'baz', 'bar', 'SSlGlheH#ySk0Wbe)' ],
+          [ 'baz', 'bar', ']nTwTMa', 'foo' ],
+          [ 'kdv[BrHg6To', 'foo', 'baz' ],
+          [ 'bar', 'baz', 'foo' ]
+        ])
       })
     })
   })
