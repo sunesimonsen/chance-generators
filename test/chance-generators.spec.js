@@ -299,6 +299,18 @@ describe('chance-generators', () => {
                        .and('to have unique items'))
       })
     })
+
+    describe('shrink', () => {
+      it('returns a new generator generating smaller unique sets', () => {
+        let generator = chance.unique(chance.state, chance.natural({ max: 10 }))
+
+        while (generator.shrink) {
+          generator = generator.shrink(generator())
+        }
+
+        expect(generator, 'when called', 'to be empty')
+      })
+    })
   })
 
   describe('constant', () => {
