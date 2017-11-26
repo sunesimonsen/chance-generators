@@ -98,6 +98,33 @@ describe('chance-generators', () => {
       })
     })
 
+    describe('shrink', () => {
+      it('returns a new generators that generates new strings by deleting characters from the original string', () => {
+        const generator = chance.string({ length: chance.natural({ min: 2, max: 10 }) })
+        const shrunkenGenerator = generator.shrink('foobarbaz')
+
+        expect([
+          shrunkenGenerator(),
+          shrunkenGenerator(),
+          shrunkenGenerator(),
+          shrunkenGenerator(),
+          shrunkenGenerator()
+        ], 'to satisfy', [
+          'oa', 'fo', '', 'ab', 'foobrbaz'
+        ])
+      })
+
+      it('shrinks towards the minimum allowed length', () => {
+        let generator = chance.string({ length: chance.natural({ min: 2, max: 10 }) })
+
+        while (generator.shrink) {
+          generator = generator.shrink(generator())
+        }
+
+        expect(generator, 'when called', 'to equal', '')
+      })
+    })
+
     describe('map', () => {
       it('returns a new generator where the generated values are mapped with the given function', () => {
         const generator = chance.string.map(s => s.toUpperCase()).map(s => s.replace(/[^A-Z]/g, '-'))
