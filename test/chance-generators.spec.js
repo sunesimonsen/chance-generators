@@ -110,7 +110,7 @@ describe('chance-generators', () => {
           shrunkenGenerator(),
           shrunkenGenerator()
         ], 'to satisfy', [
-          'oa', 'fo', '', 'ab', 'foobrbaz'
+          'foo', 'foobarbaz', 'foobarb', 'fooba', 'frbaz'
         ])
       })
 
@@ -149,6 +149,84 @@ describe('chance-generators', () => {
           expect(generator, 'when called', 'to equal', '')
         })
       })
+    })
+  })
+
+  describe('stringSplicer', () => {
+    it('throw when not given a string', () => {
+      expect(() => {
+        chance.stringSplicer()
+      }, 'to throw', 'The stringSplicer requires a string as the first argument')
+
+      expect(() => {
+        chance.stringSplicer({})
+      }, 'to throw', 'The stringSplicer requires a string as the first argument')
+    })
+
+    it('produces a string by splicing out regions from the given string', () => {
+      const generator = chance.stringSplicer('foobarbaz')
+
+      expect([
+        generator(),
+        generator(),
+        generator(),
+        generator(),
+        generator(),
+        generator(),
+        generator()
+      ], 'to equal', [
+        'foo', 'foobarbaz', 'foobarb', 'fooba', 'frbaz', 'foobarbaz', 'arbaz'
+      ])
+    })
+
+    it('shrinks towards the empty string', () => {
+      let generator = chance.stringSplicer('foobarbaz')
+      while (generator.shrink) {
+        generator = generator.shrink(generator())
+      }
+      expect(generator, 'when called', 'to be empty')
+    })
+
+    describe('when given a min', () => {
+      it('shrinks towards a string of the min length', () => {
+        let generator = chance.stringSplicer('foobarbaz', { min: 3 })
+        while (generator.shrink) {
+          generator = generator.shrink(generator())
+        }
+        expect(generator, 'when called', 'to have length', 3)
+      })
+
+      it('produces a string by splicing out regions from the given string, while preserving the min constraint', () => {
+        const generator = chance.stringSplicer('foobarbaz', { min: 6 })
+
+        expect([
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator()
+        ], 'to equal', [
+          'foobaz', 'foobarbaz', 'foobarb', 'foobaaz', 'fobarbaz', 'foobarbaz', 'oobarbaz'
+        ])
+      })
+    })
+
+    it('supports the map method', () => {
+      const generator = chance.stringSplicer('foobarbaz').map(s => '>' + s)
+
+      expect([
+        generator(),
+        generator(),
+        generator(),
+        generator(),
+        generator(),
+        generator(),
+        generator()
+      ], 'to equal', [
+        '>foo', '>foobarbaz', '>foobarb', '>fooba', '>frbaz', '>foobarbaz', '>arbaz'
+      ])
     })
   })
 
@@ -237,6 +315,115 @@ describe('chance-generators', () => {
           generator = generator.shrink(generator())
         }
         expect(generator, 'when called', 'to be empty')
+      })
+    })
+  })
+
+  describe('arraySplicer', () => {
+    it('throw when not given an array', () => {
+      expect(() => {
+        chance.arraySplicer()
+      }, 'to throw', 'The arraySplicer requires an array as the first argument')
+
+      expect(() => {
+        chance.arraySplicer({})
+      }, 'to throw', 'The arraySplicer requires an array as the first argument')
+    })
+
+    it('produces a array by splicing out regions from the given array', () => {
+      const generator = chance.arraySplicer('foobarbaz'.split(''))
+
+      expect([
+        generator(),
+        generator(),
+        generator(),
+        generator(),
+        generator(),
+        generator(),
+        generator()
+      ], 'to equal', [
+        [ 'f', 'o', 'o' ],
+        [ 'f', 'o', 'o', 'b', 'a', 'r', 'b', 'a', 'z' ],
+        [ 'f', 'o', 'o', 'b', 'a', 'r', 'b' ],
+        [ 'f', 'o', 'o', 'b', 'a' ],
+        [ 'f', 'r', 'b', 'a', 'z' ],
+        [ 'f', 'o', 'o', 'b', 'a', 'r', 'b', 'a', 'z' ],
+        [ 'a', 'r', 'b', 'a', 'z' ]
+      ])
+    })
+
+    describe('when given items that are generators', () => {
+      it('unwraps the items', () => {
+        const valueGenerator = chance.natural({ max: 10 })
+        const generator = chance.arraySplicer([valueGenerator, valueGenerator, 'foo', 42])
+
+        expect([
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator()
+        ], 'to equal', [
+          [ 10 ],
+          [ 42 ],
+          [ 6, 1, 'foo' ],
+          [ 1, 0, 'foo', 42 ],
+          [ 3, 6 ], [ 42 ],
+          [ 0, 10, 'foo', 42 ]
+        ])
+      })
+
+      it('shrinks the item generators', () => {
+        const valueGenerator = chance.natural({ min: 2, max: 10 })
+        let generator = chance.arraySplicer([valueGenerator, valueGenerator, 'foo', 42], { min: 2 })
+
+        while (generator.shrink) {
+          generator = generator.shrink(generator())
+        }
+
+        expect(generator(), 'to equal', [ 2, 42 ])
+      })
+    })
+
+    it('shrinks towards the empty array', () => {
+      let generator = chance.arraySplicer('foobarbaz'.split(''))
+      while (generator.shrink) {
+        generator = generator.shrink(generator())
+      }
+      expect(generator, 'when called', 'to be empty')
+    })
+
+    describe('when given a min', () => {
+      it('shrinks towards an array of the min length', () => {
+        let generator = chance.arraySplicer('foobarbaz'.split(''), { min: 3 })
+        while (generator.shrink) {
+          generator = generator.shrink(generator())
+        }
+        expect(generator, 'when called', 'to have length', 3)
+      })
+
+      it('produces a string by splicing out regions from the given array, while preserving the min constraint', () => {
+        const generator = chance.arraySplicer('foobarbaz'.split(''), { min: 6 })
+
+        expect([
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator()
+        ], 'to equal', [
+          [ 'f', 'o', 'o', 'b', 'a', 'z' ],
+          [ 'f', 'o', 'o', 'b', 'a', 'r', 'b', 'a', 'z' ],
+          [ 'f', 'o', 'o', 'b', 'a', 'r', 'b' ],
+          [ 'f', 'o', 'o', 'b', 'a', 'a', 'z' ],
+          [ 'f', 'o', 'b', 'a', 'r', 'b', 'a', 'z' ],
+          [ 'f', 'o', 'o', 'b', 'a', 'r', 'b', 'a', 'z' ],
+          [ 'o', 'o', 'b', 'a', 'r', 'b', 'a', 'z' ]
+        ])
       })
     })
   })
