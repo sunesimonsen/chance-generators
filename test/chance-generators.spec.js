@@ -86,19 +86,19 @@ describe('chance-generators', () => {
       })
     })
 
-    describe('grow', () => {
+    describe('expand', () => {
       it('returns a new generator that work on the provided data plus random data from the origin generator', () => {
         const originalGenerator = chance.integer({ min: -10, max: 10 })
-        const grownGenerator = originalGenerator.grow(0)
+        const expandedGenerator = originalGenerator.expand(0)
 
         expect([
-          grownGenerator(),
-          grownGenerator(),
-          grownGenerator(),
-          grownGenerator(),
-          grownGenerator(),
-          grownGenerator(),
-          grownGenerator()
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator()
         ], 'to equal', [
           0, 9, 0, 0, -7, -7, -9
         ])
@@ -170,23 +170,23 @@ describe('chance-generators', () => {
       })
     })
 
-    describe('grow', () => {
+    describe('expand', () => {
       it('returns a new generator that work on the provided data plus random data from the origin generator', () => {
         const lengthGenerator = chance.natural({ max: 30 })
         const originalGenerator = chance.string({ length: lengthGenerator })
-        const grownGenerator = originalGenerator.grow('foobarbaz')
+        const expandedGenerator = originalGenerator.expand('foobarbaz')
 
         expect([
-          grownGenerator(),
-          grownGenerator(),
-          grownGenerator(),
-          grownGenerator(),
-          grownGenerator(),
-          grownGenerator(),
-          grownGenerator()
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator()
         ], 'to equal', [
-          '(foobarbaze', '9*faobarbazaF', 'a(foobarbazYr', 'nfoobarbazc',
-          'gQfoobarbazN9', '65foobarba!UH', '41foobarbazib'
+          '(foobarbaze', '9*pfnobarbazFbv', 'a(foobarbazYr', 'nfoobarbazc',
+          'gQofoobarbaz9RA', '65SfoobarbaUHyh', '41PfoobarbazbGh'
         ])
       })
     })
@@ -312,14 +312,14 @@ describe('chance-generators', () => {
       })
     })
 
-    describe('grow', () => {
+    describe('expand', () => {
       it('returns a new generator that work on the provided data plus random data from the origin generator', () => {
         const valueGenerator = chance.string
         const lengthGenerator = chance.integer({ min: 2, max: 4 })
         const originalGenerator = chance.n(valueGenerator, lengthGenerator)
-        const grownGenerator = originalGenerator.grow(['foo', 'bar', 'baz'])
+        const expandedGenerator = originalGenerator.expand(['foo', 'bar', 'baz'])
 
-        expect([grownGenerator(), grownGenerator(), grownGenerator(), grownGenerator()], 'to equal', [
+        expect([expandedGenerator(), expandedGenerator(), expandedGenerator(), expandedGenerator()], 'to equal', [
           [ 'baz', 'bar', 'SSlGlheH#ySk0Wbe)' ],
           [ 'baz', 'bar', ']nTwTMa', 'foo' ],
           [ 'kdv[BrHg6To', 'foo', 'baz' ],
@@ -525,6 +525,31 @@ describe('chance-generators', () => {
         expect(chance.pick([chance.integer, chance.string, true], 2), 'when called',
                'to have items satisfying',
                expect.it('to be a number').or('to be a string').or('to be a boolean'))
+      })
+    })
+  })
+
+  describe('pickset', () => {
+    it('returns a new generator picking the given number of random elements from the array', () => {
+      const arr = [42, 'foo', { wat: 'taw' }]
+      expect(chance.pickset(arr, 2), 'when called', 'to satisfy',
+             expect.it('to have length', 2)
+             .and('to have items satisfying', 'to be contained by', arr))
+    })
+
+    describe('expand', () => {
+      it('returns a new generator that work on the provided data plus random data from the origin generator', () => {
+        const valueGenerator = chance.string
+        const lengthGenerator = chance.integer({ min: 2, max: 20 })
+        const originalGenerator = chance.pickset(Array(20).fill(valueGenerator), lengthGenerator)
+        const expandedGenerator = originalGenerator.expand(['foo', 'bar', 'baz'])
+
+        expect([expandedGenerator(), expandedGenerator(), expandedGenerator(), expandedGenerator()], 'to equal', [
+          [ ')19*p', 'foo', 'MaFbvMTDkdv[Br', 'baz', 'mHea(*)P7CwbhrY' ],
+          [ 'UHyheBxXyX1RVu$PIC', 'foo', 'bar', 'baz', 'JxPLZ^ksSEN3pq*' ],
+          [ ')%P%$U', 'foo', 'bar', 'baz', 'HW]qn0brKyn3BW3!' ],
+          [ 'foo', 'bar', 'baz' ]
+        ])
       })
     })
   })
