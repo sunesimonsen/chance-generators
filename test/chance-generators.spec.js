@@ -110,7 +110,7 @@ describe('chance-generators', () => {
           shrunkenGenerator(),
           shrunkenGenerator()
         ], 'to satisfy', [
-          'oa', 'fo', '', 'ab', 'foobrbaz'
+          'foo', 'foobarbaz', 'foobarb', 'fooba', 'frbaz'
         ])
       })
 
@@ -149,6 +149,84 @@ describe('chance-generators', () => {
           expect(generator, 'when called', 'to equal', '')
         })
       })
+    })
+  })
+
+  describe('stringSplicer', () => {
+    it('throw when not given a string', () => {
+      expect(() => {
+        chance.stringSplicer()
+      }, 'to throw', 'The stringSplicer requires a string as the first argument')
+
+      expect(() => {
+        chance.stringSplicer({})
+      }, 'to throw', 'The stringSplicer requires a string as the first argument')
+    })
+
+    it('produces a string by splicing out regions from the given string', () => {
+      const generator = chance.stringSplicer('foobarbaz')
+
+      expect([
+        generator(),
+        generator(),
+        generator(),
+        generator(),
+        generator(),
+        generator(),
+        generator()
+      ], 'to equal', [
+        'foo', 'foobarbaz', 'foobarb', 'fooba', 'frbaz', 'foobarbaz', 'arbaz'
+      ])
+    })
+
+    it('shrinks towards the empty string', () => {
+      let generator = chance.stringSplicer('foobarbaz')
+      while (generator.shrink) {
+        generator = generator.shrink(generator())
+      }
+      expect(generator, 'when called', 'to be empty')
+    })
+
+    describe('when given a min', () => {
+      it('shrinks towards a string of the min length', () => {
+        let generator = chance.stringSplicer('foobarbaz', { min: 3 })
+        while (generator.shrink) {
+          generator = generator.shrink(generator())
+        }
+        expect(generator, 'when called', 'to have length', 3)
+      })
+
+      it('produces a string by splicing out regions from the given string, while preserving the min constraint', () => {
+        const generator = chance.stringSplicer('foobarbaz', { min: 6 })
+
+        expect([
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator()
+        ], 'to equal', [
+          'foobaz', 'foobarbaz', 'foobarb', 'foobaaz', 'fobarbaz', 'foobarbaz', 'oobarbaz'
+        ])
+      })
+    })
+
+    it('supports the map method', () => {
+      const generator = chance.stringSplicer('foobarbaz').map(s => '>' + s)
+
+      expect([
+        generator(),
+        generator(),
+        generator(),
+        generator(),
+        generator(),
+        generator(),
+        generator()
+      ], 'to equal', [
+        '>foo', '>foobarbaz', '>foobarb', '>fooba', '>frbaz', '>foobarbaz', '>arbaz'
+      ])
     })
   })
 
