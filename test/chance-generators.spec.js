@@ -819,6 +819,28 @@ describe('chance-generators', () => {
           expect(generator, 'when called', 'to equal', '0,0')
         })
       })
+
+      describe('shrink', () => {
+        it('returns a new generator where the input is expanded with with regards to the original generator', () => {
+          let generator = chance.shape({
+            x: chance.integer({ min: -20, max: 20 }),
+            y: chance.integer({ min: -20, max: 20 })
+          }).map(coordinate => `${coordinate.x},${coordinate.y}`)
+
+          const expandedGenerator = generator.expand(generator())
+
+          expect([
+            expandedGenerator(),
+            expandedGenerator(),
+            expandedGenerator(),
+            expandedGenerator(),
+            expandedGenerator(),
+            expandedGenerator()
+          ], 'to satisfy', [
+            '18,12', '-5,-14', '-14,-18', '15,4', '-5,-20', '-5,12'
+          ])
+        })
+      })
     })
   })
 
