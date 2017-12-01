@@ -733,6 +733,40 @@ describe('chance-generators', () => {
       })
     })
 
+    describe('expand', () => {
+      it('returns a new generator that expands the entry generators', () => {
+        let originalGenerator = chance.shape({
+          constant: 42,
+          number: chance.integer({ min: 2, max: 4 }),
+          string: chance.string({ length: chance.natural({ max: 20 }) })
+        })
+
+        const expandedGenerator = originalGenerator.expand({
+          constant: 42,
+          number: 3,
+          string: 'foobar'
+        })
+
+        expect([
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator()
+        ], 'to equal', [
+          { constant: 42, number: 3, string: '25foobareH' },
+          { constant: 42, number: 4, string: 'TMaoobarDk' },
+          { constant: 42, number: 3, string: '[foobaYm' },
+          { constant: 42, number: 3, string: 'bfoobarj' },
+          { constant: 42, number: 3, string: 'foobar' },
+          { constant: 42, number: 3, string: '*DfoobargQ' },
+          { constant: 42, number: 3, string: 'foovar' }
+        ])
+      })
+    })
+
     describe('map', () => {
       it('returns a new generator where the generated values are mapped with the given function', () => {
         const generator = chance.shape({
