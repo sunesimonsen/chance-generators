@@ -879,5 +879,65 @@ describe('chance-generators', () => {
         expect(generator, 'when called', 'to be empty')
       })
     })
+
+    describe('expand (when resumable)', () => {
+      it('returns a new generator continues when the sequence generator stopped', () => {
+        let generator = chance.sequence((context, previous) => {
+          const length = previous === undefined
+                ? 25
+                : Math.max(0, previous.length - 1)
+
+          return chance.string({ length })
+        }, chance.natural({ max: 30 }), { resumable: true })
+
+        const value = generator()
+
+        expect(value, 'to satisfy', [
+          '(n25SSlGlheH#ySk0Wbe)19*p',
+          'n]nTwTMaFbvMTDkdv[BrHg6T',
+          'CM[RId@SYmHea(*)P7Cwbhr',
+          'rGYjTK9cm^CtnX3xFMpOQn',
+          ')!5H*D%&S1&ygQoMd)y!C',
+          'uN9RA)uSOukv7mfb]F5D',
+          'vab8o00165Sf&AWi^@!',
+          'HyheBxXyX1RVu$PICi',
+          '0!41Pr5sKcM0FibGh',
+          'c%VJxPLZ^ksSEN3p',
+          '*fSvZl$&U7vUh#H'
+        ])
+
+        const expandedGenerator = generator.expand(value)
+
+        expect(expandedGenerator(), 'to satisfy', [
+          '(n25SSlGlheH#ySk0Wbe)19*p',
+          'n]nTwTMaFbvMTDkdv[BrHg6T',
+          'CM[RId@SYmHea(*)P7Cwbhr',
+          'rGYjTK9cm^CtnX3xFMpOQn',
+          ')!5H*D%&S1&ygQoMd)y!C',
+          'uN9RA)uSOukv7mfb]F5D',
+          'vab8o00165Sf&AWi^@!',
+          'HyheBxXyX1RVu$PICi',
+          '0!41Pr5sKcM0FibGh',
+          'c%VJxPLZ^ksSEN3p',
+          '*fSvZl$&U7vUh#H',
+          'nE%$Ny7j%Ax^iu',
+          'VFa8A@wamLNEJ',
+          'Zitys*mxqMP0',
+          'Ae)s)ssZK0w',
+          'v]ctT[LEdc',
+          'z^UrYkNKH',
+          'OrRXf4Br',
+          '17BIU[U',
+          'N8g79l',
+          'LnZd@',
+          'yYqb',
+          'L7q',
+          'Vh',
+          '*',
+          '',
+          ''
+        ])
+      })
+    })
   })
 })
