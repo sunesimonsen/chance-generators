@@ -85,6 +85,25 @@ describe('chance-generators', () => {
         })
       })
     })
+
+    describe('expand', () => {
+      it('returns a new generator that work on the provided data plus random data from the origin generator', () => {
+        const originalGenerator = chance.integer({ min: -10, max: 10 })
+        const expandedGenerator = originalGenerator.expand(0)
+
+        expect([
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator()
+        ], 'to equal', [
+          0, 9, 0, 0, -7, -7, -9
+        ])
+      })
+    })
   })
 
   describe('string', () => {
@@ -148,6 +167,26 @@ describe('chance-generators', () => {
 
           expect(generator, 'when called', 'to equal', '')
         })
+      })
+    })
+
+    describe('expand', () => {
+      it('returns a new generator that work on the provided data plus random data from the origin generator', () => {
+        const lengthGenerator = chance.natural({ max: 30 })
+        const originalGenerator = chance.string({ length: lengthGenerator })
+        const expandedGenerator = originalGenerator.expand('foobarbaz')
+
+        expect([
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator()
+        ], 'to equal', [
+          '(foobarblz', 'panfoTbarbazvMT', 'foobarbaz', 'foobarbaz', 'nc)f5obarbaz&yg', ')uSfoobarbaz', 'ifoobarbazx'
+        ])
       })
     })
   })
@@ -269,6 +308,22 @@ describe('chance-generators', () => {
           generator = generator.shrink(generator())
         }
         expect(generator, 'when called', 'to have length', 2)
+      })
+    })
+
+    describe('expand', () => {
+      it('returns a new generator that work on the provided data plus random data from the origin generator', () => {
+        const valueGenerator = chance.string
+        const lengthGenerator = chance.integer({ min: 2, max: 4 })
+        const originalGenerator = chance.n(valueGenerator, lengthGenerator)
+        const expandedGenerator = originalGenerator.expand(['foo', 'bar', 'baz'])
+
+        expect([expandedGenerator(), expandedGenerator(), expandedGenerator(), expandedGenerator()], 'to equal', [
+          [ 'baz', 'bar', 'SSlGlheH#ySk0Wbe)' ],
+          [ 'baz', 'bar', ']nTwTMa', 'foo' ],
+          [ 'kdv[BrHg6To', 'foo', 'baz' ],
+          [ 'bar', 'baz', 'foo' ]
+        ])
       })
     })
   })
@@ -473,6 +528,31 @@ describe('chance-generators', () => {
     })
   })
 
+  describe('pickset', () => {
+    it('returns a new generator picking the given number of random elements from the array', () => {
+      const arr = [42, 'foo', { wat: 'taw' }]
+      expect(chance.pickset(arr, 2), 'when called', 'to satisfy',
+             expect.it('to have length', 2)
+             .and('to have items satisfying', 'to be contained by', arr))
+    })
+
+    describe('expand', () => {
+      it('returns a new generator that work on the provided data plus random data from the origin generator', () => {
+        const valueGenerator = chance.string
+        const lengthGenerator = chance.integer({ min: 2, max: 20 })
+        const originalGenerator = chance.pickset(Array(20).fill(valueGenerator), lengthGenerator)
+        const expandedGenerator = originalGenerator.expand(['foo', 'bar', 'baz'])
+
+        expect([expandedGenerator(), expandedGenerator(), expandedGenerator(), expandedGenerator()], 'to equal', [
+          [ ')19*p', 'foo', 'MaFbvMTDkdv[Br', 'baz', 'mHea(*)P7CwbhrY' ],
+          [ 'UHyheBxXyX1RVu$PIC', 'foo', 'bar', 'baz', 'JxPLZ^ksSEN3pq*' ],
+          [ ')%P%$U', 'foo', 'bar', 'baz', 'HW]qn0brKyn3BW3!' ],
+          [ 'foo', 'bar', 'baz' ]
+        ])
+      })
+    })
+  })
+
   describe('pickone', () => {
     describe('given an array', () => {
       it('returns a new generator picking a random element from the array', () => {
@@ -652,6 +732,40 @@ describe('chance-generators', () => {
       })
     })
 
+    describe('expand', () => {
+      it('returns a new generator that expands the entry generators', () => {
+        let originalGenerator = chance.shape({
+          constant: 42,
+          number: chance.integer({ min: 2, max: 4 }),
+          string: chance.string({ length: chance.natural({ max: 20 }) })
+        })
+
+        const expandedGenerator = originalGenerator.expand({
+          constant: 42,
+          number: 3,
+          string: 'foobar'
+        })
+
+        expect([
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator(),
+          expandedGenerator()
+        ], 'to equal', [
+          { constant: 42, number: 3, string: 'fooblr' },
+          { constant: 42, number: 3, string: 'aFfoobardv' },
+          { constant: 42, number: 3, string: 'foobara' },
+          { constant: 42, number: 4, string: 'jfoobarC' },
+          { constant: 42, number: 3, string: 'foobar' },
+          { constant: 42, number: 3, string: 'foobar' },
+          { constant: 42, number: 4, string: 'ukfoobarF5' }
+        ])
+      })
+    })
+
     describe('map', () => {
       it('returns a new generator where the generated values are mapped with the given function', () => {
         const generator = chance.shape({
@@ -704,6 +818,28 @@ describe('chance-generators', () => {
           expect(generator, 'when called', 'to equal', '0,0')
         })
       })
+
+      describe('shrink', () => {
+        it('returns a new generator where the input is expanded with with regards to the original generator', () => {
+          let generator = chance.shape({
+            x: chance.integer({ min: -20, max: 20 }),
+            y: chance.integer({ min: -20, max: 20 })
+          }).map(coordinate => `${coordinate.x},${coordinate.y}`)
+
+          const expandedGenerator = generator.expand(generator())
+
+          expect([
+            expandedGenerator(),
+            expandedGenerator(),
+            expandedGenerator(),
+            expandedGenerator(),
+            expandedGenerator(),
+            expandedGenerator()
+          ], 'to satisfy', [
+            '18,12', '-5,-14', '-14,-18', '15,4', '-5,-20', '-5,12'
+          ])
+        })
+      })
     })
   })
 
@@ -740,6 +876,66 @@ describe('chance-generators', () => {
         }
 
         expect(generator, 'when called', 'to be empty')
+      })
+    })
+
+    describe('expand (when resumable)', () => {
+      it('returns a new generator continues when the sequence generator stopped', () => {
+        let generator = chance.sequence((context, previous) => {
+          const length = previous === undefined
+                ? 25
+                : Math.max(0, previous.length - 1)
+
+          return chance.string({ length })
+        }, chance.natural({ max: 30 }), { resumable: true })
+
+        const value = generator()
+
+        expect(value, 'to satisfy', [
+          '(n25SSlGlheH#ySk0Wbe)19*p',
+          'n]nTwTMaFbvMTDkdv[BrHg6T',
+          'CM[RId@SYmHea(*)P7Cwbhr',
+          'rGYjTK9cm^CtnX3xFMpOQn',
+          ')!5H*D%&S1&ygQoMd)y!C',
+          'uN9RA)uSOukv7mfb]F5D',
+          'vab8o00165Sf&AWi^@!',
+          'HyheBxXyX1RVu$PICi',
+          '0!41Pr5sKcM0FibGh',
+          'c%VJxPLZ^ksSEN3p',
+          '*fSvZl$&U7vUh#H'
+        ])
+
+        const expandedGenerator = generator.expand(value)
+
+        expect(expandedGenerator(), 'to satisfy', [
+          '(n25SSlGlheH#ySk0Wbe)19*p',
+          'n]nTwTMaFbvMTDkdv[BrHg6T',
+          'CM[RId@SYmHea(*)P7Cwbhr',
+          'rGYjTK9cm^CtnX3xFMpOQn',
+          ')!5H*D%&S1&ygQoMd)y!C',
+          'uN9RA)uSOukv7mfb]F5D',
+          'vab8o00165Sf&AWi^@!',
+          'HyheBxXyX1RVu$PICi',
+          '0!41Pr5sKcM0FibGh',
+          'c%VJxPLZ^ksSEN3p',
+          '*fSvZl$&U7vUh#H',
+          'nE%$Ny7j%Ax^iu',
+          'VFa8A@wamLNEJ',
+          'Zitys*mxqMP0',
+          'Ae)s)ssZK0w',
+          'v]ctT[LEdc',
+          'z^UrYkNKH',
+          'OrRXf4Br',
+          '17BIU[U',
+          'N8g79l',
+          'LnZd@',
+          'yYqb',
+          'L7q',
+          'Vh',
+          '*',
+          '',
+          ''
+        ])
       })
     })
   })
