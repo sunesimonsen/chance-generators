@@ -185,8 +185,7 @@ describe('chance-generators', () => {
           expandedGenerator(),
           expandedGenerator()
         ], 'to equal', [
-          '(foobarbaze', '9*pfnobarbazFbv', 'a(foobarbazYr', 'nfoobarbazc',
-          'gQofoobarbaz9RA', '65SfoobarbaUHyh', '41PfoobarbazbGh'
+          '(foobarblz', 'panfoTbarbazvMT', 'foobarbaz', 'foobarbaz', 'nc)f5obarbaz&yg', ')uSfoobarbaz', 'ifoobarbazx'
         ])
       })
     })
@@ -756,13 +755,13 @@ describe('chance-generators', () => {
           expandedGenerator(),
           expandedGenerator()
         ], 'to equal', [
-          { constant: 42, number: 3, string: '25foobareH' },
-          { constant: 42, number: 4, string: 'TMaoobarDk' },
-          { constant: 42, number: 3, string: '[foobaYm' },
-          { constant: 42, number: 3, string: 'bfoobarj' },
+          { constant: 42, number: 3, string: 'fooblr' },
+          { constant: 42, number: 3, string: 'aFfoobardv' },
+          { constant: 42, number: 3, string: 'foobara' },
+          { constant: 42, number: 4, string: 'jfoobarC' },
           { constant: 42, number: 3, string: 'foobar' },
-          { constant: 42, number: 3, string: '*DfoobargQ' },
-          { constant: 42, number: 3, string: 'foovar' }
+          { constant: 42, number: 3, string: 'foobar' },
+          { constant: 42, number: 4, string: 'ukfoobarF5' }
         ])
       })
     })
