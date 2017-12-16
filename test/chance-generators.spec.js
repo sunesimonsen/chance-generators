@@ -129,7 +129,7 @@ describe('chance-generators', () => {
           shrunkenGenerator(),
           shrunkenGenerator()
         ], 'to satisfy', [
-          'foo', 'foobarbaz', 'foobarb', 'fooba', 'frbaz'
+          'foo', 'foobarbaz', 'foobarb', 'fooba', 'farbaz'
         ])
       })
 
@@ -140,7 +140,7 @@ describe('chance-generators', () => {
           generator = generator.shrink(generator())
         }
 
-        expect(generator, 'when called', 'to equal', '')
+        expect(generator, 'when called', 'to have length', 2)
       })
     })
 
@@ -365,11 +365,11 @@ describe('chance-generators', () => {
 
     describe('shrink', () => {
       it('returns a new generator that work on the provided data', () => {
-        let generator = chance.array(chance.string)
+        let generator = chance.array(chance.string, chance.integer({ min: 2, max: 10 }))
         while (generator.shrink) {
           generator = generator.shrink(generator())
         }
-        expect(generator, 'when called', 'to be empty')
+        expect(generator, 'when called', 'to have length', 2)
       })
     })
   })
