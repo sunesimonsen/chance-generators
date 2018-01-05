@@ -651,6 +651,82 @@ describe('chance-generators', () => {
     })
   })
 
+  describe('weighted', () => {
+    describe('given an array of values and weights', () => {
+      it('generates values picks values from the array based on the weights', () => {
+        const arr = [42, chance.string, 666, chance.character]
+        const weights = [10, 20, 1, 20]
+        const generator = chance.weighted(arr, weights)
+        expect([generator(), generator(), generator(), generator()], 'to satisfy', [
+          '(n25SSlGlheH#ySk0', 'b', 42, '1'
+        ])
+      })
+    })
+
+    describe('shrink', () => {
+      describe('when the picked value is a generator', () => {
+        it('shrinks the value with regards to the picked generator', () => {
+          const arr = [chance.string, chance.natural({ min: 10, max: 20 })]
+          const weights = [10, 20]
+          const generator = chance.weighted(arr, weights)
+
+          const value = generator()
+          const shrunkenGenerator = generator.shrink(value)
+          expect([value, shrunkenGenerator(), shrunkenGenerator(), shrunkenGenerator()], 'to satisfy', [
+            18, 18, 11, 16
+          ])
+        })
+      })
+
+      describe('when the picked value is not a generator', () => {
+        it('does not shrink the value', () => {
+          const arr = [0, 1]
+          const weights = [10, 20]
+          const generator = chance.weighted(arr, weights)
+
+          const value = generator()
+          const shrunkenGenerator = generator.shrink(value)
+          expect([value, shrunkenGenerator(), shrunkenGenerator(), shrunkenGenerator()], 'to satisfy', [
+            1, 1, 1, 1
+          ])
+        })
+      })
+    })
+
+    describe('expand', () => {
+      describe('when the picked value is a generator', () => {
+        it('expands the value with regards to the picked generator', () => {
+          const arr = [chance.natural({ min: 10, max: 20 }), chance.string]
+          const weights = [10, 20]
+          const generator = chance.weighted(arr, weights)
+
+          const value = generator()
+          const expandedGenerator = generator.expand(value)
+          expect([value, expandedGenerator(), expandedGenerator(), expandedGenerator()], 'to satisfy', [
+            '(n25SSlGlheH#ySk0',
+            '(n25SSlGnheH#ySk0',
+            '(n25SSlGlheH#ySk0',
+            '(n25SSlGlheH#ySkF'
+          ])
+        })
+      })
+
+      describe('when the picked value is not a generator', () => {
+        it('does not expand the value', () => {
+          const arr = [0, 1]
+          const weights = [10, 20]
+          const generator = chance.weighted(arr, weights)
+
+          const value = generator()
+          const expandedGenerator = generator.expand(value)
+          expect([value, expandedGenerator(), expandedGenerator(), expandedGenerator()], 'to satisfy', [
+            1, 1, 1, 1
+          ])
+        })
+      })
+    })
+  })
+
   describe('constant', () => {
     it('generate the given value', () => {
       expect(chance.constant({ foo: 'bar' }), 'when called', 'to equal', {
