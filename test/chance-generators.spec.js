@@ -1015,4 +1015,78 @@ describe('chance-generators', () => {
       })
     })
   })
+
+  describe('magicString', () => {
+    describe('when global.recordLocation.magicValues is available', () => {
+      beforeEach(() => {
+        global.recordLocation = { magicValues: new Set(['foo', 'bar', 'baz']) }
+      })
+
+      afterEach(() => {
+        delete global.recordLocation
+      })
+
+      it('randomly pick magic strings', () => {
+        const generator = chance.magicString
+
+        expect([
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator()
+        ], 'to satisfy', [
+          'bar', 'baz', 'baz', 'foo', 'baz'
+        ])
+      })
+    })
+  })
+
+  describe('text', () => {
+    it('generates random text', () => {
+      const generator = chance.text
+
+      expect([
+        generator(),
+        generator(),
+        generator(),
+        generator(),
+        generator()
+      ], 'to satisfy', [
+        'Wosalda kodtac ewegute bibro celel taj sibsof buunu bave dolbaw gokim sab ziwiwwuh gib ejjitluh jahfab zejaaf.',
+        'asoojduv',
+        'HyheBxXyX1RVu$',
+        'Wus hogbimab gatih vudsi gewse iwahoil giimeduj deg bueh pi hoje fef wijug howeju. Umi je hodpizhir leg liptemdov pa envewi logumem fojdewire guz regduw ipaje. Ivuzuecu iro lavub ki nozgo pe los vendijjeg ukiipi povivho sataf nuhijoow ru uvake jel re. Onagouja juh warlihak epcibtof wecuv lini kiruen haahra ese tic girofod pohakmi haucmor fune dof jozwom wibse daj. Da ura doal nimap ibebopiv vapop enotilip am tettufja la to veer.',
+        '8tuKiZZzU*'
+      ])
+    })
+
+    describe('when global.recordLocation.magicValues is available', () => {
+      beforeEach(() => {
+        global.recordLocation = { magicValues: new Set(['foo', 'bar', 'baz']) }
+      })
+
+      afterEach(() => {
+        delete global.recordLocation
+      })
+
+      it('takes advantage of the magic strings', () => {
+        const generator = chance.text
+
+        expect([
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator()
+        ], 'to satisfy', [
+          'Wosalda kodtac ewegute bibro celel taj sibsof buunu bave dolbaw gokim sab ziwiwwuh gib ejjitluh jahfab zejaaf.',
+          'asoojduv',
+          'bar',
+          'Le votevned esohogbi dadeip riide rohu jod tuhdulhak retijic ti luh pi hoje fef.',
+          'Cuug poh ub umi je hodpizhir leg liptemdov pa envewi logumem fojdewire guz regduw ipaje ewumovecu. Vonlavub ki nozgo pe los vendijjeg ukiipi povivho sataf nuhijoow ru uvake jel. Muvona to fejuhera lihakhup patofcok ivbedin kiruen haahra ese tic girofod pohakmi haucmor. Od hiwa jozwom wibse daj ca ez nazinef tetu cejtu emofoc obututven nuawo upuge. La to veer ag do tubokuhi zi usilesev egizosde pitkedeb iva uzoli.'
+        ])
+      })
+    })
+  })
 })
