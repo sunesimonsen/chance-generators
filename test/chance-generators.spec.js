@@ -319,10 +319,10 @@ describe('chance-generators', () => {
         const expandedGenerator = originalGenerator.expand(['foo', 'bar', 'baz'])
 
         expect([expandedGenerator(), expandedGenerator(), expandedGenerator(), expandedGenerator()], 'to equal', [
-          [ 'baz', 'bar', 'SlGlheH#ySk0Wbe)19*pan]nTwTMaFbvMTDkdv[' ],
-          [ 'CM[RId@SYmHea(*)P7CwbhrYrGYjTK9', 'bar', 'foo' ],
-          [ '3xFMpOQnc', 'baz' ],
-          [ 'baz', 'bar', '&S1&ygQoMd)y!C3uN9RA', 'foo' ]
+          [ 'baz', 'bar', 'SSlGlheH#ySk0Wbe)' ],
+          [ 'baz', 'bar', ']nTwTMa', 'foo' ],
+          [ 'kdv[BrHg6To', 'foo', 'baz' ],
+          [ 'bar', 'baz', 'foo' ]
         ])
       })
     })
@@ -544,10 +544,10 @@ describe('chance-generators', () => {
         const expandedGenerator = originalGenerator.expand(['foo', 'bar', 'baz'])
 
         expect([expandedGenerator(), expandedGenerator(), expandedGenerator(), expandedGenerator()], 'to equal', [
-          [ '19', 'foo', 'bar', 'baz', 'X3xFMpOQnc)!5' ],
-          [ 'qVFa8', 'foo', 'bar', 'baz', 'm*ZDCM*9kYz2ip&O#ZtqWm8[PMNtr]g)' ],
-          [ '9FZYEem^lGsrOg0nW*uV(M2WPGT2FdsPAl4ibzigdgdx@[0mJ', 'foo', 'bar', 'baz', 'tuKiZZzU*#c2E7)uO' ],
-          [ 'Ejubef@Z8N]3]^PR41*4!Bs', 'foo', 'bar', 'baz', '59Mw@8O)Pg#6DRjJcF36TV07p%' ]
+          [ ')19*p', 'foo', 'MaFbvMTDkdv[Br', 'baz', 'mHea(*)P7CwbhrY' ],
+          [ 'UHyheBxXyX1RVu$PIC', 'foo', 'bar', 'baz', 'JxPLZ^ksSEN3pq*' ],
+          [ ')%P%$U', 'foo', 'bar', 'baz', 'HW]qn0brKyn3BW3!' ],
+          [ 'foo', 'bar', 'baz' ]
         ])
       })
     })
