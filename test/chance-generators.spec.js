@@ -1017,9 +1017,27 @@ describe('chance-generators', () => {
   })
 
   describe('magicString', () => {
+    describe('when global.recordLocation.magicValues is not available', () => {
+      it('generates the values with the string generator', () => {
+        const generator = chance.magicString
+
+        expect([
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator()
+        ], 'to satisfy', [
+          '6(n25SSlGl', 'eH#ySk', 'Wbe)19*pan]nTwTM', 'FbvMT', 'kdv[BrHg6To'
+        ])
+      })
+    })
+
     describe('when global.recordLocation.magicValues is available', () => {
       beforeEach(() => {
-        global.recordLocation = { magicValues: new Set(['foo', 'bar', 'baz']) }
+        global.recordLocation = {
+          magicValues: new Set([1, 666, 'foo', 4.5, 'bar', -Infinity, 42, 'baz', Infinity])
+        }
       })
 
       afterEach(() => {
@@ -1037,6 +1055,233 @@ describe('chance-generators', () => {
           generator()
         ], 'to satisfy', [
           'bar', 'baz', 'baz', 'foo', 'baz'
+        ])
+      })
+    })
+  })
+
+  describe('magicInteger', () => {
+    describe('when global.recordLocation.magicValues is not available', () => {
+      it('generates the values with the integer generator', () => {
+        const generator = chance.magicInteger
+
+        expect([
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator()
+        ], 'to satisfy', [
+          -2260084377780224, 5342043492581376, 8119347222413312,
+          -5702731889115136, 4179231256870912
+        ])
+      })
+    })
+
+    describe('when global.recordLocation.magicValues is available', () => {
+      beforeEach(() => {
+        global.recordLocation = {
+          magicValues: new Set([1, 666, 'foo', 4.5, 'bar', -Infinity, 42, 'baz', Infinity])
+        }
+      })
+
+      afterEach(() => {
+        delete global.recordLocation
+      })
+
+      it('randomly pick magic integers', () => {
+        const generator = chance.magicInteger
+
+        expect([
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator()
+        ], 'to satisfy', [
+          666, 42, 42, 1, 42
+        ])
+      })
+    })
+  })
+
+  describe('magicNatural', () => {
+    describe('when global.recordLocation.magicValues is not available', () => {
+      it('generates the values with the natural generator', () => {
+        const generator = chance.magicNatural
+
+        expect([
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator()
+        ], 'to satisfy', [
+          3373557438480384, 7174621373661184, 8563273238577152,
+          1652233682812928, 6593215255805952
+        ])
+      })
+    })
+
+    describe('when global.recordLocation.magicValues is available', () => {
+      beforeEach(() => {
+        global.recordLocation = {
+          magicValues: new Set([1, 666, 'foo', 4.5, 'bar', -Infinity, 6.66, 42, 'baz', Infinity])
+        }
+      })
+
+      afterEach(() => {
+        delete global.recordLocation
+      })
+
+      it('randomly pick magic natural numbers', () => {
+        const generator = chance.magicNatural
+
+        expect([
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator()
+        ], 'to satisfy', [
+          666, 42, 42, 1, 42
+        ])
+      })
+    })
+  })
+
+  describe('magicFloating', () => {
+    describe('when global.recordLocation.magicValues is not available', () => {
+      it('generates the values with the floating generator', () => {
+        const generator = chance.magicFloating
+
+        expect([
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator()
+        ], 'to satisfy', [
+          -226008437778.0224, 534204349258.1376, 811934722241.3312,
+          -570273188911.5135, 417923125687.0912
+        ])
+      })
+    })
+
+    describe('when global.recordLocation.magicValues is available', () => {
+      beforeEach(() => {
+        global.recordLocation = {
+          magicValues: new Set([1, 666, 'foo', 4.5, 'bar', -Infinity, 6.66, 42, 'baz', Infinity])
+        }
+      })
+
+      afterEach(() => {
+        delete global.recordLocation
+      })
+
+      it('randomly pick magic floating numbers', () => {
+        const generator = chance.magicFloating
+
+        expect([
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator()
+        ], 'to satisfy', [
+          666, 6.66, 42, 1, 6.66
+        ])
+      })
+    })
+  })
+
+  describe('magicNumber', () => {
+    describe('when global.recordLocation.magicValues is not available', () => {
+      it('generates the values with the floating generator', () => {
+        const generator = chance.magicNumber
+
+        expect([
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator()
+        ], 'to satisfy', [
+          -226008437778.0224, 534204349258.1376, 811934722241.3312,
+          -570273188911.5135, 417923125687.0912
+        ])
+      })
+    })
+
+    describe('when global.recordLocation.magicValues is available', () => {
+      beforeEach(() => {
+        global.recordLocation = {
+          magicValues: new Set([1, 666, 'foo', 4.5, 'bar', -Infinity, 6.66, 42, 'baz', Infinity])
+        }
+      })
+
+      afterEach(() => {
+        delete global.recordLocation
+      })
+
+      it('randomly pick magic numbers', () => {
+        const generator = chance.magicNumber
+
+        expect([
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator()
+        ], 'to satisfy', [
+          4.5, 42, Infinity, 666, 42
+        ])
+      })
+    })
+  })
+
+  describe('number', () => {
+    describe('when global.recordLocation.magicValues is not available', () => {
+      it('generates the values with the floating generator', () => {
+        const generator = chance.number
+
+        expect([
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator()
+        ], 'to satisfy', [
+          60, -5702731889115135, 5594, 1937, -10.8335
+        ])
+      })
+    })
+
+    describe('when global.recordLocation.magicValues is available', () => {
+      beforeEach(() => {
+        global.recordLocation = {
+          magicValues: new Set([1, 666, 'foo', 4.5, 'bar', -Infinity, 6.66, 42, 'baz', Infinity])
+        }
+      })
+
+      afterEach(() => {
+        delete global.recordLocation
+      })
+
+      it('takes advantage of the magic numbers', () => {
+        const generator = chance.number
+
+        expect([
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator(),
+          generator()
+        ], 'to satisfy', [
+          60, 2, 5594, 1937, -10.8335, -80.0051, -8.1502, 4.5
         ])
       })
     })
@@ -1063,7 +1308,9 @@ describe('chance-generators', () => {
 
     describe('when global.recordLocation.magicValues is available', () => {
       beforeEach(() => {
-        global.recordLocation = { magicValues: new Set(['foo', 'bar', 'baz']) }
+        global.recordLocation = {
+          magicValues: new Set([1, 666, 'foo', 4.5, 'bar', -Infinity, 42, 'baz', Infinity])
+        }
       })
 
       afterEach(() => {
