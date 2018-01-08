@@ -1,4 +1,4 @@
-/*global describe, it*/
+/*global describe, it, beforeEach, afterEach*/
 const Chance = require('../lib/chance-generators')
 const expect = require('unexpected')
 

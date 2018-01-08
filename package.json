@@ -27,10 +27,5 @@
     "unexpected": "10.33.2",
     "unexpected-documentation-site-generator": "4.2.0",
     "unexpected-markdown": "1.6.1"
-  },
-  "standard": {
-    "globals": [
-      "beforeEach"
-    ]
   }
 }
