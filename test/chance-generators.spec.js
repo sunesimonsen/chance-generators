@@ -88,7 +88,7 @@ describe('chance-generators', () => {
 
     describe('expand', () => {
       it('returns a new generator that work on the provided data plus random data from the origin generator', () => {
-        const originalGenerator = chance.integer({ min: -10, max: 10 })
+        const originalGenerator = chance.integer({ min: -10, max: 1000 })
         const expandedGenerator = originalGenerator.expand(0)
 
         expect([
@@ -100,7 +100,7 @@ describe('chance-generators', () => {
           expandedGenerator(),
           expandedGenerator()
         ], 'to equal', [
-          0, 9, 0, 0, -7, -7, -9
+          0, 951, 0, 778, 19, 0, -10
         ])
       })
     })
@@ -831,13 +831,13 @@ describe('chance-generators', () => {
           expandedGenerator(),
           expandedGenerator()
         ], 'to equal', [
-          { constant: 42, number: 3, string: 'fooblr' },
-          { constant: 42, number: 3, string: 'aFfoobardv' },
-          { constant: 42, number: 3, string: 'foobara' },
-          { constant: 42, number: 4, string: 'jfoobarC' },
+          { constant: 42, number: 3, string: 'n2fSobarhe' },
+          { constant: 42, number: 3, string: 'foobar' },
+          { constant: 42, number: 4, string: 'foobar' },
           { constant: 42, number: 3, string: 'foobar' },
           { constant: 42, number: 3, string: 'foobar' },
-          { constant: 42, number: 4, string: 'ukfoobarF5' }
+          { constant: 42, number: 3, string: 'foobar' },
+          { constant: 42, number: 3, string: 'fSobar' }
         ])
       })
     })
@@ -895,16 +895,18 @@ describe('chance-generators', () => {
         })
       })
 
-      describe('shrink', () => {
+      describe('expand', () => {
         it('returns a new generator where the input is expanded with with regards to the original generator', () => {
           let generator = chance.shape({
-            x: chance.integer({ min: -20, max: 20 }),
-            y: chance.integer({ min: -20, max: 20 })
+            x: chance.integer({ min: -20, max: 200 }),
+            y: chance.integer({ min: -20, max: 200 })
           }).map(coordinate => `${coordinate.x},${coordinate.y}`)
 
-          const expandedGenerator = generator.expand(generator())
+          const value = generator()
+          const expandedGenerator = generator.expand(value)
 
           expect([
+            value,
             expandedGenerator(),
             expandedGenerator(),
             expandedGenerator(),
@@ -912,7 +914,7 @@ describe('chance-generators', () => {
             expandedGenerator(),
             expandedGenerator()
           ], 'to satisfy', [
-            '18,12', '-5,-14', '-14,-18', '15,4', '-5,-20', '-5,12'
+            '62,156', '62,156', '-7,87', '62,200', '11,123', '62,156', '26,156'
           ])
         })
       })
