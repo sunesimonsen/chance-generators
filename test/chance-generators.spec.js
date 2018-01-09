@@ -1,6 +1,7 @@
 /*global describe, it, beforeEach, afterEach*/
-const Chance = require('../lib/chance-generators')
+const Chance = require('../src/chance-generators')
 const expect = require('unexpected')
+const Set = require('es6-set')
 
 expect.addAssertion('<any> [not] to be contained by <array>', (expect, item, array) => {
   expect(array, '[not] to contain', item)

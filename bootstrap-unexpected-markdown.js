@@ -1,3 +1,1 @@
-/* eslint-disable */
-Generators = require('./lib/chance-generators')
-/* eslint-enable */
+global.Generators = require('./src/chance-generators')
