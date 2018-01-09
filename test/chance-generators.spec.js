@@ -540,8 +540,14 @@ describe('chance-generators', () => {
     describe('expand', () => {
       it('returns a new generator that work on the provided data plus random data from the origin generator', () => {
         const valueGenerator = chance.string
+        const valueGenerators = []
+        for (var i = 0; i < 20; i += 1) {
+          valueGenerators.push(valueGenerator)
+        }
+
         const lengthGenerator = chance.integer({ min: 2, max: 20 })
-        const originalGenerator = chance.pickset(Array(20).fill(valueGenerator), lengthGenerator)
+
+        const originalGenerator = chance.pickset(valueGenerators, lengthGenerator)
         const expandedGenerator = originalGenerator.expand(['foo', 'bar', 'baz'])
 
         expect([expandedGenerator(), expandedGenerator(), expandedGenerator(), expandedGenerator()], 'to equal', [

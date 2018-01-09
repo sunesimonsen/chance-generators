@@ -21,6 +21,12 @@
     return target
   }
 
+  var isInteger = Number.isInteger || function isInteger (value) {
+    return typeof value === 'number' &&
+      isFinite(value) &&
+      Math.floor(value) === value
+  }
+
   function getMin (value) {
     if (typeof value === 'number') {
       return value
@@ -634,7 +640,12 @@
           return cacheEntry.generator
         }
 
-        var matchingMagicValues = Array.from(magicValues).filter(predicate)
+        var matchingMagicValues = []
+        magicValues.forEach(v => {
+          if (predicate(v)) {
+            matchingMagicValues.push(v)
+          }
+        })
 
         if (matchingMagicValues.length === 0) {
           return that[baseGeneratorName]
@@ -681,14 +692,14 @@
       return typeof value === 'string'
     })
 
-    createMagicValueGenerator('magicInteger', 'integer', Number.isInteger)
+    createMagicValueGenerator('magicInteger', 'integer', isInteger)
 
     createMagicValueGenerator('magicNatural', 'natural', function (value) {
-      return Number.isInteger(value) && value >= 0
+      return isInteger(value) && value >= 0
     })
 
     createMagicValueGenerator('magicFloating', 'floating', function (value) {
-      return Number.isFinite(value)
+      return isFinite(value)
     })
 
     createMagicValueGenerator('magicNumber', 'floating', function (value) {
