@@ -222,8 +222,8 @@
       }
     };
 
-    function minMaxShrinker(generator, data) {
-      const currentLimits = generator.args[0] || {};
+    function minMaxShrinker({ args, generatorName }, data) {
+      const currentLimits = args[0] || {};
       let limits = extend({}, currentLimits);
 
       const value =
@@ -247,20 +247,20 @@
         return that.constant(data);
       }
 
-      return that[generator.generatorName](limits);
+      return that[generatorName](limits);
     }
 
     const shrinkers = {
-      n(generator, data) {
+      n({ args }, data) {
         if (data.length === 0) {
           return that.constant(data);
         }
 
-        const length = generator.args[1];
+        const length = args[1];
 
         const minLength = getMinNatural(length);
 
-        const dataGenerator = generator.args[0];
+        const dataGenerator = args[0];
         if (dataGenerator.shrink) {
           return that.arraySplicer(data.map(dataGenerator.shrink), {
             min: minLength
@@ -279,34 +279,28 @@
       pickone(generator, data) {
         return that.constant(data);
       },
-      pickset(generator, data) {
+      pickset({ args, lastValue, lastUnwrappedValue }, data) {
         if (data.length === 0) {
           return that.constant(data);
         }
 
         let shrinkable = false;
-        let count = generator.args[1];
+        let count = args[1];
         if (count && count.shrink) {
           shrinkable = true;
           count = count.shrink(data.length);
         }
 
-        const shrinkableData = (generator.lastValue || []).some(
-          g => g && g.shrink
-        );
+        const shrinkableData = (lastValue || []).some(g => g && g.shrink);
 
         shrinkable = shrinkable || shrinkableData;
 
-        if (
-          shrinkableData &&
-          data.length < 10 &&
-          generator.lastUnwrappedValue === data
-        ) {
-          data = generator.lastValue.map(
+        if (shrinkableData && data.length < 10 && lastUnwrappedValue === data) {
+          data = lastValue.map(
             (g, i) => (g && g.shrink ? g.shrink(data[i]) : data[i])
           );
         } else {
-          data = generator.lastValue;
+          data = lastValue;
         }
 
         if (!shrinkable) {
@@ -315,18 +309,18 @@
 
         return that.pickset(data, count);
       },
-      unique(generator, data) {
+      unique({ args }, data) {
         if (data.length === 0) {
           return that.constant(data);
         }
 
-        const count = generator.args[1];
+        const count = args[1];
         const minCount = getMinNatural(count);
 
         return that.arraySplicer(data, { min: minCount });
       },
-      shape(generator, data) {
-        const shapeGenerators = generator.args[0];
+      shape({ args }, data) {
+        const shapeGenerators = args[0];
         let shrunk = false;
         const newShape = Object.keys(shapeGenerators).reduce((result, key) => {
           const entry = shapeGenerators[key];
@@ -346,8 +340,8 @@
           return that.constant(data);
         }
       },
-      string(generator, data) {
-        const options = generator.args[0] || {};
+      string({ args }, data) {
+        const options = args[0] || {};
 
         if (data.length === 0) {
           return that.constant(data);
@@ -358,11 +352,10 @@
 
         return that.stringSplicer(data, { min: minLength });
       },
-      weighted(generator, data) {
-        const shrinkable =
-          generator.lastUnwrappedValue === data && generator.lastValue.shrink;
+      weighted({ lastUnwrappedValue, lastValue }, data) {
+        const shrinkable = lastUnwrappedValue === data && lastValue.shrink;
         if (shrinkable) {
-          return generator.lastValue.shrink(data);
+          return lastValue.shrink(data);
         } else {
           return that.constant(data);
         }
@@ -396,10 +389,10 @@
     }
 
     const expanders = {
-      n(generator, data) {
-        const dataGenerator = generator.args[0];
-        const count = generator.args[1];
-        const options = generator.args[2];
+      n({ args }, data) {
+        const dataGenerator = args[0];
+        const count = args[1];
+        const options = args[2];
 
         return that.pickset([dataGenerator].concat(data), count, options);
       },
@@ -470,8 +463,8 @@
           return result;
         });
       },
-      shape(generator, data) {
-        const shapeGenerators = generator.args[0];
+      shape({ args }, data) {
+        const shapeGenerators = args[0];
         const newShape = Object.keys(shapeGenerators).reduce((result, key) => {
           const entry = shapeGenerators[key];
           if (entry && typeof entry.expand === "function") {
@@ -485,11 +478,10 @@
 
         return that.pickone([that.shape(newShape), that.constant(data)]);
       },
-      weighted(generator, data) {
-        const expandable =
-          generator.lastUnwrappedValue === data && generator.lastValue.expand;
+      weighted({ lastUnwrappedValue, lastValue }, data) {
+        const expandable = lastUnwrappedValue === data && lastValue.expand;
         if (expandable) {
-          return generator.lastValue.expand(data);
+          return lastValue.expand(data);
         } else {
           return that.constant(data);
         }
@@ -851,16 +843,16 @@
         return g.lastValue;
       });
 
-      g.shrink = data => {
-        if (data.length === 0) {
+      g.shrink = ({ length }) => {
+        if (length === 0) {
           return that.constant([]);
         }
 
         let count = g.args[1];
         if (count && count.shrink) {
-          count = count.shrink(data.length);
+          count = count.shrink(length);
         } else {
-          count = data.length;
+          count = length;
         }
         const valueGenerator = g.args[0];
         return that.sequence(valueGenerator, count);
