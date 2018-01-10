@@ -118,7 +118,7 @@
       generator.map = f => {
         let lastValue, lastMappedValue;
         const mapGenerator = generatorFunction(
-          generator.generatorName + ".map",
+          `${generator.generatorName}.map`,
           [],
           () => {
             lastValue = generator();
