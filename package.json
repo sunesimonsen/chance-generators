@@ -12,10 +12,9 @@
     "build": "babel --out-dir lib --quiet src",
     "coverage": "istanbul cover node_modules/.bin/_mocha",
     "generate-site": "generate-site --require ./bootstrap-unexpected-markdown.js",
-    "lint": "eslint src test",
     "lint-staged": "lint-staged",
     "prepare": "npm run build",
-    "test": "mocha ./documentation/**/*.md ./test/**/*.js && npm run lint",
+    "test": "mocha ./documentation/**/*.md ./test/**/*.js",
     "update-examples": "generate-site --require ./bootstrap-unexpected-markdown.js --update-examples"
   },
   "dependencies": {
