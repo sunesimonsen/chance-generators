@@ -526,9 +526,8 @@
 
       var g = generatorFunction(name, args, (...options) => {
         if (options.length === 0) {
-          return chance[name].apply(
-            chance,
-            args.map((arg, i) => (omitUnwrapIndex[i] ? arg : unwrap(arg)))
+          return chance[name](
+            ...args.map((arg, i) => (omitUnwrapIndex[i] ? arg : unwrap(arg)))
           );
         } else {
           return createGenerator(name, options);
