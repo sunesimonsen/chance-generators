@@ -191,7 +191,7 @@
             var comparator = options && options.comparator;
             return comparator
               ? chance.unique(() => generator(), unwrap(count), {
-                  comparator: comparator
+                  comparator
                 })
               : chance.unique(generator, unwrap(count));
           }
@@ -701,7 +701,7 @@
 
         generatorCache[name] = {
           size: magicValues.size,
-          generator: generator
+          generator
         };
 
         return generator;
