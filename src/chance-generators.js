@@ -1,5 +1,5 @@
 /*global define*/
-(function(root, factory) {
+((root, factory) => {
   if (typeof exports === "object") {
     module.exports = factory(require("chance"));
   } else if (typeof define === "function" && define.amd) {
@@ -8,16 +8,15 @@
     root.weknowhow = root.weknowhow || {};
     root.weknowhow.chanceGenerators = factory(root.chance);
   }
-})(this, function(Chance) {
-  function extend(target) {
-    for (var i = 1; i < arguments.length; i += 1) {
-      var source = arguments[i];
+})(this, Chance => {
+  function extend(target, ...sources) {
+    sources.forEach(source => {
       if (source) {
-        Object.keys(source).forEach(function(key) {
+        Object.keys(source).forEach(key => {
           target[key] = source[key];
         });
       }
-    }
+    });
     return target;
   }
 
@@ -73,7 +72,7 @@
     if (Array.isArray(v)) {
       return v.map(unwrap);
     } else if (v && typeof v === "object" && v.constructor === Object) {
-      return Object.keys(v).reduce(function(result, key) {
+      return Object.keys(v).reduce((result, key) => {
         result[key] = unwrap(v[key]);
         return result;
       }, {});
@@ -92,7 +91,7 @@
 
     // Fix that pick provided a count of zero or one does not return an array
     var originalPick = Chance.prototype.pick;
-    chance.pick = function(array, count) {
+    chance.pick = (array, count) => {
       if (count === 0) {
         return [];
       }
@@ -104,27 +103,23 @@
       return originalPick.call(chance, array, count);
     };
 
-    chance.shape = function(data) {
-      return unwrap(data);
-    };
+    chance.shape = data => unwrap(data);
 
     function generatorFunction(name, args, f) {
       f.isGenerator = true;
       f.generatorName = name;
       f.args = args;
-      f.toString = function() {
-        return name;
-      };
+      f.toString = () => name;
       return f;
     }
 
     function installMapFunction(generator) {
-      generator.map = function(f) {
+      generator.map = f => {
         var lastValue, lastMappedValue;
         var mapGenerator = generatorFunction(
           generator.generatorName + ".map",
           [],
-          function() {
+          () => {
             lastValue = generator();
             lastMappedValue = unwrap(f(lastValue, that));
             return lastMappedValue;
@@ -136,7 +131,7 @@
         mapGenerator.mapFunction = f;
 
         if (generator.shrink) {
-          mapGenerator.shrink = function(value) {
+          mapGenerator.shrink = value => {
             if (value === lastMappedValue) {
               return generator.shrink(lastValue).map(f);
             } else {
@@ -146,7 +141,7 @@
         }
 
         if (generator.expand) {
-          mapGenerator.expand = function(value) {
+          mapGenerator.expand = value => {
             if (value === lastMappedValue) {
               return generator.expand(lastValue).map(f);
             } else {
@@ -169,7 +164,7 @@
         var picksetGenerator = generatorFunction(
           "pickset",
           [data, count],
-          function() {
+          () => {
             picksetGenerator.lastValue = chance.pickset(data, unwrap(count));
             picksetGenerator.lastUnwrappedValue = unwrap(
               picksetGenerator.lastValue
@@ -180,13 +175,11 @@
 
         installMapFunction(picksetGenerator);
 
-        picksetGenerator.shrink = function(data) {
-          return shrinkers.pickset(picksetGenerator, data);
-        };
+        picksetGenerator.shrink = data =>
+          shrinkers.pickset(picksetGenerator, data);
 
-        picksetGenerator.expand = function(data) {
-          return expanders.pickset(picksetGenerator, data);
-        };
+        picksetGenerator.expand = data =>
+          expanders.pickset(picksetGenerator, data);
 
         return picksetGenerator;
       },
@@ -194,48 +187,35 @@
         var uniqueGenerator = generatorFunction(
           "unique",
           [generator, count],
-          function() {
+          () => {
             var comparator = options && options.comparator;
             return comparator
-              ? chance.unique(
-                  function() {
-                    return generator();
-                  },
-                  unwrap(count),
-                  { comparator: comparator }
-                )
+              ? chance.unique(() => generator(), unwrap(count), {
+                  comparator: comparator
+                })
               : chance.unique(generator, unwrap(count));
           }
         );
 
         installMapFunction(uniqueGenerator);
 
-        uniqueGenerator.shrink = function(data) {
-          return shrinkers.unique(uniqueGenerator, data);
-        };
+        uniqueGenerator.shrink = data =>
+          shrinkers.unique(uniqueGenerator, data);
 
         return uniqueGenerator;
       },
       weighted: function(data, weights) {
-        var generator = generatorFunction(
-          "weighted",
-          [data, weights],
-          function() {
-            generator.lastValue = chance.weighted(data, weights);
-            generator.lastUnwrappedValue = unwrap(generator.lastValue);
-            return generator.lastUnwrappedValue;
-          }
-        );
+        var generator = generatorFunction("weighted", [data, weights], () => {
+          generator.lastValue = chance.weighted(data, weights);
+          generator.lastUnwrappedValue = unwrap(generator.lastValue);
+          return generator.lastUnwrappedValue;
+        });
 
         installMapFunction(generator);
 
-        generator.shrink = function(data) {
-          return shrinkers.weighted(generator, data);
-        };
+        generator.shrink = data => shrinkers.weighted(generator, data);
 
-        generator.expand = function(data) {
-          return expanders.weighted(generator, data);
-        };
+        generator.expand = data => expanders.weighted(generator, data);
 
         return generator;
       }
@@ -310,9 +290,9 @@
           count = count.shrink(data.length);
         }
 
-        var shrinkableData = (generator.lastValue || []).some(function(g) {
-          return g && g.shrink;
-        });
+        var shrinkableData = (generator.lastValue || []).some(
+          g => g && g.shrink
+        );
 
         shrinkable = shrinkable || shrinkableData;
 
@@ -321,9 +301,9 @@
           data.length < 10 &&
           generator.lastUnwrappedValue === data
         ) {
-          data = generator.lastValue.map(function(g, i) {
-            return g && g.shrink ? g.shrink(data[i]) : data[i];
-          });
+          data = generator.lastValue.map(
+            (g, i) => (g && g.shrink ? g.shrink(data[i]) : data[i])
+          );
         } else {
           data = generator.lastValue;
         }
@@ -347,10 +327,7 @@
       shape: function(generator, data) {
         var shapeGenerators = generator.args[0];
         var shrunk = false;
-        var newShape = Object.keys(shapeGenerators).reduce(function(
-          result,
-          key
-        ) {
+        var newShape = Object.keys(shapeGenerators).reduce((result, key) => {
           var entry = shapeGenerators[key];
           if (entry && typeof entry.shrink === "function") {
             shrunk = true;
@@ -360,8 +337,7 @@
           }
 
           return result;
-        },
-        {});
+        }, {});
 
         if (shrunk) {
           return that.shape(newShape);
@@ -409,9 +385,9 @@
       return that.weighted(
         [
           that.constant(data),
-          that.constant(data).map(function(value) {
-            return Math.max(Math.min(value + margin(), max), min);
-          }),
+          that
+            .constant(data)
+            .map(value => Math.max(Math.min(value + margin(), max), min)),
           generator
         ],
         [2, 1, 2]
@@ -427,7 +403,7 @@
         return that.pickset([dataGenerator].concat(data), count, options);
       },
       string: function(generator, data) {
-        return generator.map(function(text) {
+        return generator.map(text => {
           var margin = Math.max(
             Math.min(
               Math.floor((text.length - data.length) / 2),
@@ -465,7 +441,7 @@
         });
       },
       pickset: function(generator, data) {
-        return generator.map(function(items) {
+        return generator.map(items => {
           var margin = Math.max(
             Math.min(
               Math.floor((items.length - data.length) / 2),
@@ -495,10 +471,7 @@
       },
       shape: function(generator, data) {
         var shapeGenerators = generator.args[0];
-        var newShape = Object.keys(shapeGenerators).reduce(function(
-          result,
-          key
-        ) {
+        var newShape = Object.keys(shapeGenerators).reduce((result, key) => {
           var entry = shapeGenerators[key];
           if (entry && typeof entry.expand === "function") {
             result[key] = entry.expand(data[key]);
@@ -507,8 +480,7 @@
           }
 
           return result;
-        },
-        {});
+        }, {});
 
         return that.pickone([that.shape(newShape), that.constant(data)]);
       },
@@ -529,9 +501,9 @@
         return that.weighted(
           [
             that.constant(data),
-            that.constant(data).map(function(value) {
-              return Math.max(Math.min(value + margin(), max), min);
-            }),
+            that
+              .constant(data)
+              .map(value => Math.max(Math.min(value + margin(), max), min)),
             generator
           ],
           [2, 1, 2]
@@ -546,45 +518,35 @@
       var omitUnwrapIndex = {};
 
       omitUnwap &&
-        args.forEach(function(arg, i) {
+        args.forEach((arg, i) => {
           if (omitUnwap.indexOf(arg) !== -1) {
             omitUnwrapIndex[i] = true;
           }
         });
 
-      var g = generatorFunction(name, args, function() {
-        if (arguments.length === 0) {
+      var g = generatorFunction(name, args, (...options) => {
+        if (options.length === 0) {
           return chance[name].apply(
             chance,
-            args.map(function(arg, i) {
-              return omitUnwrapIndex[i] ? arg : unwrap(arg);
-            })
+            args.map((arg, i) => (omitUnwrapIndex[i] ? arg : unwrap(arg)))
           );
         } else {
-          return createGenerator(name, Array.prototype.slice.call(arguments));
+          return createGenerator(name, options);
         }
       });
 
       var shrinker = shrinkers[name];
       if (shrinker) {
-        g.shrink = function(data) {
-          return shrinker(g, data);
-        };
+        g.shrink = data => shrinker(g, data);
       } else {
-        g.shrink = function(data) {
-          return that.constant(data);
-        };
+        g.shrink = data => that.constant(data);
       }
 
       var expander = expanders[name];
       if (expander) {
-        g.expand = function(data) {
-          return expander(g, data);
-        };
+        g.expand = data => expander(g, data);
       } else {
-        g.expand = function(data) {
-          return that.pickone([g, that.constant(data)]);
-        };
+        g.expand = data => that.pickone([g, that.constant(data)]);
       }
 
       installMapFunction(g);
@@ -592,7 +554,7 @@
       return g;
     }
 
-    ["shape"].concat(Object.keys(Chance.prototype)).forEach(function(key) {
+    ["shape"].concat(Object.keys(Chance.prototype)).forEach(key => {
       var property = chance[key];
       if (typeof property === "function") {
         if (overrides[key]) {
@@ -606,51 +568,48 @@
       }
     });
 
-    that.identity = that.constant = generatorFunction("constant", [], function(
-      data
-    ) {
-      var constantGenerator = generatorFunction("constant", [data], function() {
-        return data;
-      });
+    that.identity = that.constant = generatorFunction("constant", [], data => {
+      var constantGenerator = generatorFunction("constant", [data], () => data);
 
       installMapFunction(constantGenerator);
 
       return constantGenerator;
     });
 
-    that.stringSplicer = generatorFunction("stringSplicer", [], function(
-      text,
-      options
-    ) {
-      if (typeof text !== "string") {
-        throw new Error(
-          "The stringSplicer requires a string as the first argument"
-        );
-      }
-
-      var min = (options || {}).min || 0;
-
-      var g = generatorFunction("stringSplicer", [text, options], function() {
-        var from = chance.natural({ max: text.length });
-        var length = chance.natural({ max: text.length - min });
-
-        return text.slice(0, from) + text.slice(from + length);
-      });
-
-      g.shrink = function(data) {
-        if (data.length === min) {
-          return that.constant(data);
+    that.stringSplicer = generatorFunction(
+      "stringSplicer",
+      [],
+      (text, options) => {
+        if (typeof text !== "string") {
+          throw new Error(
+            "The stringSplicer requires a string as the first argument"
+          );
         }
 
-        return that.stringSplicer(data, options);
-      };
+        var min = (options || {}).min || 0;
 
-      installMapFunction(g);
+        var g = generatorFunction("stringSplicer", [text, options], () => {
+          var from = chance.natural({ max: text.length });
+          var length = chance.natural({ max: text.length - min });
 
-      return g;
-    });
+          return text.slice(0, from) + text.slice(from + length);
+        });
 
-    that.array = generatorFunction("array", [], function(generator, count) {
+        g.shrink = data => {
+          if (data.length === min) {
+            return that.constant(data);
+          }
+
+          return that.stringSplicer(data, options);
+        };
+
+        installMapFunction(g);
+
+        return g;
+      }
+    );
+
+    that.array = generatorFunction("array", [], (generator, count) => {
       if (typeof count === "undefined") {
         return that.n(generator, that.natural({ max: 50 }));
       } else {
@@ -658,57 +617,56 @@
       }
     });
 
-    that.arraySplicer = generatorFunction("arraySplicer", [], function(
-      array,
-      options
-    ) {
-      if (!Array.isArray(array)) {
-        throw new Error(
-          "The arraySplicer requires an array as the first argument"
-        );
-      }
+    that.arraySplicer = generatorFunction(
+      "arraySplicer",
+      [],
+      (array, options) => {
+        if (!Array.isArray(array)) {
+          throw new Error(
+            "The arraySplicer requires an array as the first argument"
+          );
+        }
 
-      var min = (options || {}).min || 0;
+        var min = (options || {}).min || 0;
 
-      var g = generatorFunction("arraySplicer", [array, options], function() {
-        var from = chance.natural({ max: array.length });
-        var length = chance.natural({ max: array.length - min });
+        var g = generatorFunction("arraySplicer", [array, options], () => {
+          var from = chance.natural({ max: array.length });
+          var length = chance.natural({ max: array.length - min });
 
-        g.lastValue = array.slice();
-        g.lastValue.splice(from, length);
-        g.lastUnwrappedValue = unwrap(g.lastValue);
+          g.lastValue = array.slice();
+          g.lastValue.splice(from, length);
+          g.lastUnwrappedValue = unwrap(g.lastValue);
 
-        return g.lastUnwrappedValue;
-      });
-
-      g.shrink = function(data) {
-        var shrinkableData = (g.lastValue || []).some(function(g) {
-          return g && g.shrink;
+          return g.lastUnwrappedValue;
         });
 
-        if (!shrinkableData && data.length === min) {
-          return that.constant(data);
-        }
+        g.shrink = data => {
+          var shrinkableData = (g.lastValue || []).some(g => g && g.shrink);
 
-        if (
-          shrinkableData &&
-          data.length < 10 &&
-          g.lastUnwrappedValue === data
-        ) {
-          data = g.lastValue.map(function(g, i) {
-            return g && g.shrink ? g.shrink(data[i]) : data[i];
-          });
-        } else {
-          data = g.lastValue;
-        }
+          if (!shrinkableData && data.length === min) {
+            return that.constant(data);
+          }
 
-        return that.arraySplicer(data, options);
-      };
+          if (
+            shrinkableData &&
+            data.length < 10 &&
+            g.lastUnwrappedValue === data
+          ) {
+            data = g.lastValue.map(
+              (g, i) => (g && g.shrink ? g.shrink(data[i]) : data[i])
+            );
+          } else {
+            data = g.lastValue;
+          }
 
-      installMapFunction(g);
+          return that.arraySplicer(data, options);
+        };
 
-      return g;
-    });
+        installMapFunction(g);
+
+        return g;
+      }
+    );
 
     function hasMagicValues() {
       return (
@@ -750,7 +708,7 @@
         return generator;
       }
 
-      that[name] = generatorFunction(name, [], function() {
+      that[name] = generatorFunction(name, [], () => {
         if (!hasMagicValues()) {
           return that[baseGeneratorName]();
         }
@@ -764,36 +722,38 @@
 
       var shrinker = shrinkers[baseGeneratorName];
       if (shrinker) {
-        that[name].shrink = function(data) {
-          return shrinker(that[baseGeneratorName], data);
-        };
+        that[name].shrink = data => shrinker(that[baseGeneratorName], data);
       }
 
       var expander = expanders[baseGeneratorName];
       if (expander) {
-        that[name].expand = function(data) {
-          return expander(that[baseGeneratorName], data);
-        };
+        that[name].expand = data => expander(that[baseGeneratorName], data);
       }
     }
 
-    createMagicValueGenerator("magicString", "string", function(value) {
-      return typeof value === "string";
-    });
+    createMagicValueGenerator(
+      "magicString",
+      "string",
+      value => typeof value === "string"
+    );
 
     createMagicValueGenerator("magicInteger", "integer", isInteger);
 
-    createMagicValueGenerator("magicNatural", "natural", function(value) {
-      return isInteger(value) && value >= 0;
-    });
+    createMagicValueGenerator(
+      "magicNatural",
+      "natural",
+      value => isInteger(value) && value >= 0
+    );
 
-    createMagicValueGenerator("magicFloating", "floating", function(value) {
-      return isFinite(value);
-    });
+    createMagicValueGenerator("magicFloating", "floating", value =>
+      isFinite(value)
+    );
 
-    createMagicValueGenerator("magicNumber", "floating", function(value) {
-      return typeof value === "number";
-    });
+    createMagicValueGenerator(
+      "magicNumber",
+      "floating",
+      value => typeof value === "number"
+    );
 
     function getTextGenerator() {
       var shortString = that.string({ length: that.natural({ max: 7 }) });
@@ -811,15 +771,13 @@
               that.weighted([that.magicString, shortString], [60, 40]),
               that.natural({ max: 10 })
             )
-            .map(function(strings) {
-              return strings.join("");
-            })
+            .map(strings => strings.join(""))
         ],
         [20, 20, 10, 10, 10, 10, 5]
       );
     }
 
-    that.text = generatorFunction("text", [], function() {
+    that.text = generatorFunction("text", [], () => {
       var g = getTextGenerator();
 
       return g();
@@ -827,13 +785,9 @@
 
     installMapFunction(that.text);
 
-    that.text.shrink = function(data) {
-      return shrinkers.string(that.string, data);
-    };
+    that.text.shrink = data => shrinkers.string(that.string, data);
 
-    that.text.expand = function(data) {
-      return expanders.string(that.string, data);
-    };
+    that.text.expand = data => expanders.string(that.string, data);
 
     function getNumberGenerator() {
       var smallFloat = that.floating({ min: -100, max: 100 });
@@ -851,18 +805,14 @@
           that.floating,
           that.magicNumber,
           that.magicInteger,
-          that.magicInteger.map(function(value) {
-            return value + 1;
-          }),
-          that.magicInteger.map(function(value) {
-            return value - 1;
-          })
+          that.magicInteger.map(value => value + 1),
+          that.magicInteger.map(value => value - 1)
         ],
         [30, 30, 20, 20, 5, 5, 10, 5, 5, 5]
       );
     }
 
-    that.number = generatorFunction("number", [], function() {
+    that.number = generatorFunction("number", [], () => {
       var g = getNumberGenerator();
 
       return g();
@@ -870,27 +820,19 @@
 
     installMapFunction(that.number);
 
-    that.number.shrink = function(data) {
-      return shrinkers.floating(that.floating, data);
-    };
+    that.number.shrink = data => shrinkers.floating(that.floating, data);
 
-    that.number.expand = function(data) {
-      return expanders.number(that.number, data);
-    };
+    that.number.expand = data => expanders.number(that.number, data);
 
-    that.sequence = generatorFunction("sequence", [], function(
-      fn,
-      count,
-      options
-    ) {
+    that.sequence = generatorFunction("sequence", [], (fn, count, options) => {
       count = typeof count === "undefined" ? that.natural({ max: 50 }) : count;
 
-      var g = generatorFunction("sequence", [fn, count], function() {
+      var g = generatorFunction("sequence", [fn, count], () => {
         options = options || {};
         var context = options.context || {};
         g.lastContext = context;
         var previous = "previous" in options ? options.previous : null;
-        var valueGenerator = function() {
+        var valueGenerator = () => {
           var result =
             previous === null
               ? unwrap(fn(context))
@@ -905,7 +847,7 @@
         return g.lastValue;
       });
 
-      g.shrink = function(data) {
+      g.shrink = data => {
         if (data.length === 0) {
           return that.constant([]);
         }
@@ -920,7 +862,7 @@
         return that.sequence(valueGenerator, count);
       };
 
-      g.expand = function(data) {
+      g.expand = data => {
         var count = g.args[1];
 
         if (g.lastValue !== data || !options.resumable) {
@@ -939,9 +881,7 @@
             previous: data[data.length - 1],
             resumable: true
           })
-          .map(function(items) {
-            return data.concat(items);
-          });
+          .map(items => data.concat(items));
       };
 
       installMapFunction(g);
