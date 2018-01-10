@@ -1,26 +1,23 @@
 {
   "name": "chance-generators",
-  "version": "2.11.0",
   "description": "Random generators based on changejs",
   "author": "Sune Simonsen",
-  "keywords": [
-    "testing",
-    "random"
-  ],
   "license": "MIT",
+  "version": "2.11.0",
   "main": "lib/chance-generators.js",
-  "scripts": {
-    "coverage": "istanbul cover node_modules/.bin/_mocha",
-    "build": "babel --out-dir lib --quiet src",
-    "prepare": "npm run build",
-    "lint": "standard",
-    "test": "mocha ./documentation/**/*.md ./test/**/*.js && npm run lint",
-    "generate-site": "generate-site --require ./bootstrap-unexpected-markdown.js",
-    "update-examples": "generate-site --require ./bootstrap-unexpected-markdown.js --update-examples"
-  },
   "files": [
     "lib"
   ],
+  "scripts": {
+    "build": "babel --out-dir lib --quiet src",
+    "coverage": "istanbul cover node_modules/.bin/_mocha",
+    "generate-site": "generate-site --require ./bootstrap-unexpected-markdown.js",
+    "lint": "standard",
+    "lint-staged": "lint-staged",
+    "prepare": "npm run build",
+    "test": "mocha ./documentation/**/*.md ./test/**/*.js && npm run lint",
+    "update-examples": "generate-site --require ./bootstrap-unexpected-markdown.js --update-examples"
+  },
   "dependencies": {
     "chance": "1.0.1"
   },
@@ -29,12 +26,36 @@
     "babel-core": "6.26.0",
     "babel-preset-es2015": "6.24.1",
     "es6-set": "0.1.5",
+    "eslint": "4.4.1",
+    "eslint-config-pretty-standard": "0.2.2",
     "istanbul": "0.4.2",
     "javascript-state-machine": "2.3.5",
+    "lint-staged": "4.0.3",
     "mocha": "3.5.3",
+    "pre-commit": "1.2.2",
+    "prettier": "1.10.1",
+    "prettier-package-json": "1.4.0",
     "standard": "5.4.1",
     "unexpected": "10.33.2",
     "unexpected-documentation-site-generator": "4.2.0",
     "unexpected-markdown": "1.6.1"
-  }
+  },
+  "keywords": [
+    "random",
+    "testing"
+  ],
+  "lint-staged": {
+    "linters": {
+      "*.js": [
+        "eslint",
+        "prettier --write",
+        "git add"
+      ],
+      "package.json": [
+        "prettier-package-json --write",
+        "git add"
+      ]
+    }
+  },
+  "pre-commit": "lint-staged"
 }
