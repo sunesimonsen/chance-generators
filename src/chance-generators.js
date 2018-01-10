@@ -157,10 +157,10 @@
     }
 
     var overrides = {
-      n: function(generator, count) {
+      n(generator, count) {
         return createGenerator("n", [generator, count], [generator]);
       },
-      pickset: function(data, count) {
+      pickset(data, count) {
         var picksetGenerator = generatorFunction(
           "pickset",
           [data, count],
@@ -183,7 +183,7 @@
 
         return picksetGenerator;
       },
-      unique: function(generator, count, options) {
+      unique(generator, count, options) {
         var uniqueGenerator = generatorFunction(
           "unique",
           [generator, count],
@@ -204,7 +204,7 @@
 
         return uniqueGenerator;
       },
-      weighted: function(data, weights) {
+      weighted(data, weights) {
         var generator = generatorFunction("weighted", [data, weights], () => {
           generator.lastValue = chance.weighted(data, weights);
           generator.lastUnwrappedValue = unwrap(generator.lastValue);
@@ -250,7 +250,7 @@
     }
 
     var shrinkers = {
-      n: function(generator, data) {
+      n(generator, data) {
         if (data.length === 0) {
           return that.constant(data);
         }
@@ -268,17 +268,17 @@
           return that.arraySplicer(data, { min: minLength });
         }
       },
-      pick: function(generator, data) {
+      pick(generator, data) {
         if (Array.isArray(data)) {
           return shrinkers.pickset(generator, data);
         } else {
           return shrinkers.pickone(generator, data);
         }
       },
-      pickone: function(generator, data) {
+      pickone(generator, data) {
         return that.constant(data);
       },
-      pickset: function(generator, data) {
+      pickset(generator, data) {
         if (data.length === 0) {
           return that.constant(data);
         }
@@ -314,7 +314,7 @@
 
         return that.pickset(data, count);
       },
-      unique: function(generator, data) {
+      unique(generator, data) {
         if (data.length === 0) {
           return that.constant(data);
         }
@@ -324,7 +324,7 @@
 
         return that.arraySplicer(data, { min: minCount });
       },
-      shape: function(generator, data) {
+      shape(generator, data) {
         var shapeGenerators = generator.args[0];
         var shrunk = false;
         var newShape = Object.keys(shapeGenerators).reduce((result, key) => {
@@ -345,7 +345,7 @@
           return that.constant(data);
         }
       },
-      string: function(generator, data) {
+      string(generator, data) {
         var options = generator.args[0] || {};
 
         if (data.length === 0) {
@@ -357,7 +357,7 @@
 
         return that.stringSplicer(data, { min: minLength });
       },
-      weighted: function(generator, data) {
+      weighted(generator, data) {
         var shrinkable =
           generator.lastUnwrappedValue === data && generator.lastValue.shrink;
         if (shrinkable) {
@@ -395,14 +395,14 @@
     }
 
     var expanders = {
-      n: function(generator, data) {
+      n(generator, data) {
         var dataGenerator = generator.args[0];
         var count = generator.args[1];
         var options = generator.args[2];
 
         return that.pickset([dataGenerator].concat(data), count, options);
       },
-      string: function(generator, data) {
+      string(generator, data) {
         return generator.map(text => {
           var margin = Math.max(
             Math.min(
@@ -440,7 +440,7 @@
           return result.join("");
         });
       },
-      pickset: function(generator, data) {
+      pickset(generator, data) {
         return generator.map(items => {
           var margin = Math.max(
             Math.min(
@@ -469,7 +469,7 @@
           return result;
         });
       },
-      shape: function(generator, data) {
+      shape(generator, data) {
         var shapeGenerators = generator.args[0];
         var newShape = Object.keys(shapeGenerators).reduce((result, key) => {
           var entry = shapeGenerators[key];
@@ -484,7 +484,7 @@
 
         return that.pickone([that.shape(newShape), that.constant(data)]);
       },
-      weighted: function(generator, data) {
+      weighted(generator, data) {
         var expandable =
           generator.lastUnwrappedValue === data && generator.lastValue.expand;
         if (expandable) {
@@ -493,7 +493,7 @@
           return that.constant(data);
         }
       },
-      natural: function(generator, data) {
+      natural(generator, data) {
         var min = getMinNatural(generator);
         var max = getMax(generator);
         var margin = that.integer({ min: -100, max: 100 });
