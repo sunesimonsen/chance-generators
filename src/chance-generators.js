@@ -20,7 +20,7 @@
     return target;
   }
 
-  var isInteger =
+  const isInteger =
     Number.isInteger ||
     function isInteger(value) {
       return (
@@ -86,11 +86,12 @@
       return new ExtendedChance(seed);
     }
 
-    var that = this;
-    var chance = typeof seed === "undefined" ? new Chance() : new Chance(seed);
+    const that = this;
+    const chance =
+      typeof seed === "undefined" ? new Chance() : new Chance(seed);
 
     // Fix that pick provided a count of zero or one does not return an array
-    var originalPick = Chance.prototype.pick;
+    const originalPick = Chance.prototype.pick;
     chance.pick = (array, count) => {
       if (count === 0) {
         return [];
@@ -115,8 +116,8 @@
 
     function installMapFunction(generator) {
       generator.map = f => {
-        var lastValue, lastMappedValue;
-        var mapGenerator = generatorFunction(
+        let lastValue, lastMappedValue;
+        const mapGenerator = generatorFunction(
           generator.generatorName + ".map",
           [],
           () => {
@@ -156,12 +157,12 @@
       };
     }
 
-    var overrides = {
+    const overrides = {
       n(generator, count) {
         return createGenerator("n", [generator, count], [generator]);
       },
       pickset(data, count) {
-        var picksetGenerator = generatorFunction(
+        const picksetGenerator = generatorFunction(
           "pickset",
           [data, count],
           () => {
@@ -184,11 +185,11 @@
         return picksetGenerator;
       },
       unique(generator, count, options) {
-        var uniqueGenerator = generatorFunction(
+        const uniqueGenerator = generatorFunction(
           "unique",
           [generator, count],
           () => {
-            var comparator = options && options.comparator;
+            const comparator = options && options.comparator;
             return comparator
               ? chance.unique(() => generator(), unwrap(count), {
                   comparator
@@ -205,7 +206,7 @@
         return uniqueGenerator;
       },
       weighted(data, weights) {
-        var generator = generatorFunction("weighted", [data, weights], () => {
+        const generator = generatorFunction("weighted", [data, weights], () => {
           generator.lastValue = chance.weighted(data, weights);
           generator.lastUnwrappedValue = unwrap(generator.lastValue);
           return generator.lastUnwrappedValue;
@@ -222,22 +223,22 @@
     };
 
     function minMaxShrinker(generator, data) {
-      var currentLimits = generator.args[0] || {};
-      var limits = extend({}, currentLimits);
+      const currentLimits = generator.args[0] || {};
+      let limits = extend({}, currentLimits);
 
-      var value =
+      const value =
         typeof data === "string"
           ? parseFloat(data.replace(/^[^\d]*/, ""))
           : data;
 
       if (value < 0 && value < (currentLimits.max || 0)) {
-        var max = currentLimits.max || 0;
+        const max = currentLimits.max || 0;
         limits = {
           min: value,
           max: Math.min(0, max)
         };
       } else if (value > 0 && value > (currentLimits.min || 0)) {
-        var min = currentLimits.min || 0;
+        const min = currentLimits.min || 0;
         limits = {
           min: Math.max(0, min),
           max: value
@@ -249,17 +250,17 @@
       return that[generator.generatorName](limits);
     }
 
-    var shrinkers = {
+    const shrinkers = {
       n(generator, data) {
         if (data.length === 0) {
           return that.constant(data);
         }
 
-        var length = generator.args[1];
+        const length = generator.args[1];
 
-        var minLength = getMinNatural(length);
+        const minLength = getMinNatural(length);
 
-        var dataGenerator = generator.args[0];
+        const dataGenerator = generator.args[0];
         if (dataGenerator.shrink) {
           return that.arraySplicer(data.map(dataGenerator.shrink), {
             min: minLength
@@ -283,14 +284,14 @@
           return that.constant(data);
         }
 
-        var shrinkable = false;
-        var count = generator.args[1];
+        let shrinkable = false;
+        let count = generator.args[1];
         if (count && count.shrink) {
           shrinkable = true;
           count = count.shrink(data.length);
         }
 
-        var shrinkableData = (generator.lastValue || []).some(
+        const shrinkableData = (generator.lastValue || []).some(
           g => g && g.shrink
         );
 
@@ -319,16 +320,16 @@
           return that.constant(data);
         }
 
-        var count = generator.args[1];
-        var minCount = getMinNatural(count);
+        const count = generator.args[1];
+        const minCount = getMinNatural(count);
 
         return that.arraySplicer(data, { min: minCount });
       },
       shape(generator, data) {
-        var shapeGenerators = generator.args[0];
-        var shrunk = false;
-        var newShape = Object.keys(shapeGenerators).reduce((result, key) => {
-          var entry = shapeGenerators[key];
+        const shapeGenerators = generator.args[0];
+        let shrunk = false;
+        const newShape = Object.keys(shapeGenerators).reduce((result, key) => {
+          const entry = shapeGenerators[key];
           if (entry && typeof entry.shrink === "function") {
             shrunk = true;
             result[key] = entry.shrink(data[key]);
@@ -346,19 +347,19 @@
         }
       },
       string(generator, data) {
-        var options = generator.args[0] || {};
+        const options = generator.args[0] || {};
 
         if (data.length === 0) {
           return that.constant(data);
         }
 
-        var length = options.length;
-        var minLength = getMinNatural(length);
+        const length = options.length;
+        const minLength = getMinNatural(length);
 
         return that.stringSplicer(data, { min: minLength });
       },
       weighted(generator, data) {
-        var shrinkable =
+        const shrinkable =
           generator.lastUnwrappedValue === data && generator.lastValue.shrink;
         if (shrinkable) {
           return generator.lastValue.shrink(data);
@@ -378,9 +379,9 @@
     };
 
     function numberExpander(generator, data) {
-      var min = getMin(generator);
-      var max = getMax(generator);
-      var margin = that.integer({ min: -100, max: 100 });
+      const min = getMin(generator);
+      const max = getMax(generator);
+      const margin = that.integer({ min: -100, max: 100 });
 
       return that.weighted(
         [
@@ -394,38 +395,38 @@
       );
     }
 
-    var expanders = {
+    const expanders = {
       n(generator, data) {
-        var dataGenerator = generator.args[0];
-        var count = generator.args[1];
-        var options = generator.args[2];
+        const dataGenerator = generator.args[0];
+        const count = generator.args[1];
+        const options = generator.args[2];
 
         return that.pickset([dataGenerator].concat(data), count, options);
       },
       string(generator, data) {
         return generator.map(text => {
-          var margin = Math.max(
+          const margin = Math.max(
             Math.min(
               Math.floor((text.length - data.length) / 2),
               Math.ceil(data.length * 0.3)
             ),
             0
           );
-          var includeLeftMargin = chance.bool({ likelihood: 70 });
-          var includeRightMargin = chance.bool({ likelihood: 70 });
-          var marginLength =
+          const includeLeftMargin = chance.bool({ likelihood: 70 });
+          const includeRightMargin = chance.bool({ likelihood: 70 });
+          const marginLength =
             (includeLeftMargin ? margin : 0) +
             (includeRightMargin ? margin : 0);
-          var result = new Array(marginLength + data.length);
+          const result = new Array(marginLength + data.length);
 
-          var i = 0;
+          let i = 0;
           if (includeLeftMargin) {
             while (i < margin) {
               result[i] = text[i++];
             }
           }
 
-          for (var j = 0; j < data.length; i++, j++) {
+          for (let j = 0; j < data.length; i++, j++) {
             result[i] = chance.bool({ likelihood: 95 })
               ? data[j]
               : text[i % text.length];
@@ -442,21 +443,21 @@
       },
       pickset(generator, data) {
         return generator.map(items => {
-          var margin = Math.max(
+          const margin = Math.max(
             Math.min(
               Math.floor((items.length - data.length) / 2),
               Math.ceil(data.length * 0.3)
             ),
             0
           );
-          var result = new Array(margin * 2 + data.length);
+          const result = new Array(margin * 2 + data.length);
 
-          var i = 0;
+          let i = 0;
           while (i < margin) {
             result[i] = items[i++];
           }
 
-          for (var j = 0; j < data.length; i++, j++) {
+          for (let j = 0; j < data.length; i++, j++) {
             result[i] = chance.bool({ likelihood: 95 })
               ? data[j]
               : items[i % items.length];
@@ -470,9 +471,9 @@
         });
       },
       shape(generator, data) {
-        var shapeGenerators = generator.args[0];
-        var newShape = Object.keys(shapeGenerators).reduce((result, key) => {
-          var entry = shapeGenerators[key];
+        const shapeGenerators = generator.args[0];
+        const newShape = Object.keys(shapeGenerators).reduce((result, key) => {
+          const entry = shapeGenerators[key];
           if (entry && typeof entry.expand === "function") {
             result[key] = entry.expand(data[key]);
           } else {
@@ -485,7 +486,7 @@
         return that.pickone([that.shape(newShape), that.constant(data)]);
       },
       weighted(generator, data) {
-        var expandable =
+        const expandable =
           generator.lastUnwrappedValue === data && generator.lastValue.expand;
         if (expandable) {
           return generator.lastValue.expand(data);
@@ -494,9 +495,9 @@
         }
       },
       natural(generator, data) {
-        var min = getMinNatural(generator);
-        var max = getMax(generator);
-        var margin = that.integer({ min: -100, max: 100 });
+        const min = getMinNatural(generator);
+        const max = getMax(generator);
+        const margin = that.integer({ min: -100, max: 100 });
 
         return that.weighted(
           [
@@ -515,7 +516,7 @@
     };
 
     function createGenerator(name, args, omitUnwap) {
-      var omitUnwrapIndex = {};
+      const omitUnwrapIndex = {};
 
       omitUnwap &&
         args.forEach((arg, i) => {
@@ -524,7 +525,7 @@
           }
         });
 
-      var g = generatorFunction(name, args, (...options) => {
+      const g = generatorFunction(name, args, (...options) => {
         if (options.length === 0) {
           return chance[name](
             ...args.map((arg, i) => (omitUnwrapIndex[i] ? arg : unwrap(arg)))
@@ -534,14 +535,14 @@
         }
       });
 
-      var shrinker = shrinkers[name];
+      const shrinker = shrinkers[name];
       if (shrinker) {
         g.shrink = data => shrinker(g, data);
       } else {
         g.shrink = data => that.constant(data);
       }
 
-      var expander = expanders[name];
+      const expander = expanders[name];
       if (expander) {
         g.expand = data => expander(g, data);
       } else {
@@ -554,7 +555,7 @@
     }
 
     ["shape"].concat(Object.keys(Chance.prototype)).forEach(key => {
-      var property = chance[key];
+      const property = chance[key];
       if (typeof property === "function") {
         if (overrides[key]) {
           that[key] = generatorFunction(key, [], overrides[key]);
@@ -568,7 +569,11 @@
     });
 
     that.identity = that.constant = generatorFunction("constant", [], data => {
-      var constantGenerator = generatorFunction("constant", [data], () => data);
+      const constantGenerator = generatorFunction(
+        "constant",
+        [data],
+        () => data
+      );
 
       installMapFunction(constantGenerator);
 
@@ -585,11 +590,11 @@
           );
         }
 
-        var min = (options || {}).min || 0;
+        const min = (options || {}).min || 0;
 
-        var g = generatorFunction("stringSplicer", [text, options], () => {
-          var from = chance.natural({ max: text.length });
-          var length = chance.natural({ max: text.length - min });
+        const g = generatorFunction("stringSplicer", [text, options], () => {
+          const from = chance.natural({ max: text.length });
+          const length = chance.natural({ max: text.length - min });
 
           return text.slice(0, from) + text.slice(from + length);
         });
@@ -626,11 +631,11 @@
           );
         }
 
-        var min = (options || {}).min || 0;
+        const min = (options || {}).min || 0;
 
-        var g = generatorFunction("arraySplicer", [array, options], () => {
-          var from = chance.natural({ max: array.length });
-          var length = chance.natural({ max: array.length - min });
+        const g = generatorFunction("arraySplicer", [array, options], () => {
+          const from = chance.natural({ max: array.length });
+          const length = chance.natural({ max: array.length - min });
 
           g.lastValue = array.slice();
           g.lastValue.splice(from, length);
@@ -640,7 +645,7 @@
         });
 
         g.shrink = data => {
-          var shrinkableData = (g.lastValue || []).some(g => g && g.shrink);
+          const shrinkableData = (g.lastValue || []).some(g => g && g.shrink);
 
           if (!shrinkableData && data.length === min) {
             return that.constant(data);
@@ -675,18 +680,18 @@
       );
     }
 
-    var generatorCache = {};
+    const generatorCache = {};
 
     function createMagicValueGenerator(name, baseGeneratorName, predicate) {
       function createGenerator() {
-        var magicValues = global.recordLocation.magicValues;
+        const magicValues = global.recordLocation.magicValues;
 
-        var cacheEntry = generatorCache[name];
+        const cacheEntry = generatorCache[name];
         if (cacheEntry && cacheEntry.size === magicValues.size) {
           return cacheEntry.generator;
         }
 
-        var matchingMagicValues = [];
+        const matchingMagicValues = [];
         magicValues.forEach(v => {
           if (predicate(v)) {
             matchingMagicValues.push(v);
@@ -697,7 +702,7 @@
           return that[baseGeneratorName];
         }
 
-        var generator = that.pickone(matchingMagicValues);
+        const generator = that.pickone(matchingMagicValues);
 
         generatorCache[name] = {
           size: magicValues.size,
@@ -712,19 +717,19 @@
           return that[baseGeneratorName]();
         }
 
-        var generator = createGenerator();
+        const generator = createGenerator();
 
         return generator();
       });
 
       installMapFunction(that[name]);
 
-      var shrinker = shrinkers[baseGeneratorName];
+      const shrinker = shrinkers[baseGeneratorName];
       if (shrinker) {
         that[name].shrink = data => shrinker(that[baseGeneratorName], data);
       }
 
-      var expander = expanders[baseGeneratorName];
+      const expander = expanders[baseGeneratorName];
       if (expander) {
         that[name].expand = data => expander(that[baseGeneratorName], data);
       }
@@ -755,7 +760,7 @@
     );
 
     function getTextGenerator() {
-      var shortString = that.string({ length: that.natural({ max: 7 }) });
+      const shortString = that.string({ length: that.natural({ max: 7 }) });
 
       return that.weighted(
         [
@@ -777,7 +782,7 @@
     }
 
     that.text = generatorFunction("text", [], () => {
-      var g = getTextGenerator();
+      const g = getTextGenerator();
 
       return g();
     });
@@ -789,10 +794,10 @@
     that.text.expand = data => expanders.string(that.string, data);
 
     function getNumberGenerator() {
-      var smallFloat = that.floating({ min: -100, max: 100 });
-      var smallInteger = that.integer({ min: -100, max: 100 });
-      var mediumFloat = that.floating({ min: -10000, max: 10000 });
-      var mediumInteger = that.integer({ min: -10000, max: 10000 });
+      const smallFloat = that.floating({ min: -100, max: 100 });
+      const smallInteger = that.integer({ min: -100, max: 100 });
+      const mediumFloat = that.floating({ min: -10000, max: 10000 });
+      const mediumInteger = that.integer({ min: -10000, max: 10000 });
 
       return that.weighted(
         [
@@ -812,7 +817,7 @@
     }
 
     that.number = generatorFunction("number", [], () => {
-      var g = getNumberGenerator();
+      const g = getNumberGenerator();
 
       return g();
     });
@@ -826,13 +831,13 @@
     that.sequence = generatorFunction("sequence", [], (fn, count, options) => {
       count = typeof count === "undefined" ? that.natural({ max: 50 }) : count;
 
-      var g = generatorFunction("sequence", [fn, count], () => {
+      const g = generatorFunction("sequence", [fn, count], () => {
         options = options || {};
-        var context = options.context || {};
+        const context = options.context || {};
         g.lastContext = context;
-        var previous = "previous" in options ? options.previous : null;
-        var valueGenerator = () => {
-          var result =
+        let previous = "previous" in options ? options.previous : null;
+        const valueGenerator = () => {
+          const result =
             previous === null
               ? unwrap(fn(context))
               : unwrap(fn(context, previous));
@@ -851,18 +856,18 @@
           return that.constant([]);
         }
 
-        var count = g.args[1];
+        let count = g.args[1];
         if (count && count.shrink) {
           count = count.shrink(data.length);
         } else {
           count = data.length;
         }
-        var valueGenerator = g.args[0];
+        const valueGenerator = g.args[0];
         return that.sequence(valueGenerator, count);
       };
 
       g.expand = data => {
-        var count = g.args[1];
+        let count = g.args[1];
 
         if (g.lastValue !== data || !options.resumable) {
           return that.sequence(fn, count);
