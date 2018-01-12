@@ -374,14 +374,14 @@
     function numberExpander(generator, data) {
       const min = getMin(generator);
       const max = getMax(generator);
-      const margin = that.integer({ min: -100, max: 100 });
 
       return that.weighted(
         [
           that.constant(data),
-          that
-            .constant(data)
-            .map(value => Math.max(Math.min(value + margin(), max), min)),
+          that.integer({
+            min: Math.max(data - 100, min),
+            max: Math.min(data + 100, max)
+          }),
           generator
         ],
         [2, 1, 2]
@@ -489,14 +489,14 @@
       natural(generator, data) {
         const min = getMinNatural(generator);
         const max = getMax(generator);
-        const margin = that.integer({ min: -100, max: 100 });
 
         return that.weighted(
           [
             that.constant(data),
-            that
-              .constant(data)
-              .map(value => Math.max(Math.min(value + margin(), max), min)),
+            that.integer({
+              min: Math.max(data - 100, min),
+              max: Math.min(data + 100, max)
+            }),
             generator
           ],
           [2, 1, 2]
