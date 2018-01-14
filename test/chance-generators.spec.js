@@ -121,7 +121,7 @@ describe("chance-generators", () => {
             expandedGenerator()
           ],
           "to equal",
-          [0, 951, 0, 778, 19, 0, -10]
+          [0, 951, 0, 778, 56, 0, 7]
         );
       });
     });
@@ -1238,15 +1238,7 @@ describe("chance-generators", () => {
               expandedGenerator()
             ],
             "to satisfy",
-            [
-              "62,156",
-              "62,156",
-              "-7,87",
-              "62,200",
-              "11,123",
-              "62,156",
-              "26,156"
-            ]
+            ["62,156", "62,156", "8,78", "62,181", "11,123", "62,156", "26,156"]
           );
         });
       });
@@ -1718,6 +1710,18 @@ describe("chance-generators", () => {
           ]
         );
       });
+    });
+  });
+
+  describe("reset", () => {
+    it("resets the internal chance instance", () => {
+      const chance = new Chance(42);
+      const a = chance.integer();
+      const b = chance.integer();
+      chance.reset();
+      const c = chance.integer();
+
+      expect(a, "not to equal", b).and("to equal", c);
     });
   });
 });
