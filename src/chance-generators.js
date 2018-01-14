@@ -87,24 +87,29 @@
     }
 
     const that = this;
-    const chance =
-      typeof seed === "undefined" ? new Chance() : new Chance(seed);
+
+    that.reset = function() {
+      that.chance =
+        typeof seed === "undefined" ? new Chance() : new Chance(seed);
+    };
+
+    that.reset();
 
     // Fix that pick provided a count of zero or one does not return an array
     const originalPick = Chance.prototype.pick;
-    chance.pick = (array, count) => {
+    that.chance.pick = (array, count) => {
       if (count === 0) {
         return [];
       }
 
       if (count === 1) {
-        return [originalPick.call(chance, array, count)];
+        return [originalPick.call(that.chance, array, count)];
       }
 
-      return originalPick.call(chance, array, count);
+      return originalPick.call(that.chance, array, count);
     };
 
-    chance.shape = data => unwrap(data);
+    that.chance.shape = data => unwrap(data);
 
     function generatorFunction(name, args, f) {
       f.isGenerator = true;
@@ -166,7 +171,10 @@
           "pickset",
           [data, count],
           () => {
-            picksetGenerator.lastValue = chance.pickset(data, unwrap(count));
+            picksetGenerator.lastValue = that.chance.pickset(
+              data,
+              unwrap(count)
+            );
             picksetGenerator.lastUnwrappedValue = unwrap(
               picksetGenerator.lastValue
             );
@@ -191,10 +199,10 @@
           () => {
             const comparator = options && options.comparator;
             return comparator
-              ? chance.unique(() => generator(), unwrap(count), {
+              ? that.chance.unique(() => generator(), unwrap(count), {
                   comparator
                 })
-              : chance.unique(generator, unwrap(count));
+              : that.chance.unique(generator, unwrap(count));
           }
         );
 
@@ -207,7 +215,7 @@
       },
       weighted(data, weights) {
         const generator = generatorFunction("weighted", [data, weights], () => {
-          generator.lastValue = chance.weighted(data, weights);
+          generator.lastValue = that.chance.weighted(data, weights);
           generator.lastUnwrappedValue = unwrap(generator.lastValue);
           return generator.lastUnwrappedValue;
         });
@@ -405,8 +413,8 @@
             ),
             0
           );
-          const includeLeftMargin = chance.bool({ likelihood: 70 });
-          const includeRightMargin = chance.bool({ likelihood: 70 });
+          const includeLeftMargin = that.chance.bool({ likelihood: 70 });
+          const includeRightMargin = that.chance.bool({ likelihood: 70 });
           const marginLength =
             (includeLeftMargin ? margin : 0) +
             (includeRightMargin ? margin : 0);
@@ -420,7 +428,7 @@
           }
 
           for (let j = 0; j < data.length; i++, j++) {
-            result[i] = chance.bool({ likelihood: 95 })
+            result[i] = that.chance.bool({ likelihood: 95 })
               ? data[j]
               : text[i % text.length];
           }
@@ -451,7 +459,7 @@
           }
 
           for (let j = 0; j < data.length; i++, j++) {
-            result[i] = chance.bool({ likelihood: 95 })
+            result[i] = that.chance.bool({ likelihood: 95 })
               ? data[j]
               : items[i % items.length];
           }
@@ -519,7 +527,7 @@
 
       const g = generatorFunction(name, args, (...options) => {
         if (options.length === 0) {
-          return chance[name](
+          return that.chance[name](
             ...args.map((arg, i) => (omitUnwrapIndex[i] ? arg : unwrap(arg)))
           );
         } else {
@@ -547,7 +555,7 @@
     }
 
     ["shape"].concat(Object.keys(Chance.prototype)).forEach(key => {
-      const property = chance[key];
+      const property = that.chance[key];
       if (typeof property === "function") {
         if (overrides[key]) {
           that[key] = generatorFunction(key, [], overrides[key]);
@@ -585,8 +593,8 @@
         const min = (options || {}).min || 0;
 
         const g = generatorFunction("stringSplicer", [text, options], () => {
-          const from = chance.natural({ max: text.length });
-          const length = chance.natural({ max: text.length - min });
+          const from = that.chance.natural({ max: text.length });
+          const length = that.chance.natural({ max: text.length - min });
 
           return text.slice(0, from) + text.slice(from + length);
         });
@@ -626,8 +634,8 @@
         const min = (options || {}).min || 0;
 
         const g = generatorFunction("arraySplicer", [array, options], () => {
-          const from = chance.natural({ max: array.length });
-          const length = chance.natural({ max: array.length - min });
+          const from = that.chance.natural({ max: array.length });
+          const length = that.chance.natural({ max: array.length - min });
 
           g.lastValue = array.slice();
           g.lastValue.splice(from, length);
