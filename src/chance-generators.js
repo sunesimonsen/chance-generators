@@ -91,25 +91,25 @@
     that.reset = function() {
       that.chance =
         typeof seed === "undefined" ? new Chance() : new Chance(seed);
+
+      // Fix that pick provided a count of zero or one does not return an array
+      const originalPick = Chance.prototype.pick;
+      that.chance.pick = (array, count) => {
+        if (count === 0) {
+          return [];
+        }
+
+        if (count === 1) {
+          return [originalPick.call(that.chance, array, count)];
+        }
+
+        return originalPick.call(that.chance, array, count);
+      };
+
+      that.chance.shape = data => unwrap(data);
     };
 
     that.reset();
-
-    // Fix that pick provided a count of zero or one does not return an array
-    const originalPick = Chance.prototype.pick;
-    that.chance.pick = (array, count) => {
-      if (count === 0) {
-        return [];
-      }
-
-      if (count === 1) {
-        return [originalPick.call(that.chance, array, count)];
-      }
-
-      return originalPick.call(that.chance, array, count);
-    };
-
-    that.chance.shape = data => unwrap(data);
 
     function generatorFunction(name, args, f) {
       f.isGenerator = true;
