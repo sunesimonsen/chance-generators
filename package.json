@@ -10,11 +10,11 @@
   ],
   "scripts": {
     "build": "babel --out-dir lib --quiet src",
-    "coverage": "istanbul cover node_modules/.bin/_mocha",
+    "coverage": "istanbul cover node_modules/.bin/_mocha ./documentation/**/*.md ./src/**/*.js ./test/**/*.js",
     "generate-site": "generate-site --require ./bootstrap-unexpected-markdown.js",
     "lint-staged": "lint-staged",
     "prepare": "npm run build",
-    "test": "mocha ./documentation/**/*.md ./test/**/*.js",
+    "test": "mocha ./documentation/**/*.md ./src/**/*.js ./test/**/*.js",
     "update-examples": "generate-site --require ./bootstrap-unexpected-markdown.js --update-examples"
   },
   "dependencies": {
