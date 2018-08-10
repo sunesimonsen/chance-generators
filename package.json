@@ -4,7 +4,7 @@
   "author": "Sune Simonsen",
   "license": "MIT",
   "version": "2.13.1",
-  "main": "lib/chance-generators.js",
+  "main": "lib/index.js",
   "files": [
     "lib"
   ],
