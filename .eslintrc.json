@@ -1,3 +1,4 @@
 {
-  "extends": ["pretty-standard"]
+  "extends": ["pretty-standard"],
+  "parser": "babel-eslint"
 }

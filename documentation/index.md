@@ -4,6 +4,7 @@ theme: dark
 title: chance-generators
 repository: https://github.com/sunesimonsen/chance-generators
 ---
+
 # chance-generators
 
 This module is thin wrapper around the excellent [chance](http://chancejs.com/)
@@ -18,232 +19,151 @@ npm install --save chance-generators
 ## Usage
 
 ```js#evaluate:false
-const Generators = require('chance-generators')
+const { email, guid, name, pickone, shape } = require("chance-generators")
 ```
 
 ```js
-let seed = 42
-let { email, pickone } = new Generators(seed)
+const users = shape({
+  id: guid,
+  name,
+  email: email({ domain: pickone(["example.com", "mail.me"]) })
+});
 
-let emails = email({ domain: pickone(['example.com', 'mail.me']) })
-
-expect(emails(), 'to equal', 'gotsalda@example.com')
-expect(emails(), 'to equal', 'satacwuw@example.com')
-expect(emails(), 'to equal', 'uf@example.com')
-```
-
-When you call any of the functions documented on
-[www.chancejs.com](http://www.chancejs.com/)
-with one of more arguments a new generator function is returned instead of just
-generating the result:
-
-```js
-let { integer } = new Generators(42)
-
-let positiveIntegers = integer({ min: 1 })
-
-expect(positiveIntegers, 'to be a function')
-expect(positiveIntegers(), 'to be positive')
-```
-
-If you call a generator without any arguments it will produce a new value.
-
-```js
-let { integer } = new Generators(42)
-
-expect(integer(), 'to be a number')
-```
-
-Any generators passed as parameters to other generators will be called to
-produce a random value:
-
-```js
-let { integer, string } = new Generators(42)
-
-let smallStrings = string({ length: integer({ min: 3, max: 9 }) })
-
-expect(smallStrings(), 'to equal', '(n25S')
-expect(smallStrings(), 'to equal', 'GlheH#y')
-expect(smallStrings(), 'to equal', '0Wbe)19')
-```
-
-The only exception to this rule is the `array`, `n` and `unique` functions, they
-don't dereference the generator given as the first argument:
-
-```js
-let { n, string, integer } = new Generators(42)
-
-let stringArrays = n(string, integer({ min: 0, max: 10 }))
-
-expect(stringArrays(), 'to equal', [
-  '(n25SSlGlheH#ySk0', 'be)19*pan]nTwTM', 'FbvMT', 'kdv[BrHg6To'
-])
-
-expect(stringArrays(), 'to equal', [
-  '[RId@SYmHea(*', 'P7CwbhrYrGYjTK9cm^Ct', 'X3xFMpO', 'nc)!5H*D%&S1&y'
-])
-
-expect(stringArrays(), 'to equal', [])
-```
-
-## Additional generators
-
-### constant
-
-Always generates the given value.
-
-```js
-let { constant } = new Generators(42)
-
-let constantNumberGenerator = constant(42)
-
-expect(constantNumberGenerator, 'when called', 'to equal', 42)
-expect(constantNumberGenerator, 'when called', 'to equal', 42)
-```
-
-### array
-
-Same as `n` but defaults to generate arrays between 0-50 items when no count is
-supplied.
-
-```js
-let { array, natural } = new Generators(42)
-
-expect(
-  array(natural({ max: 10 })),
-  'when called',
-  'to equal', [
-    8, 10, 2, 8, 8, 6, 6, 1, 4,
-    1, 1, 0, 5, 9, 3, 6, 1, 7, 7
-  ]
-)
-```
-
-### shape
-
-Generates values of the given shape, if the structure contains generators they
-will be unwrapped.
-
-```js
-let { integer, shape } = new Generators(42)
-
-expect(shape({
-  constant: 42,
-  point: {
-    x: integer,
-    y: integer
+expect(users.take(3), "to equal", [
+  {
+    id: "70c6744c-cba2-5f4c-8a06-0dac0c4e43a1",
+    name: "Terry Hopkins",
+    email: "celel@mail.me"
+  },
+  {
+    id: "74d13042-845c-5ba0-971e-bd5d25b428ac",
+    name: "Virginia Hunter",
+    email: "kimri@example.com"
+  },
+  {
+    id: "a0872019-469f-54d3-9816-384f0e43ece7",
+    name: "Edward Wilson",
+    email: "mahbu@mail.me"
   }
-}), 'when called', 'to satisfy', {
-  constant: 42,
-  point: {
-    x: expect.it('to be a number'),
-    y: expect.it('to be a number')
-  }
-})
+]);
 ```
 
-### sequence
+All generators supports [mapping](../generator/#map-mapper-) over the generated
+values.
 
-Generates sequences of values by invoking a function, if the returned value
-contains generators they will be unwrapped. You will have a context that you can
-store information which will be available for later invocations. In addition the
-second parameter for the callback is the previous generated value.
+You have more than hundred generators available:
 
-The second parameter is specifying the length of the sequences that should be
-generated. The length defaults to between 0-50 items.
+[address](./api/chance/)
+[age](./api/chance/)
+[altitude](./api/chance/)
+[ampm](./api/chance/)
+[android_id](./api/chance/)
+[animal](./api/chance/)
+[apple_token](./api/chance/)
+[areacode](./api/chance/)
+[arraySplicer](./api/arraySplicer/)
+[array](./api/array/)
+[avatar](./api/chance/)
+[bb_pin](./api/chance/)
+[birthday](./api/chance/)
+[bool](./api/bool/)
+[cc](./api/chance/)
+[cc_type](./api/chance/)
+[cf](./api/chance/)
+[character](./api/character/)
+[city](./api/chance/)
+[coin](./api/chance/)
+[color](./api/chance/)
+[company](./api/chance/)
+[constant](./api/constant/)
+[coordinates](./api/chance/)
+[country](./api/chance/)
+[cpf](./api/chance/)
+[currency](./api/chance/)
+[currency_pair](./api/chance/)
+[date](./api/chance/)
+[depth](./api/chance/)
+[dice](./api/chance/)
+[dollar](./api/chance/)
+[domain](./api/chance/)
+[email](./api/chance/)
+[euro](./api/chance/)
+[exp](./api/chance/)
+[exp_month](./api/chance/)
+[exp_year](./api/chance/)
+[fbid](./api/chance/)
+[first](./api/chance/)
+[floating](./api/floating/)
+[gender](./api/chance/)
+[geohash](./api/chance/)
+[google_analytics](./api/chance/)
+[guid](./api/chance/)
+[hammertime](./api/chance/)
+[hash](./api/chance/)
+[hashtag](./api/chance/)
+[hour](./api/chance/)
+[integer](./api/integer/)
+[ip](./api/chance/)
+[ipv6](./api/chance/)
+[klout](./api/chance/)
+[last](./api/chance/)
+[latitude](./api/chance/)
+[letter](./api/chance/)
+[longitude](./api/chance/)
+[magicFloating](./api/magicFloating/)
+[magicInteger](./api/magicInteger/)
+[magicString](./api/magicString/)
+[millisecond](./api/chance/)
+[minute](./api/chance/)
+[month](./api/chance/)
+[name](./api/chance/)
+[natural](./api/natural/)
+[number](./api/number/)
+[paragraph](./api/chance/)
+[phone](./api/chance/)
+[pickone](./api/pickone/)
+[pickset](./api/pickset/)
+[postal](./api/chance/)
+[prefix](./api/chance/)
+[prime](./api/chance/)
+[profession](./api/chance/)
+[province](./api/chance/)
+[radio](./api/chance/)
+[rpg](./api/chance/)
+[second](./api/chance/)
+[sentence](./api/chance/)
+[sequence](./api/sequence/)
+[shape](./api/shape/)
+[shuffle](./api/shuffle/)
+[ssn](./api/chance/)
+[state](./api/chance/)
+[street](./api/chance/)
+[stringSplicer](./api/stringSplicer/)
+[string](./api/string/)
+[suffix](./api/chance/)
+[syllable](./api/chance/)
+[text](./api/text/)
+[timestamp](./api/chance/)
+[timezone](./api/chance/)
+[tld](./api/chance/)
+[tv](./api/chance/)
+[twitter](./api/chance/)
+[unique](./api/unique/)
+[url](./api/chance/)
+[weekday](./api/chance/)
+[weighted](./api/weighted/)
+[word](./api/chance/)
+[wp7_anid](./api/chance/)
+[wp8_anid2](./api/chance/)
+[year](./api/chance/)
+[zip](./api/chance/)
 
-Here is an example showing a sequence generator that will generate shorter and
-shorter random strings:
-
-```js
-let { natural, sequence, string } = new Generators(42)
-
-const sequenceGenerator = sequence((context, previous) => {
-  const length = previous === undefined
-    ? 10
-    : Math.max(0, previous.length - 1)
-
-  return string({ length })
-}, natural({ max: 10 }))
-
-expect(sequenceGenerator(), 'to equal', [
-  '(n25SSlGlh', 'H#ySk0Wbe', '19*pan]n', 'wTMaFbv'
-])
-
-expect(sequenceGenerator(), 'to equal', [
-  'Dkdv[BrHg6', 'oCM[RId@S', 'mHea(*)P', 'CwbhrYr', 'YjTK9c'
-])
-
-expect(sequenceGenerator(), 'to equal', [
-  'CtnX3xFMpO'
-])
-
-expect(sequenceGenerator(), 'to equal', [
-  'c)!5H*D%&S', '&ygQoMd)y', 'C3uN9RA)', 'SOukv7m', 'b]F5Do', 'ab8o0'
-])
-```
-
-Generate random events based on a state machine.
-
-```js
-let { natural, pickone, sequence } = new Generators(42)
-const StateMachine = require('javascript-state-machine')
-
-const createStateMachine = () => StateMachine.create({
-  initial: 'green',
-  events: [
-    { name: 'warn',  from: 'green',  to: 'yellow' },
-    { name: 'panic', from: 'yellow', to: 'red'    },
-    { name: 'calm',  from: 'red',    to: 'yellow' },
-    { name: 'clear', from: 'yellow', to: 'green'  }
-]})
-
-const eventSequence = sequence((context, previous) => {
-  if (previous) {
-    // transition the state machine with the previously generated event
-    context.fsm[previous]()
-  } else {
-    context.fsm = createStateMachine()
-  }
-  // find the possible transtions
-  const transitions = context.fsm.transitions()
-  // pick a random one.
-  return pickone(transitions)
-}, natural({ max: 10 }))
-
-expect(eventSequence(), 'to equal', [
-  'warn', 'clear', 'warn', 'clear'
-])
-
-expect(eventSequence(), 'to equal', [
-  'warn', 'clear', 'warn', 'panic', 'calm', 'panic', 'calm', 'panic'
-])
-```
-
-## Mapping generators
-
-All generators have a `map` method that can be used to map the stream of
-generated values into something else. A mapped generator supports shrinking by
-shrinking the original generator.
-
-The first parameter to the mapper function is the value and the second parameter
-is the generators instance.
-
-```js
-let { email, name, shape } = new Generators(42)
-
-const nameAndEmail = shape({
-  email,
-  name
-}).map(({ email, name }) => `${name} ${email}`)
-
-expect(nameAndEmail, 'when called', 'to equal', 'Manuel Lyons ofosid@daej.co.uk')
-expect(nameAndEmail, 'when called', 'to equal', 'Nathaniel Parks ur@gafgohrak.com')
-```
+All important generators supports [shrinking](./api/iterator/#expand-value-) and
+[expansion](./api/iterator/#shrink-value-).
 
 ## MIT License
 
-Copyright (c) 2016 Sune Simonsen <sune@we-knowhow.dk>
+Copyright (c) 2016 Sune Simonsen <mailto:sune@we-knowhow.dk>
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
