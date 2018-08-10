@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../static/normalize.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../../static/main.css" type="text/css" media="screen" />
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="../../static/bug-icon-black.ico">
+    <title>chance</title>
+</head>
+<body class="sidebar-hidden has-sidebar"> 
+    <header>
+        <div class="logo-icon"></div>
+        <nav>
+            <ul>
+                <li class="menu-toggle-item">
+                    <button class="menu-toggle" onclick="toggleSidebar()"></button>
+                </li>
+                
+                <li class=""><a href="../..">chance-generators</a></li>
+                
+                
+                
+                <li class="active"><a href="../array">API</a></li>
+                
+                
+            </ul>
+        </nav>
+        <div class="search" style="visibility: hidden">
+            <input id="search" placeholder="Search..." value="">
+            <div id="searchDropDown" class="dropDown">
+                <ul id="searchResults"></ul>
+            </div>
+        </div>
+    </header>
+
+<section id="api">
+    <nav id="api-menu" class="sidebar js-remember-scroll-position">
+    <ul>
+        
+        <li class="">
+            <a href="../array">array</a>
+        </li>
+        
+        <li class="">
+            <a href="../arraySplicer">arraySplicer</a>
+        </li>
+        
+        <li class="">
+            <a href="../bool">bool</a>
+        </li>
+        
+        <li class="active">
+            <a href="">chance</a>
+        </li>
+        
+        <li class="">
+            <a href="../character">character</a>
+        </li>
+        
+        <li class="">
+            <a href="../constant">constant</a>
+        </li>
+        
+        <li class="">
+            <a href="../floating">floating</a>
+        </li>
+        
+        <li class="">
+            <a href="../generator">generator</a>
+        </li>
+        
+        <li class="">
+            <a href="../integer">integer</a>
+        </li>
+        
+        <li class="">
+            <a href="../iterator">iterator</a>
+        </li>
+        
+        <li class="">
+            <a href="../natural">natural</a>
+        </li>
+        
+        <li class="">
+            <a href="../number">number</a>
+        </li>
+        
+        <li class="">
+            <a href="../pickone">pickone</a>
+        </li>
+        
+        <li class="">
+            <a href="../pickset">pickset</a>
+        </li>
+        
+        <li class="">
+            <a href="../sequence">sequence</a>
+        </li>
+        
+        <li class="">
+            <a href="../shape">shape</a>
+        </li>
+        
+        <li class="">
+            <a href="../shuffle">shuffle</a>
+        </li>
+        
+        <li class="">
+            <a href="../string">string</a>
+        </li>
+        
+        <li class="">
+            <a href="../stringSplicer">stringSplicer</a>
+        </li>
+        
+        <li class="">
+            <a href="../text">text</a>
+        </li>
+        
+        <li class="">
+            <a href="../unique">unique</a>
+        </li>
+        
+        <li class="">
+            <a href="../weigthed">weigthed</a>
+        </li>
+        
+    </ul>
+</nav>
+
+    <div class="main" tabindex="-1">
+        <div class="content">
+            <h1 id="chance">Chance</h1>
+<p>You can use any of the random functions listed below from
+<a href="https://chancejs.com">chance</a> as <a href="../generator/">generators</a>.</p>
+<p>The arguments you provide will be forwarded to the underlying
+<a href="https://chancejs.com/" target="_blank">chance</a> method.</p>
+<p>Let&#39;s use <a href="https://chancejs.com/text/sentence.html" target="_blank">sentence</a> as an example:</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;<span style="color: #000000">{</span>&nbsp;sentence&nbsp;<span style="color: #000000">}</span>&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">require</span><span style="color: #000000">(</span><span style="color: #df5000">'chance-generators'</span><span style="color: #000000">);</span></div></div><div class="code lang-javascript"><div><span style="color: #000000">expect</span><span style="color: #000000">(</span>sentence<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">3</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;Gotsalda&nbsp;kodtac&nbsp;ewegute&nbsp;bibro&nbsp;celel&nbsp;taj&nbsp;sibsof&nbsp;buunu&nbsp;bave&nbsp;dolbaw&nbsp;gokim&nbsp;sab&nbsp;ziwiwwuh&nbsp;gib.&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;Log&nbsp;sezsi&nbsp;ju&nbsp;bu&nbsp;mahbu&nbsp;wot&nbsp;cujduvtih&nbsp;le&nbsp;votevned&nbsp;esohogbi&nbsp;dadeip&nbsp;riide&nbsp;rohu&nbsp;jod&nbsp;tuhdulhak&nbsp;retijic&nbsp;ti&nbsp;luh.&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;Ril&nbsp;dej&nbsp;fef&nbsp;wijug&nbsp;howeju&nbsp;tu&nbsp;caku&nbsp;vapiz&nbsp;soze&nbsp;wu&nbsp;tumit&nbsp;ede.&quot;</span></div><div><span style="color: #000000">]);</span></div></div><p>You can specify how many words the sentence should have. This option will just
+be forwarded to the underlying <a href="https://chancejs.com/text/sentence.html" target="_blank">sentence</a>
+method:</p>
+<div class="code lang-javascript"><div><span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #000000">sentence</span><span style="color: #000000">({</span>&nbsp;words<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">4</span>&nbsp;<span style="color: #000000">}).</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">3</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;Ofosid&nbsp;daej&nbsp;wocu&nbsp;ofaufjom.&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;Be&nbsp;mabuj&nbsp;do&nbsp;lisib.&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;Valbuunu&nbsp;bave&nbsp;dolbaw&nbsp;gokim.&quot;</span></div><div><span style="color: #000000">]);</span></div></div><p>It is even possible to transform the generated values using
+<a href="../generator/#map-mapper-">map</a> method.</p>
+<div class="code lang-javascript"><div><span style="color: #000000">expect</span><span style="color: #000000">(</span></div><div>&nbsp;&nbsp;<span style="color: #000000">sentence</span><span style="color: #000000">({</span>&nbsp;words<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">4</span>&nbsp;<span style="color: #000000">})</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">.</span><span style="color: #000000">map</span><span style="color: #000000">(</span>s&nbsp;<span style="color: #a71d5d">=&gt;</span>&nbsp;s<span style="color: #000000">.</span><span style="color: #000000">toUpperCase</span><span style="color: #000000">())</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">3</span><span style="color: #000000">),</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #df5000">&quot;OFOSID&nbsp;DAEJ&nbsp;WOCU&nbsp;OFAUFJOM.&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;BE&nbsp;MABUJ&nbsp;DO&nbsp;LISIB.&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;VALBUUNU&nbsp;BAVE&nbsp;DOLBAW&nbsp;GOKIM.&quot;</span><span style="color: #000000">]</span></div><div><span style="color: #000000">);</span></div></div><h2 id="basics">Basics</h2>
+<ul>
+<li><a href="https://chancejs.com/basics/letter.html" target="_blank">letter</a></li>
+</ul>
+<h2 id="text">Text</h2>
+<ul>
+<li><a href="https://chancejs.com/text/paragraph.html" target="_blank">paragraph</a></li>
+<li><a href="https://chancejs.com/text/sentence.html" target="_blank">sentence</a></li>
+<li><a href="https://chancejs.com/text/syllable.html" target="_blank">syllable</a></li>
+<li><a href="https://chancejs.com/text/word.html" target="_blank">word</a></li>
+</ul>
+<h2 id="person">Person</h2>
+<ul>
+<li><a href="https://chancejs.com/person/age.html" target="_blank">age</a></li>
+<li><a href="https://chancejs.com/person/birthday.html" target="_blank">birthday</a></li>
+<li><a href="https://chancejs.com/person/cf.html" target="_blank">cf</a></li>
+<li><a href="https://chancejs.com/person/cpf.html" target="_blank">cpf</a></li>
+<li><a href="https://chancejs.com/person/first.html" target="_blank">first</a></li>
+<li><a href="https://chancejs.com/person/gender.html" target="_blank">gender</a></li>
+<li><a href="https://chancejs.com/person/last.html" target="_blank">last</a></li>
+<li><a href="https://chancejs.com/person/name.html" target="_blank">name</a></li>
+<li><a href="https://chancejs.com/person/prefix.html" target="_blank">prefix</a></li>
+<li><a href="https://chancejs.com/person/ssn.html" target="_blank">ssn</a></li>
+<li><a href="https://chancejs.com/person/suffix.html" target="_blank">suffix</a></li>
+</ul>
+<h2 id="thing">Thing</h2>
+<ul>
+<li><a href="https://chancejs.com/thing/animal.html" target="_blank">animal</a></li>
+</ul>
+<h2 id="mobile">Mobile</h2>
+<ul>
+<li><a href="https://chancejs.com/mobile/android_id.html" target="_blank">android_id</a></li>
+<li><a href="https://chancejs.com/mobile/apple_token.html" target="_blank">apple_token</a></li>
+<li><a href="https://chancejs.com/mobile/bb_pin.html" target="_blank">bb_pin</a></li>
+<li><a href="https://chancejs.com/mobile/wp7_anid.html" target="_blank">wp7_anid</a></li>
+<li><a href="https://chancejs.com/mobile/wp8_anid2.html" target="_blank">wp8_anid2</a></li>
+</ul>
+<h2 id="web">Web</h2>
+<ul>
+<li><a href="https://chancejs.com/web/avatar.html" target="_blank">avatar</a></li>
+<li><a href="https://chancejs.com/web/color.html" target="_blank">color</a></li>
+<li><a href="https://chancejs.com/web/company.html" target="_blank">company</a></li>
+<li><a href="https://chancejs.com/web/domain.html" target="_blank">domain</a></li>
+<li><a href="https://chancejs.com/web/email.html" target="_blank">email</a></li>
+<li><a href="https://chancejs.com/web/fbid.html" target="_blank">fbid</a></li>
+<li><a href="https://chancejs.com/web/google_analytics.html" target="_blank">google_analytics</a></li>
+<li><a href="https://chancejs.com/web/hashtag.html" target="_blank">hashtag</a></li>
+<li><a href="https://chancejs.com/web/ip.html" target="_blank">ip</a></li>
+<li><a href="https://chancejs.com/web/ipv6.html" target="_blank">ipv6</a></li>
+<li><a href="https://chancejs.com/web/klout.html" target="_blank">klout</a></li>
+<li><a href="https://chancejs.com/web/profession.html" target="_blank">profession</a></li>
+<li><a href="https://chancejs.com/web/tld.html" target="_blank">tld</a></li>
+<li><a href="https://chancejs.com/web/twitter.html" target="_blank">twitter</a></li>
+<li><a href="https://chancejs.com/web/url.html" target="_blank">url</a></li>
+</ul>
+<h2 id="location">Location</h2>
+<ul>
+<li><a href="https://chancejs.com/location/address.html" target="_blank">address</a></li>
+<li><a href="https://chancejs.com/location/altitude.html" target="_blank">altitude</a></li>
+<li><a href="https://chancejs.com/location/areacode.html" target="_blank">areacode</a></li>
+<li><a href="https://chancejs.com/location/city.html" target="_blank">city</a></li>
+<li><a href="https://chancejs.com/location/coordinates.html" target="_blank">coordinates</a></li>
+<li><a href="https://chancejs.com/location/country.html" target="_blank">country</a></li>
+<li><a href="https://chancejs.com/location/depth.html" target="_blank">depth</a></li>
+<li><a href="https://chancejs.com/location/geohash.html" target="_blank">geohash</a></li>
+<li><a href="https://chancejs.com/location/latitude.html" target="_blank">latitude</a></li>
+<li><a href="https://chancejs.com/location/longitude.html" target="_blank">longitude</a></li>
+<li><a href="https://chancejs.com/location/phone.html" target="_blank">phone</a></li>
+<li><a href="https://chancejs.com/location/postal.html" target="_blank">postal</a></li>
+<li><a href="https://chancejs.com/location/province.html" target="_blank">province</a></li>
+<li><a href="https://chancejs.com/location/state.html" target="_blank">state</a></li>
+<li><a href="https://chancejs.com/location/street.html" target="_blank">street</a></li>
+<li><a href="https://chancejs.com/location/zip.html" target="_blank">zip</a></li>
+</ul>
+<h2 id="time">Time</h2>
+<ul>
+<li><a href="https://chancejs.com/time/ampm.html" target="_blank">ampm</a></li>
+<li><a href="https://chancejs.com/time/date.html" target="_blank">date</a></li>
+<li><a href="https://chancejs.com/time/hammertime.html" target="_blank">hammertime</a></li>
+<li><a href="https://chancejs.com/time/hour.html" target="_blank">hour</a></li>
+<li><a href="https://chancejs.com/time/millisecond.html" target="_blank">millisecond</a></li>
+<li><a href="https://chancejs.com/time/minute.html" target="_blank">minute</a></li>
+<li><a href="https://chancejs.com/time/month.html" target="_blank">month</a></li>
+<li><a href="https://chancejs.com/time/second.html" target="_blank">second</a></li>
+<li><a href="https://chancejs.com/time/timestamp.html" target="_blank">timestamp</a></li>
+<li><a href="https://chancejs.com/time/timezone.html" target="_blank">timezone</a></li>
+<li><a href="https://chancejs.com/time/weekday.html" target="_blank">weekday</a></li>
+<li><a href="https://chancejs.com/time/year.html" target="_blank">year</a></li>
+</ul>
+<h2 id="finance">Finance</h2>
+<ul>
+<li><a href="https://chancejs.com/finance/cc.html" target="_blank">cc</a></li>
+<li><a href="https://chancejs.com/finance/cc_type.html" target="_blank">cc_type</a></li>
+<li><a href="https://chancejs.com/finance/currency.html" target="_blank">currency</a></li>
+<li><a href="https://chancejs.com/finance/currency_pair.html" target="_blank">currency_pair</a></li>
+<li><a href="https://chancejs.com/finance/dollar.html" target="_blank">dollar</a></li>
+<li><a href="https://chancejs.com/finance/euro.html" target="_blank">euro</a></li>
+<li><a href="https://chancejs.com/finance/exp.html" target="_blank">exp</a></li>
+<li><a href="https://chancejs.com/finance/exp_month.html" target="_blank">exp_month</a></li>
+<li><a href="https://chancejs.com/finance/exp_year.html" target="_blank">exp_year</a></li>
+</ul>
+<h2 id="miscellaneous">Miscellaneous</h2>
+<ul>
+<li><a href="https://chancejs.com/miscellaneous/coin.html" target="_blank">coin</a></li>
+<li><a href="https://chancejs.com/miscellaneous/dice.html" target="_blank">dice</a></li>
+<li><a href="https://chancejs.com/miscellaneous/guid.html" target="_blank">guid</a></li>
+<li><a href="https://chancejs.com/miscellaneous/hash.html" target="_blank">hash</a></li>
+<li><a href="https://chancejs.com/miscellaneous/radio.html" target="_blank">radio</a></li>
+<li><a href="https://chancejs.com/miscellaneous/rpg.html" target="_blank">rpg</a></li>
+<li><a href="https://chancejs.com/miscellaneous/tv.html" target="_blank">tv</a></li>
+</ul>
+
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    baseUrl = '../..';
+</script>
+<script type="text/javascript" src="../../static/toggleSidebar.js"></script>
+<script type="text/javascript" src="../../static/rememberScrollPosition.js"></script>
+<script type="text/javascript" src="../../static/focusMain.js"></script>
+<script type="text/javascript" src="../../static/search.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../static/normalize.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../../static/main.css" type="text/css" media="screen" />
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="../../static/bug-icon-black.ico">
+    <title>pickset</title>
+</head>
+<body class="sidebar-hidden has-sidebar"> 
+    <header>
+        <div class="logo-icon"></div>
+        <nav>
+            <ul>
+                <li class="menu-toggle-item">
+                    <button class="menu-toggle" onclick="toggleSidebar()"></button>
+                </li>
+                
+                <li class=""><a href="../..">chance-generators</a></li>
+                
+                
+                
+                <li class="active"><a href="../array">API</a></li>
+                
+                
+            </ul>
+        </nav>
+        <div class="search" style="visibility: hidden">
+            <input id="search" placeholder="Search..." value="">
+            <div id="searchDropDown" class="dropDown">
+                <ul id="searchResults"></ul>
+            </div>
+        </div>
+    </header>
+
+<section id="api">
+    <nav id="api-menu" class="sidebar js-remember-scroll-position">
+    <ul>
+        
+        <li class="">
+            <a href="../array">array</a>
+        </li>
+        
+        <li class="">
+            <a href="../arraySplicer">arraySplicer</a>
+        </li>
+        
+        <li class="">
+            <a href="../bool">bool</a>
+        </li>
+        
+        <li class="">
+            <a href="../chance">chance</a>
+        </li>
+        
+        <li class="">
+            <a href="../character">character</a>
+        </li>
+        
+        <li class="">
+            <a href="../constant">constant</a>
+        </li>
+        
+        <li class="">
+            <a href="../floating">floating</a>
+        </li>
+        
+        <li class="">
+            <a href="../generator">generator</a>
+        </li>
+        
+        <li class="">
+            <a href="../integer">integer</a>
+        </li>
+        
+        <li class="">
+            <a href="../iterator">iterator</a>
+        </li>
+        
+        <li class="">
+            <a href="../natural">natural</a>
+        </li>
+        
+        <li class="">
+            <a href="../number">number</a>
+        </li>
+        
+        <li class="">
+            <a href="../pickone">pickone</a>
+        </li>
+        
+        <li class="active">
+            <a href="">pickset</a>
+        </li>
+        
+        <li class="">
+            <a href="../sequence">sequence</a>
+        </li>
+        
+        <li class="">
+            <a href="../shape">shape</a>
+        </li>
+        
+        <li class="">
+            <a href="../shuffle">shuffle</a>
+        </li>
+        
+        <li class="">
+            <a href="../string">string</a>
+        </li>
+        
+        <li class="">
+            <a href="../stringSplicer">stringSplicer</a>
+        </li>
+        
+        <li class="">
+            <a href="../text">text</a>
+        </li>
+        
+        <li class="">
+            <a href="../unique">unique</a>
+        </li>
+        
+        <li class="">
+            <a href="../weigthed">weigthed</a>
+        </li>
+        
+    </ul>
+</nav>
+
+    <div class="main" tabindex="-1">
+        <div class="content">
+            <h1 id="pick-set-generator">Pick-set generator</h1>
+<p>A <a href="../generator/">generator</a> that will pick random subsets from an array of
+possible items.</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;<span style="color: #000000">{</span>&nbsp;natural<span style="color: #000000">,</span>&nbsp;pickset<span style="color: #000000">,</span>&nbsp;string&nbsp;<span style="color: #000000">}</span>&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">require</span><span style="color: #000000">(</span><span style="color: #df5000">&quot;chance-generators&quot;</span><span style="color: #000000">);</span></div></div><p>When given only an array of items it picks subsets from that array.</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;palettes&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">pickset</span><span style="color: #000000">([</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;#78a300&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;#37b8af&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;#30aabc&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;#eb4962&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;#ff6d5a&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;#eb6651&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;#f79a3e&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;#efc93d&quot;</span></div><div><span style="color: #000000">]);</span></div><div>&nbsp;</div><div><span style="color: #000000">expect</span><span style="color: #000000">(</span>palettes<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">5</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #df5000">&quot;#f79a3e&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;#efc93d&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;#37b8af&quot;</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #df5000">&quot;#37b8af&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;#78a300&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;#f79a3e&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;#30aabc&quot;</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #df5000">&quot;#eb6651&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;#78a300&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;#f79a3e&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;#ff6d5a&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;#30aabc&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;#eb4962&quot;</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #df5000">&quot;#efc93d&quot;</span><span style="color: #000000">]</span></div><div><span style="color: #000000">]);</span></div></div><p>You can constrain the length of the generated sets using <code>min</code> and <code>max</code> (both are inclusive):</p>
+<p>If you don&#39;t specify both limits, then <code>min</code> defaults to 0 and <code>max</code> defaults to
+the length of the item array:</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;luckyNumbers&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">pickset</span><span style="color: #000000">([</span><span style="color: #0086b3">0</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">2</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">4</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">5</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">6</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">7</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">8</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">9</span><span style="color: #000000">],</span>&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;min<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;max<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">4</span></div><div><span style="color: #000000">});</span></div><div>&nbsp;</div><div><span style="color: #000000">expect</span><span style="color: #000000">(</span>luckyNumbers<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">5</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">7</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">8</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">0</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">4</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">6</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">7</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">9</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">8</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">5</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">0</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">8</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">9</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">]</span></div><div><span style="color: #000000">]);</span></div></div><p>If you use generators as items, they will be used to produce a value when they
+are picked:</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;stuff&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">pickset</span><span style="color: #000000">([</span>string<span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">666</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">natural</span><span style="color: #000000">({</span>&nbsp;max<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">10</span>&nbsp;<span style="color: #000000">})],</span>&nbsp;<span style="color: #000000">{</span>&nbsp;min<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">2</span><span style="color: #000000">,</span>&nbsp;max<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">2</span>&nbsp;<span style="color: #000000">});</span></div><div>&nbsp;</div><div><span style="color: #000000">expect</span><span style="color: #000000">(</span>stuff<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">10</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">8</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">666</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">666</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">4</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #df5000">&quot;Sk0Wbe)19*pan]nTwTMaFbvMTD&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #df5000">&quot;g6ToCM[&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">666</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">666</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;mHea(*)P7CwbhrYrGY&quot;</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">666</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;^&quot;</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #df5000">&quot;FMpOQnc)!5H*D%&amp;S1&amp;ygQoM&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">0</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #df5000">&quot;N9RA)uSOukv7mfb]F5Dovab&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">666</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #df5000">&quot;5Sf&amp;AWi^@!UHyheBxXyX1R&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">666</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #df5000">&quot;i)0!41Pr5sKcM0&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">666</span><span style="color: #000000">]</span></div><div><span style="color: #000000">]);</span></div></div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    baseUrl = '../..';
+</script>
+<script type="text/javascript" src="../../static/toggleSidebar.js"></script>
+<script type="text/javascript" src="../../static/rememberScrollPosition.js"></script>
+<script type="text/javascript" src="../../static/focusMain.js"></script>
+<script type="text/javascript" src="../../static/search.js"></script>
+</body>
+</html>
+

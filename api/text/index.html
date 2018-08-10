@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../static/normalize.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../../static/main.css" type="text/css" media="screen" />
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="../../static/bug-icon-black.ico">
+    <title>text</title>
+</head>
+<body class="sidebar-hidden has-sidebar"> 
+    <header>
+        <div class="logo-icon"></div>
+        <nav>
+            <ul>
+                <li class="menu-toggle-item">
+                    <button class="menu-toggle" onclick="toggleSidebar()"></button>
+                </li>
+                
+                <li class=""><a href="../..">chance-generators</a></li>
+                
+                
+                
+                <li class="active"><a href="../array">API</a></li>
+                
+                
+            </ul>
+        </nav>
+        <div class="search" style="visibility: hidden">
+            <input id="search" placeholder="Search..." value="">
+            <div id="searchDropDown" class="dropDown">
+                <ul id="searchResults"></ul>
+            </div>
+        </div>
+    </header>
+
+<section id="api">
+    <nav id="api-menu" class="sidebar js-remember-scroll-position">
+    <ul>
+        
+        <li class="">
+            <a href="../array">array</a>
+        </li>
+        
+        <li class="">
+            <a href="../arraySplicer">arraySplicer</a>
+        </li>
+        
+        <li class="">
+            <a href="../bool">bool</a>
+        </li>
+        
+        <li class="">
+            <a href="../chance">chance</a>
+        </li>
+        
+        <li class="">
+            <a href="../character">character</a>
+        </li>
+        
+        <li class="">
+            <a href="../constant">constant</a>
+        </li>
+        
+        <li class="">
+            <a href="../floating">floating</a>
+        </li>
+        
+        <li class="">
+            <a href="../generator">generator</a>
+        </li>
+        
+        <li class="">
+            <a href="../integer">integer</a>
+        </li>
+        
+        <li class="">
+            <a href="../iterator">iterator</a>
+        </li>
+        
+        <li class="">
+            <a href="../natural">natural</a>
+        </li>
+        
+        <li class="">
+            <a href="../number">number</a>
+        </li>
+        
+        <li class="">
+            <a href="../pickone">pickone</a>
+        </li>
+        
+        <li class="">
+            <a href="../pickset">pickset</a>
+        </li>
+        
+        <li class="">
+            <a href="../sequence">sequence</a>
+        </li>
+        
+        <li class="">
+            <a href="../shape">shape</a>
+        </li>
+        
+        <li class="">
+            <a href="../shuffle">shuffle</a>
+        </li>
+        
+        <li class="">
+            <a href="../string">string</a>
+        </li>
+        
+        <li class="">
+            <a href="../stringSplicer">stringSplicer</a>
+        </li>
+        
+        <li class="active">
+            <a href="">text</a>
+        </li>
+        
+        <li class="">
+            <a href="../unique">unique</a>
+        </li>
+        
+        <li class="">
+            <a href="../weigthed">weigthed</a>
+        </li>
+        
+    </ul>
+</nav>
+
+    <div class="main" tabindex="-1">
+        <div class="content">
+            <h1 id="text-generator">Text generator</h1>
+<p>A random text <a href="../generator/">generator</a>, for cases where you just need some
+text without any constraints. This generator generates more types of strings
+then the <a href="../string/">string</a> generator, but can&#39;t constraint the length.</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;<span style="color: #000000">{</span>&nbsp;text&nbsp;<span style="color: #000000">}</span>&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">require</span><span style="color: #000000">(</span><span style="color: #df5000">&quot;chance-generators&quot;</span><span style="color: #000000">);</span></div></div><p>Let&#39;s generate some text:</p>
+<div class="code lang-javascript"><div><span style="color: #000000">expect</span><span style="color: #000000">(</span>text<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">10</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;ofo&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;lGlheH#ySk0Wbe)19*&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;Goh&nbsp;bibro&nbsp;celel&nbsp;taj&nbsp;sibsof&nbsp;buunu&nbsp;bave&nbsp;dolbaw&nbsp;gokim&nbsp;sab&nbsp;ziwiwwuh&nbsp;gib.&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;uN9uSOukv7mfb]ovab8o00165Sf&amp;AWi^@!UHy&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;Kos&nbsp;junla&nbsp;esohogbi&nbsp;dadeip&nbsp;riide&nbsp;rohu&nbsp;jod&nbsp;tuhdulhak&nbsp;retijic&nbsp;ti&nbsp;luh&nbsp;pi&nbsp;hoje&nbsp;fef.&nbsp;Mechug&nbsp;poh&nbsp;ub&nbsp;umi&nbsp;je&nbsp;hodpizhir&nbsp;leg&nbsp;liptemdov&nbsp;pa&nbsp;envewi&nbsp;logumem&nbsp;fojdewire&nbsp;guz&nbsp;regduw&nbsp;ipaje.&nbsp;Ivuzuecu&nbsp;iro&nbsp;lavub&nbsp;ki&nbsp;nozgo&nbsp;pe&nbsp;los&nbsp;vendijjeg&nbsp;ukiipi&nbsp;povivho&nbsp;sataf&nbsp;nuhijoow&nbsp;ru&nbsp;uvake&nbsp;jel&nbsp;re.&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;&amp;QfhpTX]AksMv#x2!ZkZ0AOvv7&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;hup&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;aL&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;WfZD6d$$zcBQgGQXcyIlO[v!&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;scc8wANjyM94up)UHg!doNEOZV&quot;</span></div><div><span style="color: #000000">]);</span></div></div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    baseUrl = '../..';
+</script>
+<script type="text/javascript" src="../../static/toggleSidebar.js"></script>
+<script type="text/javascript" src="../../static/rememberScrollPosition.js"></script>
+<script type="text/javascript" src="../../static/focusMain.js"></script>
+<script type="text/javascript" src="../../static/search.js"></script>
+</body>
+</html>
+

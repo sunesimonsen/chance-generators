@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../static/normalize.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../../static/main.css" type="text/css" media="screen" />
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="../../static/bug-icon-black.ico">
+    <title>sequence</title>
+</head>
+<body class="sidebar-hidden has-sidebar"> 
+    <header>
+        <div class="logo-icon"></div>
+        <nav>
+            <ul>
+                <li class="menu-toggle-item">
+                    <button class="menu-toggle" onclick="toggleSidebar()"></button>
+                </li>
+                
+                <li class=""><a href="../..">chance-generators</a></li>
+                
+                
+                
+                <li class="active"><a href="../array">API</a></li>
+                
+                
+            </ul>
+        </nav>
+        <div class="search" style="visibility: hidden">
+            <input id="search" placeholder="Search..." value="">
+            <div id="searchDropDown" class="dropDown">
+                <ul id="searchResults"></ul>
+            </div>
+        </div>
+    </header>
+
+<section id="api">
+    <nav id="api-menu" class="sidebar js-remember-scroll-position">
+    <ul>
+        
+        <li class="">
+            <a href="../array">array</a>
+        </li>
+        
+        <li class="">
+            <a href="../arraySplicer">arraySplicer</a>
+        </li>
+        
+        <li class="">
+            <a href="../bool">bool</a>
+        </li>
+        
+        <li class="">
+            <a href="../chance">chance</a>
+        </li>
+        
+        <li class="">
+            <a href="../character">character</a>
+        </li>
+        
+        <li class="">
+            <a href="../constant">constant</a>
+        </li>
+        
+        <li class="">
+            <a href="../floating">floating</a>
+        </li>
+        
+        <li class="">
+            <a href="../generator">generator</a>
+        </li>
+        
+        <li class="">
+            <a href="../integer">integer</a>
+        </li>
+        
+        <li class="">
+            <a href="../iterator">iterator</a>
+        </li>
+        
+        <li class="">
+            <a href="../natural">natural</a>
+        </li>
+        
+        <li class="">
+            <a href="../number">number</a>
+        </li>
+        
+        <li class="">
+            <a href="../pickone">pickone</a>
+        </li>
+        
+        <li class="">
+            <a href="../pickset">pickset</a>
+        </li>
+        
+        <li class="active">
+            <a href="">sequence</a>
+        </li>
+        
+        <li class="">
+            <a href="../shape">shape</a>
+        </li>
+        
+        <li class="">
+            <a href="../shuffle">shuffle</a>
+        </li>
+        
+        <li class="">
+            <a href="../string">string</a>
+        </li>
+        
+        <li class="">
+            <a href="../stringSplicer">stringSplicer</a>
+        </li>
+        
+        <li class="">
+            <a href="../text">text</a>
+        </li>
+        
+        <li class="">
+            <a href="../unique">unique</a>
+        </li>
+        
+        <li class="">
+            <a href="../weigthed">weigthed</a>
+        </li>
+        
+    </ul>
+</nav>
+
+    <div class="main" tabindex="-1">
+        <div class="content">
+            <h1 id="sequence-generator">Sequence generator</h1>
+<p>This is most advanced <a href="../generator/">generator</a> we offer.
+It produces sequences of items using a given producer function that have
+knowledge of the previous generated item as well as running context.</p>
+<p>Let&#39;s create an event producer that uses a state machine to only generate valid
+sequences of events:</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;<span style="color: #000000">{</span>&nbsp;pickone<span style="color: #000000">,</span>&nbsp;sequence&nbsp;<span style="color: #000000">}</span>&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">require</span><span style="color: #000000">(</span><span style="color: #df5000">&quot;chance-generators&quot;</span><span style="color: #000000">);</span></div></div><div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;StateMachine&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">require</span><span style="color: #000000">(</span><span style="color: #df5000">&quot;javascript-state-machine&quot;</span><span style="color: #000000">);</span></div><div>&nbsp;</div><div><span style="color: #a71d5d">const</span>&nbsp;<span style="color: #000000">createStateMachine</span>&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">()</span>&nbsp;<span style="color: #a71d5d">=&gt;</span></div><div>&nbsp;&nbsp;StateMachine<span style="color: #000000">.</span><span style="color: #000000">create</span><span style="color: #000000">({</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;initial<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;green&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;events<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;warn&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #a71d5d">from</span><span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;green&quot;</span><span style="color: #000000">,</span>&nbsp;to<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;yellow&quot;</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;panic&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #a71d5d">from</span><span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;yellow&quot;</span><span style="color: #000000">,</span>&nbsp;to<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;red&quot;</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;calm&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #a71d5d">from</span><span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;red&quot;</span><span style="color: #000000">,</span>&nbsp;to<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;yellow&quot;</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;clear&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #a71d5d">from</span><span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;yellow&quot;</span><span style="color: #000000">,</span>&nbsp;to<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;green&quot;</span>&nbsp;<span style="color: #000000">}</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">]</span></div><div>&nbsp;&nbsp;<span style="color: #000000">});</span></div><div>&nbsp;</div><div><span style="color: #a71d5d">const</span>&nbsp;<span style="color: #000000">eventProducer</span>&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">(</span>previous<span style="color: #000000">,</span>&nbsp;context<span style="color: #000000">)</span>&nbsp;<span style="color: #a71d5d">=&gt;</span>&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">if</span>&nbsp;<span style="color: #000000">(</span>previous<span style="color: #000000">)</span>&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #969896">//&nbsp;transition&nbsp;the&nbsp;state&nbsp;machine&nbsp;with&nbsp;the&nbsp;previously&nbsp;generated&nbsp;event</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;context<span style="color: #000000">.</span>fsm<span style="color: #000000">[</span>previous<span style="color: #000000">]();</span></div><div>&nbsp;&nbsp;<span style="color: #000000">}</span>&nbsp;<span style="color: #a71d5d">else</span>&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;context<span style="color: #000000">.</span>fsm&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">createStateMachine</span><span style="color: #000000">();</span></div><div>&nbsp;&nbsp;<span style="color: #000000">}</span></div><div>&nbsp;&nbsp;<span style="color: #969896">//&nbsp;find&nbsp;the&nbsp;possible&nbsp;transtions</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">const</span>&nbsp;transitions&nbsp;<span style="color: #a71d5d">=</span>&nbsp;context<span style="color: #000000">.</span>fsm<span style="color: #000000">.</span><span style="color: #000000">transitions</span><span style="color: #000000">();</span></div><div>&nbsp;&nbsp;<span style="color: #969896">//&nbsp;pick&nbsp;a&nbsp;random&nbsp;one.</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">return</span>&nbsp;<span style="color: #000000">pickone</span><span style="color: #000000">(</span>transitions<span style="color: #000000">);</span></div><div><span style="color: #000000">};</span></div></div><p>Now we have a producer we can use for generating sequences with a length between
+5 and 10:</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;eventSequence&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">sequence</span><span style="color: #000000">(</span>eventProducer<span style="color: #000000">,</span>&nbsp;<span style="color: #000000">{</span>&nbsp;min<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">5</span><span style="color: #000000">,</span>&nbsp;max<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">10</span>&nbsp;<span style="color: #000000">});</span></div><div>&nbsp;</div><div><span style="color: #000000">expect</span><span style="color: #000000">(</span>eventSequence<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">3</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #df5000">&quot;warn&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;clear&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;warn&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;clear&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;warn&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;clear&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;warn&quot;</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #df5000">&quot;warn&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;panic&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;calm&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;panic&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;calm&quot;</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #df5000">&quot;warn&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;clear&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;warn&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;clear&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;warn&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;panic&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;calm&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;clear&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;warn&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;clear&quot;</span><span style="color: #000000">]</span></div><div><span style="color: #000000">]);</span></div></div><p>If you don&#39;t provide a <code>min</code> or <code>max</code> the sequence generator will produce
+sequences with lengths between 0 and 30.</p>
+<p>It can sometimes be useful to provide in initial value, that otherwise defaults
+to <code>null</code>.</p>
+<p>Let&#39;s try to generate increasing integer sequences starting from 0:</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;increasingIntegers&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">sequence</span><span style="color: #000000">(</span>previous&nbsp;<span style="color: #a71d5d">=&gt;</span>&nbsp;previous&nbsp;<span style="color: #a71d5d">+</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">{</span>&nbsp;initialValue<span style="color: #000000">:</span>&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">1</span><span style="color: #000000">,</span>&nbsp;max<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">10</span>&nbsp;<span style="color: #000000">});</span></div><div>&nbsp;</div><div><span style="color: #000000">expect</span><span style="color: #000000">(</span>increasingIntegers<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">3</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">0</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">2</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">0</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">2</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">4</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">5</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">6</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">7</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">0</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">2</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">4</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">5</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">6</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">7</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">8</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">9</span><span style="color: #000000">]</span></div><div><span style="color: #000000">]);</span></div></div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    baseUrl = '../..';
+</script>
+<script type="text/javascript" src="../../static/toggleSidebar.js"></script>
+<script type="text/javascript" src="../../static/rememberScrollPosition.js"></script>
+<script type="text/javascript" src="../../static/focusMain.js"></script>
+<script type="text/javascript" src="../../static/search.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../static/normalize.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../../static/main.css" type="text/css" media="screen" />
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="../../static/bug-icon-black.ico">
+    <title>stringSplicer</title>
+</head>
+<body class="sidebar-hidden has-sidebar"> 
+    <header>
+        <div class="logo-icon"></div>
+        <nav>
+            <ul>
+                <li class="menu-toggle-item">
+                    <button class="menu-toggle" onclick="toggleSidebar()"></button>
+                </li>
+                
+                <li class=""><a href="../..">chance-generators</a></li>
+                
+                
+                
+                <li class="active"><a href="../array">API</a></li>
+                
+                
+            </ul>
+        </nav>
+        <div class="search" style="visibility: hidden">
+            <input id="search" placeholder="Search..." value="">
+            <div id="searchDropDown" class="dropDown">
+                <ul id="searchResults"></ul>
+            </div>
+        </div>
+    </header>
+
+<section id="api">
+    <nav id="api-menu" class="sidebar js-remember-scroll-position">
+    <ul>
+        
+        <li class="">
+            <a href="../array">array</a>
+        </li>
+        
+        <li class="">
+            <a href="../arraySplicer">arraySplicer</a>
+        </li>
+        
+        <li class="">
+            <a href="../bool">bool</a>
+        </li>
+        
+        <li class="">
+            <a href="../chance">chance</a>
+        </li>
+        
+        <li class="">
+            <a href="../character">character</a>
+        </li>
+        
+        <li class="">
+            <a href="../constant">constant</a>
+        </li>
+        
+        <li class="">
+            <a href="../floating">floating</a>
+        </li>
+        
+        <li class="">
+            <a href="../generator">generator</a>
+        </li>
+        
+        <li class="">
+            <a href="../integer">integer</a>
+        </li>
+        
+        <li class="">
+            <a href="../iterator">iterator</a>
+        </li>
+        
+        <li class="">
+            <a href="../natural">natural</a>
+        </li>
+        
+        <li class="">
+            <a href="../number">number</a>
+        </li>
+        
+        <li class="">
+            <a href="../pickone">pickone</a>
+        </li>
+        
+        <li class="">
+            <a href="../pickset">pickset</a>
+        </li>
+        
+        <li class="">
+            <a href="../sequence">sequence</a>
+        </li>
+        
+        <li class="">
+            <a href="../shape">shape</a>
+        </li>
+        
+        <li class="">
+            <a href="../shuffle">shuffle</a>
+        </li>
+        
+        <li class="">
+            <a href="../string">string</a>
+        </li>
+        
+        <li class="active">
+            <a href="">stringSplicer</a>
+        </li>
+        
+        <li class="">
+            <a href="../text">text</a>
+        </li>
+        
+        <li class="">
+            <a href="../unique">unique</a>
+        </li>
+        
+        <li class="">
+            <a href="../weigthed">weigthed</a>
+        </li>
+        
+    </ul>
+</nav>
+
+    <div class="main" tabindex="-1">
+        <div class="content">
+            <h1 id="string-splicing-generator">String splicing generator</h1>
+<p>A <a href="../generator/">generator</a> that given a string generates new strings by
+cutting out a random part of the original string.</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;<span style="color: #000000">{</span>&nbsp;stringSplicer&nbsp;<span style="color: #000000">}</span>&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">require</span><span style="color: #000000">(</span><span style="color: #df5000">&quot;chance-generators&quot;</span><span style="color: #000000">);</span></div></div><p>Let&#39;s generate some broken HTML mutations:</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;htmlSnippets&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">stringSplicer</span><span style="color: #000000">(</span><span style="color: #df5000">&quot;&lt;h1&gt;Hello&nbsp;&lt;em&gt;Beautiful&lt;/em&gt;&nbsp;world&lt;/h1&gt;&quot;</span><span style="color: #000000">);</span></div><div>&nbsp;</div><div><span style="color: #000000">expect</span><span style="color: #000000">(</span>htmlSnippets<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">5</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;&lt;h1&gt;Hello&nbsp;&lt;em&gt;&lt;/h1&gt;&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;&lt;h1&gt;Hello&nbsp;&lt;em&gt;Beautiful&lt;/em&gt;&nbsp;world&lt;/h1&gt;&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;&lt;h1&gt;Hello&nbsp;&lt;em&gt;Beautiful&lt;/em&gt;&nbsp;1&gt;&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;&lt;h1&gt;Hello&nbsp;&lt;em&gt;Beautifuld&lt;/h1&gt;&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;&lt;h1&gt;Heul&lt;/em&gt;&nbsp;world&lt;/h1&gt;&quot;</span></div><div><span style="color: #000000">]);</span></div></div><p>You can constrain the length of the strings generated by providing a <code>min</code> option:</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;longerHtmlSnippets&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">stringSplicer</span><span style="color: #000000">(</span><span style="color: #df5000">&quot;&lt;h1&gt;Hello&nbsp;&lt;em&gt;Beautiful&lt;/em&gt;&nbsp;world&lt;/h1&gt;&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">{</span>&nbsp;min<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">20</span>&nbsp;<span style="color: #000000">});</span></div><div>&nbsp;</div><div><span style="color: #000000">expect</span><span style="color: #000000">(</span>longerHtmlSnippets<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">5</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;&lt;h1&gt;Hello&nbsp;&lt;em&gt;world&lt;/h1&gt;&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;&lt;h1&gt;Hello&nbsp;&lt;em&gt;Beautiful&lt;/em&gt;&nbsp;world&lt;/h1&gt;&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;&lt;h1&gt;Hello&nbsp;&lt;em&gt;Beautiful&lt;/em&gt;&nbsp;1&gt;&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;&lt;h1&gt;Hello&nbsp;&lt;em&gt;Beautifuld&lt;/h1&gt;&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;&lt;h1&gt;HeBeautiful&lt;/em&gt;&nbsp;world&lt;/h1&gt;&quot;</span></div><div><span style="color: #000000">]);</span></div></div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    baseUrl = '../..';
+</script>
+<script type="text/javascript" src="../../static/toggleSidebar.js"></script>
+<script type="text/javascript" src="../../static/rememberScrollPosition.js"></script>
+<script type="text/javascript" src="../../static/focusMain.js"></script>
+<script type="text/javascript" src="../../static/search.js"></script>
+</body>
+</html>
+

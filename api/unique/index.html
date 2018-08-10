@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../static/normalize.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../../static/main.css" type="text/css" media="screen" />
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="../../static/bug-icon-black.ico">
+    <title>unique</title>
+</head>
+<body class="sidebar-hidden has-sidebar"> 
+    <header>
+        <div class="logo-icon"></div>
+        <nav>
+            <ul>
+                <li class="menu-toggle-item">
+                    <button class="menu-toggle" onclick="toggleSidebar()"></button>
+                </li>
+                
+                <li class=""><a href="../..">chance-generators</a></li>
+                
+                
+                
+                <li class="active"><a href="../array">API</a></li>
+                
+                
+            </ul>
+        </nav>
+        <div class="search" style="visibility: hidden">
+            <input id="search" placeholder="Search..." value="">
+            <div id="searchDropDown" class="dropDown">
+                <ul id="searchResults"></ul>
+            </div>
+        </div>
+    </header>
+
+<section id="api">
+    <nav id="api-menu" class="sidebar js-remember-scroll-position">
+    <ul>
+        
+        <li class="">
+            <a href="../array">array</a>
+        </li>
+        
+        <li class="">
+            <a href="../arraySplicer">arraySplicer</a>
+        </li>
+        
+        <li class="">
+            <a href="../bool">bool</a>
+        </li>
+        
+        <li class="">
+            <a href="../chance">chance</a>
+        </li>
+        
+        <li class="">
+            <a href="../character">character</a>
+        </li>
+        
+        <li class="">
+            <a href="../constant">constant</a>
+        </li>
+        
+        <li class="">
+            <a href="../floating">floating</a>
+        </li>
+        
+        <li class="">
+            <a href="../generator">generator</a>
+        </li>
+        
+        <li class="">
+            <a href="../integer">integer</a>
+        </li>
+        
+        <li class="">
+            <a href="../iterator">iterator</a>
+        </li>
+        
+        <li class="">
+            <a href="../natural">natural</a>
+        </li>
+        
+        <li class="">
+            <a href="../number">number</a>
+        </li>
+        
+        <li class="">
+            <a href="../pickone">pickone</a>
+        </li>
+        
+        <li class="">
+            <a href="../pickset">pickset</a>
+        </li>
+        
+        <li class="">
+            <a href="../sequence">sequence</a>
+        </li>
+        
+        <li class="">
+            <a href="../shape">shape</a>
+        </li>
+        
+        <li class="">
+            <a href="../shuffle">shuffle</a>
+        </li>
+        
+        <li class="">
+            <a href="../string">string</a>
+        </li>
+        
+        <li class="">
+            <a href="../stringSplicer">stringSplicer</a>
+        </li>
+        
+        <li class="">
+            <a href="../text">text</a>
+        </li>
+        
+        <li class="active">
+            <a href="">unique</a>
+        </li>
+        
+        <li class="">
+            <a href="../weigthed">weigthed</a>
+        </li>
+        
+    </ul>
+</nav>
+
+    <div class="main" tabindex="-1">
+        <div class="content">
+            <h1 id="unique-value-generator">Unique value generator</h1>
+<p>An array <a href="../generator/">generator</a> that random picks unique items from another generator.</p>
+<p>When only given a generator, it generates arrays containing items produced with
+the given generator of length 0 to 20. It uses the identity function to decide
+if items are unique.</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;<span style="color: #000000">{</span>&nbsp;age<span style="color: #000000">,</span>&nbsp;name<span style="color: #000000">,</span>&nbsp;natural<span style="color: #000000">,</span>&nbsp;shape<span style="color: #000000">,</span>&nbsp;unique&nbsp;<span style="color: #000000">}</span>&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">require</span><span style="color: #000000">(</span><span style="color: #df5000">&quot;chance-generators&quot;</span><span style="color: #000000">);</span></div></div><div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;smallNumbers&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">natural</span><span style="color: #000000">({</span>&nbsp;max<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">20</span>&nbsp;<span style="color: #000000">});</span></div><div>&nbsp;</div><div><span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #000000">unique</span><span style="color: #000000">(</span>smallNumbers<span style="color: #000000">).</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">5</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">16</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">19</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">15</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">12</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">9</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">2</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">9</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">7</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">12</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">14</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">13</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">0</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">20</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">15</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">17</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">19</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">4</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">6</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">11</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">9</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">8</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">2</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">16</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">4</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">8</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">10</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">20</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">12</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">9</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">0</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">18</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">14</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">19</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">20</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">11</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">16</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">8</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">6</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">0</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">2</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">4</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">14</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">5</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">9</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">12</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">10</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">17</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">19</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">13</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">15</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">18</span><span style="color: #000000">]</span></div><div><span style="color: #000000">]);</span></div></div><p>You can constrain the size of generated arrays by providing a <code>min</code> and <code>max</code>.</p>
+<p>Notice both limits are inclusive.</p>
+<div class="code lang-javascript"><div><span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #000000">unique</span><span style="color: #000000">(</span>smallNumbers<span style="color: #000000">,</span>&nbsp;<span style="color: #000000">{</span>&nbsp;min<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">,</span>&nbsp;max<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">5</span>&nbsp;<span style="color: #000000">}).</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">5</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">16</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">19</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">15</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">12</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">9</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">2</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">18</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">7</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">12</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">13</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">0</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">20</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">15</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">19</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">4</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">0</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">20</span><span style="color: #000000">]</span></div><div><span style="color: #000000">]);</span></div></div><p>You don&#39;t have to specify all the options. The default will be used for the
+options you don&#39;t specify:</p>
+<div class="code lang-javascript"><div><span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #000000">unique</span><span style="color: #000000">(</span>smallNumbers<span style="color: #000000">,</span>&nbsp;<span style="color: #000000">{</span>&nbsp;max<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">3</span>&nbsp;<span style="color: #000000">}).</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">5</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[[</span><span style="color: #0086b3">16</span><span style="color: #000000">],</span>&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">3</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">15</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">16</span><span style="color: #000000">],</span>&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">12</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">],</span>&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">3</span><span style="color: #000000">],</span>&nbsp;<span style="color: #000000">[]]);</span></div></div><p>You can override the comparator if you want to take control of the comparison of
+the items.</p>
+<p>Let&#39;s says we want arrays of persons containing only persons with unique ages.
+If you just use the unique generator without a comparator, we might get persons
+we the same age:</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;person&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">shape</span><span style="color: #000000">({</span></div><div>&nbsp;&nbsp;name<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;age</div><div><span style="color: #000000">});</span></div><div>&nbsp;</div><div><span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #000000">unique</span><span style="color: #000000">(</span>person<span style="color: #000000">,</span>&nbsp;<span style="color: #000000">{</span>&nbsp;max<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">10</span>&nbsp;<span style="color: #000000">}).</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">3</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Violet&nbsp;Simmons&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">53</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Alta&nbsp;Beck&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">25</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Scott&nbsp;Collins&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">20</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Derrick&nbsp;Pierce&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">46</span>&nbsp;<span style="color: #000000">}</span></div><div>&nbsp;&nbsp;<span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Isabelle&nbsp;Anderson&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">20</span>&nbsp;<span style="color: #000000">}],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Gussie&nbsp;Lloyd&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">28</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Patrick&nbsp;Wilkerson&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">26</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Lydia&nbsp;Parks&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">43</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Travis&nbsp;Thomas&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">31</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Beatrice&nbsp;Lawson&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">24</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Harry&nbsp;Bryan&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">35</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Todd&nbsp;Campbell&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">55</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Dora&nbsp;Lawrence&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">42</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Ruby&nbsp;Fuller&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">20</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Christine&nbsp;Hubbard&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">26</span>&nbsp;<span style="color: #000000">}</span></div><div>&nbsp;&nbsp;<span style="color: #000000">]</span></div><div><span style="color: #000000">]);</span></div></div><p>As you can see Patrick Wilkerson and Christine Hubbard has the same age.</p>
+<p>Now let&#39;s try to provide a comparator:</p>
+<div class="code lang-javascript"><div><span style="color: #000000">expect</span><span style="color: #000000">(</span></div><div>&nbsp;&nbsp;<span style="color: #000000">unique</span><span style="color: #000000">(</span>person<span style="color: #000000">,</span>&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;max<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">10</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;comparator<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">(</span>persons<span style="color: #000000">,</span>&nbsp;<span style="color: #000000">{</span>&nbsp;age&nbsp;<span style="color: #000000">})</span>&nbsp;<span style="color: #a71d5d">=&gt;</span>&nbsp;persons<span style="color: #000000">.</span><span style="color: #000000">some</span><span style="color: #000000">(</span>p&nbsp;<span style="color: #a71d5d">=&gt;</span>&nbsp;p<span style="color: #000000">.</span>age&nbsp;<span style="color: #a71d5d">===</span>&nbsp;age<span style="color: #000000">)</span></div><div>&nbsp;&nbsp;<span style="color: #000000">}).</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">3</span><span style="color: #000000">),</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Violet&nbsp;Simmons&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">53</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Alta&nbsp;Beck&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">25</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Scott&nbsp;Collins&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">20</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Derrick&nbsp;Pierce&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">46</span>&nbsp;<span style="color: #000000">}</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">],</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">[{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Isabelle&nbsp;Anderson&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">20</span>&nbsp;<span style="color: #000000">}],</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Gussie&nbsp;Lloyd&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">28</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Patrick&nbsp;Wilkerson&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">26</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Lydia&nbsp;Parks&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">43</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Travis&nbsp;Thomas&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">31</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Beatrice&nbsp;Lawson&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">24</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Harry&nbsp;Bryan&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">35</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Todd&nbsp;Campbell&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">55</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Dora&nbsp;Lawrence&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">42</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Ruby&nbsp;Fuller&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">20</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Paul&nbsp;Miller&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">63</span>&nbsp;<span style="color: #000000">}</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">]</span></div><div>&nbsp;&nbsp;<span style="color: #000000">]</span></div><div><span style="color: #000000">);</span></div></div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    baseUrl = '../..';
+</script>
+<script type="text/javascript" src="../../static/toggleSidebar.js"></script>
+<script type="text/javascript" src="../../static/rememberScrollPosition.js"></script>
+<script type="text/javascript" src="../../static/focusMain.js"></script>
+<script type="text/javascript" src="../../static/search.js"></script>
+</body>
+</html>
+

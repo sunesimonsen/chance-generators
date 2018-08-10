@@ -1,1 +1,90 @@
-[]
+[
+  {
+    "label": "array (api)",
+    "url": "/api/array/"
+  },
+  {
+    "label": "arraySplicer (api)",
+    "url": "/api/arraySplicer/"
+  },
+  {
+    "label": "bool (api)",
+    "url": "/api/bool/"
+  },
+  {
+    "label": "chance (api)",
+    "url": "/api/chance/"
+  },
+  {
+    "label": "character (api)",
+    "url": "/api/character/"
+  },
+  {
+    "label": "constant (api)",
+    "url": "/api/constant/"
+  },
+  {
+    "label": "floating (api)",
+    "url": "/api/floating/"
+  },
+  {
+    "label": "generator (api)",
+    "url": "/api/generator/"
+  },
+  {
+    "label": "integer (api)",
+    "url": "/api/integer/"
+  },
+  {
+    "label": "iterator (api)",
+    "url": "/api/iterator/"
+  },
+  {
+    "label": "natural (api)",
+    "url": "/api/natural/"
+  },
+  {
+    "label": "number (api)",
+    "url": "/api/number/"
+  },
+  {
+    "label": "pickone (api)",
+    "url": "/api/pickone/"
+  },
+  {
+    "label": "pickset (api)",
+    "url": "/api/pickset/"
+  },
+  {
+    "label": "sequence (api)",
+    "url": "/api/sequence/"
+  },
+  {
+    "label": "shape (api)",
+    "url": "/api/shape/"
+  },
+  {
+    "label": "shuffle (api)",
+    "url": "/api/shuffle/"
+  },
+  {
+    "label": "string (api)",
+    "url": "/api/string/"
+  },
+  {
+    "label": "stringSplicer (api)",
+    "url": "/api/stringSplicer/"
+  },
+  {
+    "label": "text (api)",
+    "url": "/api/text/"
+  },
+  {
+    "label": "unique (api)",
+    "url": "/api/unique/"
+  },
+  {
+    "label": "weigthed (api)",
+    "url": "/api/weigthed/"
+  }
+]

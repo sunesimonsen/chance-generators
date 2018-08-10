@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../static/normalize.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../../static/main.css" type="text/css" media="screen" />
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="../../static/bug-icon-black.ico">
+    <title>number</title>
+</head>
+<body class="sidebar-hidden has-sidebar"> 
+    <header>
+        <div class="logo-icon"></div>
+        <nav>
+            <ul>
+                <li class="menu-toggle-item">
+                    <button class="menu-toggle" onclick="toggleSidebar()"></button>
+                </li>
+                
+                <li class=""><a href="../..">chance-generators</a></li>
+                
+                
+                
+                <li class="active"><a href="../array">API</a></li>
+                
+                
+            </ul>
+        </nav>
+        <div class="search" style="visibility: hidden">
+            <input id="search" placeholder="Search..." value="">
+            <div id="searchDropDown" class="dropDown">
+                <ul id="searchResults"></ul>
+            </div>
+        </div>
+    </header>
+
+<section id="api">
+    <nav id="api-menu" class="sidebar js-remember-scroll-position">
+    <ul>
+        
+        <li class="">
+            <a href="../array">array</a>
+        </li>
+        
+        <li class="">
+            <a href="../arraySplicer">arraySplicer</a>
+        </li>
+        
+        <li class="">
+            <a href="../bool">bool</a>
+        </li>
+        
+        <li class="">
+            <a href="../chance">chance</a>
+        </li>
+        
+        <li class="">
+            <a href="../character">character</a>
+        </li>
+        
+        <li class="">
+            <a href="../constant">constant</a>
+        </li>
+        
+        <li class="">
+            <a href="../floating">floating</a>
+        </li>
+        
+        <li class="">
+            <a href="../generator">generator</a>
+        </li>
+        
+        <li class="">
+            <a href="../integer">integer</a>
+        </li>
+        
+        <li class="">
+            <a href="../iterator">iterator</a>
+        </li>
+        
+        <li class="">
+            <a href="../natural">natural</a>
+        </li>
+        
+        <li class="active">
+            <a href="">number</a>
+        </li>
+        
+        <li class="">
+            <a href="../pickone">pickone</a>
+        </li>
+        
+        <li class="">
+            <a href="../pickset">pickset</a>
+        </li>
+        
+        <li class="">
+            <a href="../sequence">sequence</a>
+        </li>
+        
+        <li class="">
+            <a href="../shape">shape</a>
+        </li>
+        
+        <li class="">
+            <a href="../shuffle">shuffle</a>
+        </li>
+        
+        <li class="">
+            <a href="../string">string</a>
+        </li>
+        
+        <li class="">
+            <a href="../stringSplicer">stringSplicer</a>
+        </li>
+        
+        <li class="">
+            <a href="../text">text</a>
+        </li>
+        
+        <li class="">
+            <a href="../unique">unique</a>
+        </li>
+        
+        <li class="">
+            <a href="../weigthed">weigthed</a>
+        </li>
+        
+    </ul>
+</nav>
+
+    <div class="main" tabindex="-1">
+        <div class="content">
+            <h1 id="number-generator">Number generator</h1>
+<p>A random number <a href="../generator/">generator</a>, capable of generating integers, floats, infinite numbers, <code>-0</code>, <code>+0</code> and <code>NaN</code>.</p>
+<p>For more controlled number generation see <a href="../integer/">integer</a>,
+<a href="../natural/">natural</a> and <a href="../floating/">floating</a>.</p>
+<p>By default it generates integers and floats:</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;<span style="color: #000000">{</span>&nbsp;number&nbsp;<span style="color: #000000">}</span>&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">require</span><span style="color: #000000">(</span><span style="color: #df5000">&quot;chance-generators&quot;</span><span style="color: #000000">);</span></div></div><div class="code lang-javascript"><div><span style="color: #000000">expect</span><span style="color: #000000">(</span>number<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">10</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">5930.8597</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">6332</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">56</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">19</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">10.8335</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">80.0051</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">8.1502</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">3326</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">72</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">30</span></div><div><span style="color: #000000">]);</span></div></div><p>You have the following number categories you can enable or disable:</p>
+<ul>
+<li>integer: (true) integer numbers</li>
+<li>floating: (true) floating point numbers</li>
+<li>infinity: (false) <code>Infinity</code> and <code>-Infinity</code></li>
+<li>nan: (false) <code>NaN</code></li>
+</ul>
+<p>Generate only integers:</p>
+<div class="code lang-javascript"><div><span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #000000">number</span><span style="color: #000000">({</span>&nbsp;floating<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">false</span>&nbsp;<span style="color: #000000">}).</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">10</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">60</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">5702731889115135</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">5594</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">1937</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">11</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">80</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">8</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">3326</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">7143</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">3018</span></div><div><span style="color: #000000">]);</span></div></div><p>Generate only floats:</p>
+<div class="code lang-javascript"><div><span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #000000">number</span><span style="color: #000000">({</span>&nbsp;integer<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">false</span>&nbsp;<span style="color: #000000">}).</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">10</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">59.3086</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">570273188911.5135</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">5593.82</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">1937.0032</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">10.8335</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">80.0051</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">8.1502</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">3325.8278</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">7142.6638</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">3017.7695</span></div><div><span style="color: #000000">]);</span></div></div><p>You can include <code>Infinity</code>, <code>-Infinity</code> and <code>NaN</code>:</p>
+<div class="code lang-javascript"><div><span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #000000">number</span><span style="color: #000000">({</span>&nbsp;infinity<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">true</span><span style="color: #000000">,</span>&nbsp;nan<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">true</span>&nbsp;<span style="color: #000000">}).</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">2000</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;contain&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">Infinity</span><span style="color: #000000">,</span>&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">Infinity</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">NaN</span><span style="color: #000000">);</span></div></div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    baseUrl = '../..';
+</script>
+<script type="text/javascript" src="../../static/toggleSidebar.js"></script>
+<script type="text/javascript" src="../../static/rememberScrollPosition.js"></script>
+<script type="text/javascript" src="../../static/focusMain.js"></script>
+<script type="text/javascript" src="../../static/search.js"></script>
+</body>
+</html>
+

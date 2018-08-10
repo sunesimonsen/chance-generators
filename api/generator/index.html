@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../static/normalize.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../../static/main.css" type="text/css" media="screen" />
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="../../static/bug-icon-black.ico">
+    <title>generator</title>
+</head>
+<body class="sidebar-hidden has-sidebar"> 
+    <header>
+        <div class="logo-icon"></div>
+        <nav>
+            <ul>
+                <li class="menu-toggle-item">
+                    <button class="menu-toggle" onclick="toggleSidebar()"></button>
+                </li>
+                
+                <li class=""><a href="../..">chance-generators</a></li>
+                
+                
+                
+                <li class="active"><a href="../array">API</a></li>
+                
+                
+            </ul>
+        </nav>
+        <div class="search" style="visibility: hidden">
+            <input id="search" placeholder="Search..." value="">
+            <div id="searchDropDown" class="dropDown">
+                <ul id="searchResults"></ul>
+            </div>
+        </div>
+    </header>
+
+<section id="api">
+    <nav id="api-menu" class="sidebar js-remember-scroll-position">
+    <ul>
+        
+        <li class="">
+            <a href="../array">array</a>
+        </li>
+        
+        <li class="">
+            <a href="../arraySplicer">arraySplicer</a>
+        </li>
+        
+        <li class="">
+            <a href="../bool">bool</a>
+        </li>
+        
+        <li class="">
+            <a href="../chance">chance</a>
+        </li>
+        
+        <li class="">
+            <a href="../character">character</a>
+        </li>
+        
+        <li class="">
+            <a href="../constant">constant</a>
+        </li>
+        
+        <li class="">
+            <a href="../floating">floating</a>
+        </li>
+        
+        <li class="active">
+            <a href="">generator</a>
+        </li>
+        
+        <li class="">
+            <a href="../integer">integer</a>
+        </li>
+        
+        <li class="">
+            <a href="../iterator">iterator</a>
+        </li>
+        
+        <li class="">
+            <a href="../natural">natural</a>
+        </li>
+        
+        <li class="">
+            <a href="../number">number</a>
+        </li>
+        
+        <li class="">
+            <a href="../pickone">pickone</a>
+        </li>
+        
+        <li class="">
+            <a href="../pickset">pickset</a>
+        </li>
+        
+        <li class="">
+            <a href="../sequence">sequence</a>
+        </li>
+        
+        <li class="">
+            <a href="../shape">shape</a>
+        </li>
+        
+        <li class="">
+            <a href="../shuffle">shuffle</a>
+        </li>
+        
+        <li class="">
+            <a href="../string">string</a>
+        </li>
+        
+        <li class="">
+            <a href="../stringSplicer">stringSplicer</a>
+        </li>
+        
+        <li class="">
+            <a href="../text">text</a>
+        </li>
+        
+        <li class="">
+            <a href="../unique">unique</a>
+        </li>
+        
+        <li class="">
+            <a href="../weigthed">weigthed</a>
+        </li>
+        
+    </ul>
+</nav>
+
+    <div class="main" tabindex="-1">
+        <div class="content">
+            <h1 id="generator">Generator</h1>
+<p>Base class for all generators.</p>
+<p>Here we will use the <a href="../integer/">integer</a> generator as an example:</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;<span style="color: #000000">{</span>&nbsp;integer&nbsp;<span style="color: #000000">}</span>&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">require</span><span style="color: #000000">(</span><span style="color: #df5000">&quot;chance-generators&quot;</span><span style="color: #000000">)</span></div></div><h2 id="api">API</h2>
+<h3 id="map-mapper-">map(mapper)</h3>
+<p>Returns a new generator where all values generated from the original will be
+mapped with the given <code>mapper</code> function.</p>
+<div class="code lang-javascript"><div><span style="color: #000000">expect</span><span style="color: #000000">(</span></div><div>&nbsp;&nbsp;<span style="color: #000000">integer</span><span style="color: #000000">({</span>&nbsp;min<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">0</span><span style="color: #000000">,</span>&nbsp;max<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">100</span>&nbsp;<span style="color: #000000">})</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">.</span><span style="color: #000000">map</span><span style="color: #000000">(</span>v&nbsp;<span style="color: #a71d5d">=&gt;</span>&nbsp;<span style="color: #df5000">`</span>${v}<span style="color: #df5000">&nbsp;kr`</span><span style="color: #000000">)</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">3</span><span style="color: #000000">),</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #df5000">&quot;37&nbsp;kr&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;80&nbsp;kr&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;96&nbsp;kr&quot;</span><span style="color: #000000">]</span></div><div><span style="color: #000000">);</span></div></div><p>All generators in the mapped value will be unwrapped:</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;ranges&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">integer</span><span style="color: #000000">({</span>&nbsp;min<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">0</span><span style="color: #000000">,</span>&nbsp;max<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">100</span>&nbsp;<span style="color: #000000">}).</span><span style="color: #000000">map</span><span style="color: #000000">(</span>to&nbsp;<span style="color: #a71d5d">=&gt;</span>&nbsp;<span style="color: #000000">({</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">from</span><span style="color: #000000">:</span>&nbsp;<span style="color: #000000">integer</span><span style="color: #000000">({</span>&nbsp;min<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">0</span><span style="color: #000000">,</span>&nbsp;max<span style="color: #000000">:</span>&nbsp;to&nbsp;<span style="color: #000000">}),</span></div><div>&nbsp;&nbsp;to</div><div><span style="color: #000000">}));</span></div><div>&nbsp;</div><div><span style="color: #000000">expect</span><span style="color: #000000">(</span>ranges<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">5</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;<span style="color: #a71d5d">from</span><span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">30</span><span style="color: #000000">,</span>&nbsp;to<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">37</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;<span style="color: #a71d5d">from</span><span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">17</span><span style="color: #000000">,</span>&nbsp;to<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">96</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;<span style="color: #a71d5d">from</span><span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">57</span><span style="color: #000000">,</span>&nbsp;to<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">73</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;<span style="color: #a71d5d">from</span><span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">36</span><span style="color: #000000">,</span>&nbsp;to<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">60</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;<span style="color: #a71d5d">from</span><span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">7</span><span style="color: #000000">,</span>&nbsp;to<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">15</span>&nbsp;<span style="color: #000000">}</span></div><div><span style="color: #000000">]);</span></div></div><h3 id="take-n-options-">take(n, [options])</h3>
+<p>Calls <code>values</code> and takes the <code>n</code> first items from the iterator:</p>
+<div class="code lang-javascript"><div><span style="color: #000000">expect</span><span style="color: #000000">(</span>integer<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">3</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span><span style="color: #a71d5d">-</span><span style="color: #0086b3">2260084377780223</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">5342043492581377</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">8119347222413313</span><span style="color: #000000">]);</span></div></div><p>Any options will be forwarded to the <code>values</code> method:</p>
+<div class="code lang-javascript"><div><span style="color: #000000">expect</span><span style="color: #000000">(</span>integer<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">3</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">{</span>&nbsp;seed<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">666</span>&nbsp;<span style="color: #000000">}),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">3610754225799169</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">7158602909351935</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">6200315372109825</span></div><div><span style="color: #000000">]);</span></div></div><h3 id="values-options-">values([options])</h3>
+<p>Returns an iterator for the generator with a default seed:</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;iterator&nbsp;<span style="color: #a71d5d">=</span>&nbsp;integer<span style="color: #000000">.</span><span style="color: #000000">values</span><span style="color: #000000">();</span></div><div>&nbsp;</div><div><span style="color: #000000">expect</span><span style="color: #000000">([</span>iterator<span style="color: #000000">.</span><span style="color: #000000">next</span><span style="color: #000000">(),</span>&nbsp;iterator<span style="color: #000000">.</span><span style="color: #000000">next</span><span style="color: #000000">(),</span>&nbsp;iterator<span style="color: #000000">.</span><span style="color: #000000">next</span><span style="color: #000000">()],</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">2260084377780223</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">5342043492581377</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">8119347222413313</span></div><div><span style="color: #000000">]);</span></div></div><p>You can optionally also provide a seed for the random generator:</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;seededIterator&nbsp;<span style="color: #a71d5d">=</span>&nbsp;integer<span style="color: #000000">.</span><span style="color: #000000">values</span><span style="color: #000000">({</span>&nbsp;seed<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">666</span>&nbsp;<span style="color: #000000">});</span></div><div>&nbsp;</div><div><span style="color: #000000">expect</span><span style="color: #000000">([</span>seededIterator<span style="color: #000000">.</span><span style="color: #000000">next</span><span style="color: #000000">(),</span>&nbsp;seededIterator<span style="color: #000000">.</span><span style="color: #000000">next</span><span style="color: #000000">(),</span>&nbsp;seededIterator<span style="color: #000000">.</span><span style="color: #000000">next</span><span style="color: #000000">()],</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">3610754225799169</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">-</span><span style="color: #0086b3">7158602909351935</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">6200315372109825</span></div><div><span style="color: #000000">]);</span></div></div><p>It is also possible to make the generated values completely random by using a
+random seed:</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;randomIterator&nbsp;<span style="color: #a71d5d">=</span>&nbsp;integer<span style="color: #000000">.</span><span style="color: #000000">values</span><span style="color: #000000">({</span>&nbsp;seed<span style="color: #000000">:</span>&nbsp;<span style="color: #a71d5d">null</span>&nbsp;<span style="color: #000000">});</span></div><div>&nbsp;</div><div><span style="color: #000000">expect</span><span style="color: #000000">(</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span>randomIterator<span style="color: #000000">.</span><span style="color: #000000">next</span><span style="color: #000000">(),</span>&nbsp;randomIterator<span style="color: #000000">.</span><span style="color: #000000">next</span><span style="color: #000000">(),</span>&nbsp;randomIterator<span style="color: #000000">.</span><span style="color: #000000">next</span><span style="color: #000000">()],</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;to&nbsp;have&nbsp;items&nbsp;satisfying&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;to&nbsp;be&nbsp;a&nbsp;number&quot;</span></div><div><span style="color: #000000">);</span></div></div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    baseUrl = '../..';
+</script>
+<script type="text/javascript" src="../../static/toggleSidebar.js"></script>
+<script type="text/javascript" src="../../static/rememberScrollPosition.js"></script>
+<script type="text/javascript" src="../../static/focusMain.js"></script>
+<script type="text/javascript" src="../../static/search.js"></script>
+</body>
+</html>
+

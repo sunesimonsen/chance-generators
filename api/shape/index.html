@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../static/normalize.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../../static/main.css" type="text/css" media="screen" />
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="../../static/bug-icon-black.ico">
+    <title>shape</title>
+</head>
+<body class="sidebar-hidden has-sidebar"> 
+    <header>
+        <div class="logo-icon"></div>
+        <nav>
+            <ul>
+                <li class="menu-toggle-item">
+                    <button class="menu-toggle" onclick="toggleSidebar()"></button>
+                </li>
+                
+                <li class=""><a href="../..">chance-generators</a></li>
+                
+                
+                
+                <li class="active"><a href="../array">API</a></li>
+                
+                
+            </ul>
+        </nav>
+        <div class="search" style="visibility: hidden">
+            <input id="search" placeholder="Search..." value="">
+            <div id="searchDropDown" class="dropDown">
+                <ul id="searchResults"></ul>
+            </div>
+        </div>
+    </header>
+
+<section id="api">
+    <nav id="api-menu" class="sidebar js-remember-scroll-position">
+    <ul>
+        
+        <li class="">
+            <a href="../array">array</a>
+        </li>
+        
+        <li class="">
+            <a href="../arraySplicer">arraySplicer</a>
+        </li>
+        
+        <li class="">
+            <a href="../bool">bool</a>
+        </li>
+        
+        <li class="">
+            <a href="../chance">chance</a>
+        </li>
+        
+        <li class="">
+            <a href="../character">character</a>
+        </li>
+        
+        <li class="">
+            <a href="../constant">constant</a>
+        </li>
+        
+        <li class="">
+            <a href="../floating">floating</a>
+        </li>
+        
+        <li class="">
+            <a href="../generator">generator</a>
+        </li>
+        
+        <li class="">
+            <a href="../integer">integer</a>
+        </li>
+        
+        <li class="">
+            <a href="../iterator">iterator</a>
+        </li>
+        
+        <li class="">
+            <a href="../natural">natural</a>
+        </li>
+        
+        <li class="">
+            <a href="../number">number</a>
+        </li>
+        
+        <li class="">
+            <a href="../pickone">pickone</a>
+        </li>
+        
+        <li class="">
+            <a href="../pickset">pickset</a>
+        </li>
+        
+        <li class="">
+            <a href="../sequence">sequence</a>
+        </li>
+        
+        <li class="active">
+            <a href="">shape</a>
+        </li>
+        
+        <li class="">
+            <a href="../shuffle">shuffle</a>
+        </li>
+        
+        <li class="">
+            <a href="../string">string</a>
+        </li>
+        
+        <li class="">
+            <a href="../stringSplicer">stringSplicer</a>
+        </li>
+        
+        <li class="">
+            <a href="../text">text</a>
+        </li>
+        
+        <li class="">
+            <a href="../unique">unique</a>
+        </li>
+        
+        <li class="">
+            <a href="../weigthed">weigthed</a>
+        </li>
+        
+    </ul>
+</nav>
+
+    <div class="main" tabindex="-1">
+        <div class="content">
+            <h1 id="shape-generator">Shape generator</h1>
+<p>Random shape <a href="../generator/">generator</a> capable of generating trees of data.</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;age<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;animal<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;array<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;bool<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;city<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;country<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;name<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;natural<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;shape<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;ssn<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;state<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;street<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;zip</div><div><span style="color: #000000">}</span>&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">require</span><span style="color: #000000">(</span><span style="color: #df5000">&quot;chance-generators&quot;</span><span style="color: #000000">);</span></div></div><p>The shape generator take a tree of data as input. The tree can contain other
+generators that will each yield the values that sub-tree.</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;person&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">shape</span><span style="color: #000000">({</span></div><div>&nbsp;&nbsp;name<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;age<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;ssn<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;address<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;city<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;country<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;state<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;street<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;zip</div><div>&nbsp;&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;animal<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">pickone</span><span style="color: #000000">([</span>animal<span style="color: #000000">,</span>&nbsp;<span style="color: #a71d5d">null</span><span style="color: #000000">])</span></div><div><span style="color: #000000">});</span></div><div>&nbsp;</div><div><span style="color: #000000">expect</span><span style="color: #000000">(</span>person<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">3</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Seth&nbsp;Tran&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">26</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;ssn<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;866-52-1594&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;address<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;city<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Fopcuewe&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;country<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;AF&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;FL&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;street<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Gohrak&nbsp;Avenue&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zip<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;25631&quot;</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;animal<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Xiphosura&quot;</span></div><div>&nbsp;&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Adam&nbsp;Nguyen&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">22</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;ssn<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;724-06-1977&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;address<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;city<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Naowruj&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;country<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;FJ&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;AL&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;street<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Hono&nbsp;Court&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zip<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;64801&quot;</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;animal<span style="color: #000000">:</span>&nbsp;<span style="color: #a71d5d">null</span></div><div>&nbsp;&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Kyle&nbsp;Simmons&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">49</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;ssn<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;456-66-1098&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;address<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;city<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Okonokan&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;country<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;CX&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;MT&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;street<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Uhlog&nbsp;Parkway&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zip<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;85392&quot;</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;animal<span style="color: #000000">:</span>&nbsp;<span style="color: #a71d5d">null</span></div><div>&nbsp;&nbsp;<span style="color: #000000">}</span></div><div><span style="color: #000000">]);</span></div></div><p>In case you want to create a recursive structure, you can do it the following
+way. Just make sure the recursion is bounded.</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;smallNumber&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">natural</span><span style="color: #000000">({</span>&nbsp;max<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">9</span>&nbsp;<span style="color: #000000">});</span></div><div>&nbsp;</div><div><span style="color: #a71d5d">const</span>&nbsp;tree&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">shape</span><span style="color: #000000">({</span></div><div>&nbsp;&nbsp;left<span style="color: #000000">:</span>&nbsp;bool<span style="color: #000000">.</span><span style="color: #000000">map</span><span style="color: #000000">(</span>leaf&nbsp;<span style="color: #a71d5d">=&gt;</span>&nbsp;<span style="color: #000000">(</span>leaf&nbsp;<span style="color: #a71d5d">?</span>&nbsp;smallNumber&nbsp;<span style="color: #000000">:</span>&nbsp;tree<span style="color: #000000">)),</span></div><div>&nbsp;&nbsp;right<span style="color: #000000">:</span>&nbsp;bool<span style="color: #000000">.</span><span style="color: #000000">map</span><span style="color: #000000">(</span>leaf&nbsp;<span style="color: #a71d5d">=&gt;</span>&nbsp;<span style="color: #000000">(</span>leaf&nbsp;<span style="color: #a71d5d">?</span>&nbsp;smallNumber&nbsp;<span style="color: #000000">:</span>&nbsp;tree<span style="color: #000000">))</span></div><div><span style="color: #000000">});</span></div><div>&nbsp;</div><div><span style="color: #000000">expect</span><span style="color: #000000">(</span>tree<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">2</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;left<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">7</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;right<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">7</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;right<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span>&nbsp;left<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span>&nbsp;left<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">4</span><span style="color: #000000">,</span>&nbsp;right<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">0</span>&nbsp;<span style="color: #000000">},</span>&nbsp;right<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">4</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;right<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span>&nbsp;left<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">6</span><span style="color: #000000">,</span>&nbsp;right<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">7</span>&nbsp;<span style="color: #000000">}</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">}</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">}</span></div><div>&nbsp;&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;left<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">0</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;right<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span>&nbsp;left<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span>&nbsp;left<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span>&nbsp;left<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">0</span><span style="color: #000000">,</span>&nbsp;right<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">9</span>&nbsp;<span style="color: #000000">},</span>&nbsp;right<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">6</span>&nbsp;<span style="color: #000000">},</span>&nbsp;right<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">6</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;right<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span>&nbsp;left<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">4</span><span style="color: #000000">,</span>&nbsp;right<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">2</span>&nbsp;<span style="color: #000000">}</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">}</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;right<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span>&nbsp;left<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span>&nbsp;left<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">,</span>&nbsp;right<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">2</span>&nbsp;<span style="color: #000000">},</span>&nbsp;right<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span>&nbsp;left<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">2</span><span style="color: #000000">,</span>&nbsp;right<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">0</span>&nbsp;<span style="color: #000000">}</span>&nbsp;<span style="color: #000000">}</span></div><div>&nbsp;&nbsp;<span style="color: #000000">}</span></div><div><span style="color: #000000">]);</span></div></div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    baseUrl = '../..';
+</script>
+<script type="text/javascript" src="../../static/toggleSidebar.js"></script>
+<script type="text/javascript" src="../../static/rememberScrollPosition.js"></script>
+<script type="text/javascript" src="../../static/focusMain.js"></script>
+<script type="text/javascript" src="../../static/search.js"></script>
+</body>
+</html>
+

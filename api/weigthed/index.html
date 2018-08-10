@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../static/normalize.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../../static/main.css" type="text/css" media="screen" />
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="../../static/bug-icon-black.ico">
+    <title>weigthed</title>
+</head>
+<body class="sidebar-hidden has-sidebar"> 
+    <header>
+        <div class="logo-icon"></div>
+        <nav>
+            <ul>
+                <li class="menu-toggle-item">
+                    <button class="menu-toggle" onclick="toggleSidebar()"></button>
+                </li>
+                
+                <li class=""><a href="../..">chance-generators</a></li>
+                
+                
+                
+                <li class="active"><a href="../array">API</a></li>
+                
+                
+            </ul>
+        </nav>
+        <div class="search" style="visibility: hidden">
+            <input id="search" placeholder="Search..." value="">
+            <div id="searchDropDown" class="dropDown">
+                <ul id="searchResults"></ul>
+            </div>
+        </div>
+    </header>
+
+<section id="api">
+    <nav id="api-menu" class="sidebar js-remember-scroll-position">
+    <ul>
+        
+        <li class="">
+            <a href="../array">array</a>
+        </li>
+        
+        <li class="">
+            <a href="../arraySplicer">arraySplicer</a>
+        </li>
+        
+        <li class="">
+            <a href="../bool">bool</a>
+        </li>
+        
+        <li class="">
+            <a href="../chance">chance</a>
+        </li>
+        
+        <li class="">
+            <a href="../character">character</a>
+        </li>
+        
+        <li class="">
+            <a href="../constant">constant</a>
+        </li>
+        
+        <li class="">
+            <a href="../floating">floating</a>
+        </li>
+        
+        <li class="">
+            <a href="../generator">generator</a>
+        </li>
+        
+        <li class="">
+            <a href="../integer">integer</a>
+        </li>
+        
+        <li class="">
+            <a href="../iterator">iterator</a>
+        </li>
+        
+        <li class="">
+            <a href="../natural">natural</a>
+        </li>
+        
+        <li class="">
+            <a href="../number">number</a>
+        </li>
+        
+        <li class="">
+            <a href="../pickone">pickone</a>
+        </li>
+        
+        <li class="">
+            <a href="../pickset">pickset</a>
+        </li>
+        
+        <li class="">
+            <a href="../sequence">sequence</a>
+        </li>
+        
+        <li class="">
+            <a href="../shape">shape</a>
+        </li>
+        
+        <li class="">
+            <a href="../shuffle">shuffle</a>
+        </li>
+        
+        <li class="">
+            <a href="../string">string</a>
+        </li>
+        
+        <li class="">
+            <a href="../stringSplicer">stringSplicer</a>
+        </li>
+        
+        <li class="">
+            <a href="../text">text</a>
+        </li>
+        
+        <li class="">
+            <a href="../unique">unique</a>
+        </li>
+        
+        <li class="active">
+            <a href="">weigthed</a>
+        </li>
+        
+    </ul>
+</nav>
+
+    <div class="main" tabindex="-1">
+        <div class="content">
+            <h1 id="weighted-generator">Weighted generator</h1>
+<p>A <a href="../generator/">generator</a> that randomly picks items based on weights.</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;<span style="color: #000000">{</span>&nbsp;string<span style="color: #000000">,</span>&nbsp;natural<span style="color: #000000">,</span>&nbsp;weighted&nbsp;<span style="color: #000000">}</span>&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">require</span><span style="color: #000000">(</span><span style="color: #df5000">&quot;chance-generators&quot;</span><span style="color: #000000">);</span></div></div><p>You give the <code>weighted</code> generator a list of pairs, where each pair consist of
+the item and its associated weight.</p>
+<p>The weights are all relative, it will ensure that all items are generated
+relative to all of the weights.</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;ab&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">weighted</span><span style="color: #000000">([[</span><span style="color: #df5000">&quot;a&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">10</span><span style="color: #000000">],</span>&nbsp;<span style="color: #000000">[</span><span style="color: #df5000">&quot;b&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">]]);</span></div><div>&nbsp;</div><div><span style="color: #000000">expect</span><span style="color: #000000">(</span>ab<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">10</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span><span style="color: #df5000">&quot;a&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;a&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;b&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;a&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;a&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;a&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;a&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;a&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;a&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;a&quot;</span><span style="color: #000000">]);</span></div></div><p>The above code will generate <code>a</code> 10 times more often than <code>a</code>.</p>
+<p>Below you can an example of generating sums eyes when tossing two dices.</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;twoDiceSum&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">weighted</span><span style="color: #000000">([</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">2</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">3</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">2</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">4</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">5</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">4</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">6</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">5</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">7</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">6</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">8</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">5</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">9</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">4</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">10</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">11</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">2</span><span style="color: #000000">],</span></div><div>&nbsp;&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">12</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">]</span></div><div><span style="color: #000000">]);</span></div><div>&nbsp;</div><div><span style="color: #a71d5d">const</span>&nbsp;frequecies&nbsp;<span style="color: #a71d5d">=</span>&nbsp;twoDiceSum<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">1000</span><span style="color: #000000">).</span><span style="color: #000000">reduce</span><span style="color: #000000">(</span></div><div>&nbsp;&nbsp;<span style="color: #000000">(</span>result<span style="color: #000000">,</span>&nbsp;sum<span style="color: #000000">)</span>&nbsp;<span style="color: #a71d5d">=&gt;</span>&nbsp;<span style="color: #000000">({</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #a71d5d">...</span>result<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">[</span>sum<span style="color: #000000">]:</span>&nbsp;<span style="color: #000000">(</span>result<span style="color: #000000">[</span>sum<span style="color: #000000">]</span>&nbsp;<span style="color: #a71d5d">||</span>&nbsp;<span style="color: #0086b3">0</span><span style="color: #000000">)</span>&nbsp;<span style="color: #a71d5d">+</span>&nbsp;<span style="color: #0086b3">1</span></div><div>&nbsp;&nbsp;<span style="color: #000000">}),</span></div><div>&nbsp;&nbsp;<span style="color: #000000">{}</span></div><div><span style="color: #000000">);</span></div><div>&nbsp;</div><div><span style="color: #000000">expect</span><span style="color: #000000">(</span>frequecies<span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">2</span><span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">30</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">60</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">4</span><span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">77</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">5</span><span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">111</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">6</span><span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">146</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">7</span><span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">161</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">8</span><span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">148</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">9</span><span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">91</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">10</span><span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">82</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">11</span><span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">64</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #0086b3">12</span><span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">30</span></div><div><span style="color: #000000">});</span></div></div><p>You can also use generators as items. The item generators will be picked using
+the weight described above. When an item generator has been picked, that is used
+to generate the next value.</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;stringsAndNumbers&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">weighted</span><span style="color: #000000">([[</span><span style="color: #000000">natural</span><span style="color: #000000">({</span>&nbsp;max<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">9</span>&nbsp;<span style="color: #000000">}),</span>&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">],</span>&nbsp;<span style="color: #000000">[</span><span style="color: #000000">string</span><span style="color: #000000">({</span>&nbsp;max<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">3</span>&nbsp;<span style="color: #000000">}),</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">]]);</span></div><div>&nbsp;</div><div><span style="color: #000000">expect</span><span style="color: #000000">(</span>stringsAndNumbers<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">10</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">7</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;lG&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">0</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">4</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;k&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">6</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">0</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;*p&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">]);</span></div></div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    baseUrl = '../..';
+</script>
+<script type="text/javascript" src="../../static/toggleSidebar.js"></script>
+<script type="text/javascript" src="../../static/rememberScrollPosition.js"></script>
+<script type="text/javascript" src="../../static/focusMain.js"></script>
+<script type="text/javascript" src="../../static/search.js"></script>
+</body>
+</html>
+
