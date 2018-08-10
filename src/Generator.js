@@ -18,6 +18,11 @@ class Generator {
   toString() {
     return this.generatorName || this.contructor.name || "generator";
   }
+
+  map(mapper) {
+    const MappingGenerator = require("./MappingGenerator");
+    return new MappingGenerator(this, mapper);
+  }
 }
 
 module.exports = Generator;
