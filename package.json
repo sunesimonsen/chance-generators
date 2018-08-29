@@ -29,6 +29,7 @@
     "es6-set": "0.1.5",
     "eslint": "3.19.0",
     "eslint-config-pretty-standard": "0.2.2",
+    "imocha": "0.3.0",
     "istanbul": "0.4.2",
     "javascript-state-machine": "2.3.5",
     "lint-staged": "4.0.3",
