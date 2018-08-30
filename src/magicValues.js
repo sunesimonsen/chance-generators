@@ -13,23 +13,30 @@ Number.isInteger =
     return Number.isFinite(value) && Math.floor(value) === value;
   };
 
-const getMagicValues = () =>
-  (typeof global === "object" &&
-    global.recordLocation &&
-    global.recordLocation.magicValues) ||
-  [];
+const getMagicValuesSet = () =>
+  typeof global === "object" &&
+  global.recordLocation &&
+  global.recordLocation.magicValues;
+
+const getMagicValues = () => {
+  const magicValuesSet = getMagicValuesSet();
+
+  return (magicValuesSet && Array.from(magicValuesSet)) || [];
+};
 
 const invalidateCacheIfNecessary = () => {
-  const magicValues = getMagicValues();
+  const magicValuesSet = getMagicValuesSet();
+
   const isCacheInvalid =
-    cacheBase.size !== magicValues.length ||
-    cacheBase.magicValues !== magicValues;
+    !magicValuesSet ||
+    cacheBase.size !== magicValuesSet.size ||
+    cacheBase.magicValuesSet !== magicValuesSet;
 
   if (isCacheInvalid) {
     cache = {};
     cacheBase = {
-      magicValues: magicValues,
-      size: magicValues.length
+      magicValuesSet: magicValuesSet,
+      size: magicValuesSet ? magicValuesSet.size : 0
     };
   }
 };
