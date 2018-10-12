@@ -21,13 +21,7 @@ const getMagicValuesSet = () =>
 const getMagicValues = () => {
   const magicValuesSet = getMagicValuesSet();
 
-  return (
-    (magicValuesSet &&
-      (Array.isArray(magicValuesSet)
-        ? [].concat(magicValuesSet)
-        : Array.from(magicValuesSet))) ||
-    []
-  );
+  return (magicValuesSet && Array.from(magicValuesSet)) || [];
 };
 
 const invalidateCacheIfNecessary = () => {
