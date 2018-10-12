@@ -48,12 +48,17 @@ class WeightedGenerator extends Generator {
     ]);
   }
 
-  generate(chance) {
-    const items = this.options.map(([item, weight]) => item);
-    const weights = this.options.map(([item, weight]) => weight);
+  generate(chance, context) {
+    const items = [];
+    const weights = [];
+
+    this.options.forEach(([item, weight]) => {
+      items.push(item);
+      weights.push(weight);
+    });
 
     this.lastValue = chance.weighted(items, weights);
-    this.lastUnwrappedValue = unwrap(this.lastValue, chance);
+    this.lastUnwrappedValue = unwrap(this.lastValue, chance, context);
 
     return this.lastUnwrappedValue;
   }

@@ -46,7 +46,7 @@ class ArraySplicerGenerator extends Generator {
     ]);
   }
 
-  generate(chance) {
+  generate(chance, context) {
     const { min, items } = this.options;
     const from = chance.natural({ max: items.length });
     const length = chance.natural({
@@ -57,7 +57,7 @@ class ArraySplicerGenerator extends Generator {
     this.lastValue.splice(from, length);
 
     this.lastUnwrappedValue = this.lastValue.map(
-      item => (item && item.isGenerator ? item.generate(chance) : item)
+      item => (item && item.isGenerator ? item.generate(chance, context) : item)
     );
 
     return this.lastUnwrappedValue;

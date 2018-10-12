@@ -71,8 +71,8 @@ class NumberGenerator extends Generator {
     return this.composedGenerator.expand(number);
   }
 
-  generate(chance) {
-    return this.composedGenerator.generate(chance);
+  generate(chance, context) {
+    return this.composedGenerator.generate(chance, context);
   }
 }
 

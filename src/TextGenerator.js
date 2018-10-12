@@ -37,8 +37,8 @@ class TextGenerator extends Generator {
     return new StringGenerator({ max: text.length + 10 }).expand(text);
   }
 
-  generate(chance) {
-    return this.composedGenerator.generate(chance);
+  generate(chance, context) {
+    return this.composedGenerator.generate(chance, context);
   }
 }
 

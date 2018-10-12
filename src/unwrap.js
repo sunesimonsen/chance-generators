@@ -1,13 +1,13 @@
-const unwrap = (shape, chance) => {
+const unwrap = (shape, chance, context) => {
   if (!shape) {
     return shape;
   } else if (Array.isArray(shape)) {
-    return shape.map(item => unwrap(item, chance));
+    return shape.map(item => unwrap(item, chance, context));
   } else if (shape.isGenerator) {
-    return shape.generate(chance);
+    return shape.generate(chance, context);
   } else if (typeof shape === "object") {
     return Object.keys(shape).reduce((result, key) => {
-      result[key] = unwrap(shape[key], chance);
+      result[key] = unwrap(shape[key], chance, context);
       return result;
     }, {});
   } else {
