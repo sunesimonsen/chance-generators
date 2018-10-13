@@ -1,6 +1,7 @@
 const expect = require("../test/expect");
 const PicksetGenerator = require("./PicksetGenerator");
 const IntegerGenerator = require("./IntegerGenerator");
+const Producer = require("./Producer");
 const chanceCache = require("./chanceCache");
 
 describe("PicksetGenerator", () => {
@@ -221,6 +222,41 @@ describe("PicksetGenerator", () => {
             generator.options.max
           );
         });
+      });
+    });
+
+    describe("and the generators uses the iteration context", () => {
+      beforeEach(() => {
+        const increasingNumber = new Producer(last => last + 1, 0);
+        const color = new Producer((_, context) => {
+          const index = context.colorIndex || 0;
+          context.colorIndex = index + 1;
+
+          const colors = ["green", "yellow", "red"];
+          return colors[index % colors.length];
+        });
+
+        generator = new PicksetGenerator([
+          increasingNumber.map(v => `0: ${v}`),
+          color.map(v => `1: ${v}`),
+          increasingNumber.map(v => `2: ${v}`),
+          color.map(v => `3: ${v}`)
+        ]);
+      });
+
+      it("each generator gets a context for all iterations", () => {
+        expect(generator, "to yield items", [
+          ["3: green"],
+          ["0: 0", "2: 1", "1: yellow", "3: red"],
+          ["0: 2", "1: green"],
+          [],
+          ["3: yellow", "1: red"],
+          ["2: 3", "0: 4", "3: green"],
+          ["3: yellow", "2: 5", "0: 6"],
+          [],
+          ["0: 7", "1: red", "3: green", "2: 8"],
+          ["0: 9", "1: yellow"]
+        ]);
       });
     });
   });
