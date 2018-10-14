@@ -56,6 +56,10 @@
     "url": "/api/pickset/"
   },
   {
+    "label": "producer (api)",
+    "url": "/api/producer/"
+  },
+  {
     "label": "sequence (api)",
     "url": "/api/sequence/"
   },

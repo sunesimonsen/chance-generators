@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../static/normalize.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../../static/main.css" type="text/css" media="screen" />
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="../../static/bug-icon-black.ico">
+    <title>producer</title>
+</head>
+<body class="sidebar-hidden has-sidebar"> 
+    <header>
+        <div class="logo-icon"></div>
+        <nav>
+            <ul>
+                <li class="menu-toggle-item">
+                    <button class="menu-toggle" onclick="toggleSidebar()"></button>
+                </li>
+                
+                <li class=""><a href="../..">chance-generators</a></li>
+                
+                
+                
+                <li class="active"><a href="../array">API</a></li>
+                
+                
+            </ul>
+        </nav>
+        <div class="search" style="visibility: hidden">
+            <input id="search" placeholder="Search..." value="">
+            <div id="searchDropDown" class="dropDown">
+                <ul id="searchResults"></ul>
+            </div>
+        </div>
+    </header>
+
+<section id="api">
+    <nav id="api-menu" class="sidebar js-remember-scroll-position">
+    <ul>
+        
+        <li class="">
+            <a href="../array">array</a>
+        </li>
+        
+        <li class="">
+            <a href="../arraySplicer">arraySplicer</a>
+        </li>
+        
+        <li class="">
+            <a href="../bool">bool</a>
+        </li>
+        
+        <li class="">
+            <a href="../chance">chance</a>
+        </li>
+        
+        <li class="">
+            <a href="../character">character</a>
+        </li>
+        
+        <li class="">
+            <a href="../constant">constant</a>
+        </li>
+        
+        <li class="">
+            <a href="../floating">floating</a>
+        </li>
+        
+        <li class="">
+            <a href="../generator">generator</a>
+        </li>
+        
+        <li class="">
+            <a href="../integer">integer</a>
+        </li>
+        
+        <li class="">
+            <a href="../iterator">iterator</a>
+        </li>
+        
+        <li class="">
+            <a href="../natural">natural</a>
+        </li>
+        
+        <li class="">
+            <a href="../number">number</a>
+        </li>
+        
+        <li class="">
+            <a href="../pickone">pickone</a>
+        </li>
+        
+        <li class="">
+            <a href="../pickset">pickset</a>
+        </li>
+        
+        <li class="active">
+            <a href="">producer</a>
+        </li>
+        
+        <li class="">
+            <a href="../sequence">sequence</a>
+        </li>
+        
+        <li class="">
+            <a href="../shape">shape</a>
+        </li>
+        
+        <li class="">
+            <a href="../shuffle">shuffle</a>
+        </li>
+        
+        <li class="">
+            <a href="../string">string</a>
+        </li>
+        
+        <li class="">
+            <a href="../stringSplicer">stringSplicer</a>
+        </li>
+        
+        <li class="">
+            <a href="../text">text</a>
+        </li>
+        
+        <li class="">
+            <a href="../unique">unique</a>
+        </li>
+        
+        <li class="">
+            <a href="../weigthed">weigthed</a>
+        </li>
+        
+    </ul>
+</nav>
+
+    <div class="main" tabindex="-1">
+        <div class="content">
+            <h1 id="custom-value-generator">Custom value generator</h1>
+<p>A <a href="../generator/">generator</a> capable of generating values from a given function.</p>
+<p>This is one the most advanced and custom generators we offer. You should only
+use this generator if non of the other generators as capable of doing the job.</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;<span style="color: #000000">{</span>&nbsp;age<span style="color: #000000">,</span>&nbsp;date<span style="color: #000000">,</span>&nbsp;name<span style="color: #000000">,</span>&nbsp;producer<span style="color: #000000">,</span>&nbsp;shape&nbsp;<span style="color: #000000">}</span>&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">require</span><span style="color: #000000">(</span><span style="color: #df5000">&quot;chance-generators&quot;</span><span style="color: #000000">)</span></div></div><p>You can use the previous value to compute the next. The second argument is an
+optional first value to start the sequence with:</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;increasingNumber&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">producer</span><span style="color: #000000">(</span>previous&nbsp;<span style="color: #a71d5d">=&gt;</span>&nbsp;previous&nbsp;<span style="color: #a71d5d">+</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">0</span><span style="color: #000000">);</span></div><div>&nbsp;</div><div><span style="color: #000000">expect</span><span style="color: #000000">(</span>increasingNumber<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">5</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span><span style="color: #0086b3">0</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">2</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">4</span><span style="color: #000000">]);</span></div></div><p>You have an iteration context available where you can store information while
+producing values:</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;color&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">producer</span><span style="color: #000000">((</span>previous<span style="color: #000000">,</span>&nbsp;context<span style="color: #000000">)</span>&nbsp;<span style="color: #a71d5d">=&gt;</span>&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">const</span>&nbsp;index&nbsp;<span style="color: #a71d5d">=</span>&nbsp;context<span style="color: #000000">.</span>colorIndex&nbsp;<span style="color: #a71d5d">||</span>&nbsp;<span style="color: #0086b3">0</span><span style="color: #000000">;</span></div><div>&nbsp;&nbsp;context<span style="color: #000000">.</span>colorIndex&nbsp;<span style="color: #a71d5d">=</span>&nbsp;index&nbsp;<span style="color: #a71d5d">+</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">;</span></div><div>&nbsp;</div><div>&nbsp;&nbsp;<span style="color: #a71d5d">const</span>&nbsp;colors&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">[</span><span style="color: #df5000">&quot;green&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;yellow&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">&quot;red&quot;</span><span style="color: #000000">];</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">return</span>&nbsp;colors<span style="color: #000000">[</span>index&nbsp;<span style="color: #a71d5d">%</span>&nbsp;colors<span style="color: #000000">.</span>length<span style="color: #000000">];</span></div><div><span style="color: #000000">});</span></div><div>&nbsp;</div><div><span style="color: #000000">expect</span><span style="color: #000000">(</span>color<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">10</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;green&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;yellow&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;red&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;green&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;yellow&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;red&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;green&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;yellow&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;red&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;<span style="color: #df5000">&quot;green&quot;</span></div><div><span style="color: #000000">]);</span></div></div><p>All generators in the returned value will be unwrapped:</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;user&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">producer</span><span style="color: #000000">(</span>last&nbsp;<span style="color: #a71d5d">=&gt;</span>&nbsp;<span style="color: #000000">({</span></div><div>&nbsp;&nbsp;id<span style="color: #000000">:</span>&nbsp;last&nbsp;<span style="color: #a71d5d">?</span>&nbsp;last<span style="color: #000000">.</span>id&nbsp;<span style="color: #a71d5d">+</span>&nbsp;<span style="color: #0086b3">1</span>&nbsp;<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">0</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;name<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;age</div><div><span style="color: #000000">}));</span></div><div>&nbsp;</div><div><span style="color: #000000">expect</span><span style="color: #000000">(</span>user<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">3</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;id<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">0</span><span style="color: #000000">,</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Seth&nbsp;Tran&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">26</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;id<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">1</span><span style="color: #000000">,</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Roxie&nbsp;Newman&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">46</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;id<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">2</span><span style="color: #000000">,</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Gabriel&nbsp;Wood&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">22</span>&nbsp;<span style="color: #000000">}</span></div><div><span style="color: #000000">]);</span></div></div><p>You have a <a href="http://chancejs.com/">chance</a> instance available when that is
+needed:</p>
+<div class="code lang-javascript"><div><span style="color: #a71d5d">const</span>&nbsp;customGenerator&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">producer</span><span style="color: #000000">((</span>previous<span style="color: #000000">,</span>&nbsp;context<span style="color: #000000">,</span>&nbsp;chance<span style="color: #000000">)</span>&nbsp;<span style="color: #a71d5d">=&gt;</span>&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;<span style="color: #a71d5d">const</span>&nbsp;includeDate&nbsp;<span style="color: #a71d5d">=</span>&nbsp;chance<span style="color: #000000">.</span><span style="color: #000000">bool</span><span style="color: #000000">();</span></div><div>&nbsp;</div><div>&nbsp;&nbsp;<span style="color: #a71d5d">return</span>&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;name<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;age<span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;updateAt<span style="color: #000000">:</span>&nbsp;includeDate&nbsp;<span style="color: #a71d5d">?</span>&nbsp;<span style="color: #000000">date</span><span style="color: #000000">({</span>&nbsp;string<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">true</span>&nbsp;<span style="color: #000000">})</span>&nbsp;<span style="color: #000000">:</span>&nbsp;<span style="color: #a71d5d">null</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;updateBy<span style="color: #000000">:</span>&nbsp;includeDate&nbsp;<span style="color: #a71d5d">?</span>&nbsp;name&nbsp;<span style="color: #000000">:</span>&nbsp;<span style="color: #a71d5d">null</span></div><div>&nbsp;&nbsp;<span style="color: #000000">};</span></div><div><span style="color: #000000">});</span></div><div>&nbsp;</div><div><span style="color: #000000">expect</span><span style="color: #000000">(</span>customGenerator<span style="color: #000000">.</span><span style="color: #000000">take</span><span style="color: #000000">(</span><span style="color: #0086b3">6</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">&quot;to&nbsp;equal&quot;</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div><div>&nbsp;&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Violet&nbsp;Simmons&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">53</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;updateAt<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;10/19/2078&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;updateBy<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Todd&nbsp;Houston&quot;</span></div><div>&nbsp;&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Louise&nbsp;Dennis&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">49</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;updateAt<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;1/31/2023&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;updateBy<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Patrick&nbsp;Wilkerson&quot;</span></div><div>&nbsp;&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;<span style="color: #000000">{</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Lydia&nbsp;Parks&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">43</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;updateAt<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;1/1/2061&quot;</span><span style="color: #000000">,</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;updateBy<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Daniel&nbsp;Robertson&quot;</span></div><div>&nbsp;&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Adam&nbsp;Nguyen&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">22</span><span style="color: #000000">,</span>&nbsp;updateAt<span style="color: #000000">:</span>&nbsp;<span style="color: #a71d5d">null</span><span style="color: #000000">,</span>&nbsp;updateBy<span style="color: #000000">:</span>&nbsp;<span style="color: #a71d5d">null</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Dora&nbsp;Lawrence&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">42</span><span style="color: #000000">,</span>&nbsp;updateAt<span style="color: #000000">:</span>&nbsp;<span style="color: #a71d5d">null</span><span style="color: #000000">,</span>&nbsp;updateBy<span style="color: #000000">:</span>&nbsp;<span style="color: #a71d5d">null</span>&nbsp;<span style="color: #000000">},</span></div><div>&nbsp;&nbsp;<span style="color: #000000">{</span>&nbsp;name<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">&quot;Sophia&nbsp;Lee&quot;</span><span style="color: #000000">,</span>&nbsp;age<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">59</span><span style="color: #000000">,</span>&nbsp;updateAt<span style="color: #000000">:</span>&nbsp;<span style="color: #a71d5d">null</span><span style="color: #000000">,</span>&nbsp;updateBy<span style="color: #000000">:</span>&nbsp;<span style="color: #a71d5d">null</span>&nbsp;<span style="color: #000000">}</span></div><div><span style="color: #000000">]);</span></div></div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    baseUrl = '../..';
+</script>
+<script type="text/javascript" src="../../static/toggleSidebar.js"></script>
+<script type="text/javascript" src="../../static/rememberScrollPosition.js"></script>
+<script type="text/javascript" src="../../static/focusMain.js"></script>
+<script type="text/javascript" src="../../static/search.js"></script>
+</body>
+</html>
+
