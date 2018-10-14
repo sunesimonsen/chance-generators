@@ -3,7 +3,7 @@
   "description": "Random generators based on changejs",
   "author": "Sune Simonsen",
   "license": "MIT",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "main": "lib/index.js",
   "files": [
     "lib"
