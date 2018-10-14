@@ -10,12 +10,16 @@
   ],
   "scripts": {
     "build": "babel --out-dir lib --quiet src",
+    "changelog": "offline-github-changelog > CHANGELOG.md",
     "coverage": "istanbul cover node_modules/.bin/_mocha ./documentation/**/*.md ./src/**/*.js ./test/**/*.js",
     "generate-site": "generate-site --require ./bootstrap-unexpected-markdown.js",
+    "lint": "eslint ./src/",
     "lint-staged": "lint-staged",
-    "prepare": "npm run build",
+    "prepare": "npm run lint && npm run build",
     "test": "mocha ./documentation/**/*.md ./src/**/*.js ./test/**/*.js",
-    "update-examples": "generate-site --require ./bootstrap-unexpected-markdown.js --update-examples"
+    "travis": "npm run lint && npm run coverage && npm run build",
+    "update-examples": "generate-site --require ./bootstrap-unexpected-markdown.js --update-examples",
+    "postversion": "npm run changelog && git add CHANGELOG.md && git commit --allow-empty -m 'Update changelog' && deploy-site.sh"
   },
   "dependencies": {
     "chance": "1.0.16"
@@ -34,6 +38,7 @@
     "javascript-state-machine": "2.3.5",
     "lint-staged": "4.0.3",
     "mocha": "3.5.3",
+    "offline-github-changelog": "1.2.0",
     "pre-commit": "1.2.2",
     "prettier": "1.10.1",
     "prettier-package-json": "1.4.0",
