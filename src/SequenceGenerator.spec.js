@@ -20,14 +20,14 @@ describe("SequenceGenerator", () => {
     });
   });
 
+  const producer = previous => ({
+    gender: previous && previous.gender === "female" ? "male" : "female",
+    age: new IntegerGenerator({ min: 0, max: 100 })
+  });
+
   let generator;
   beforeEach(() => {
-    generator = new SequenceGenerator(previous => {
-      return {
-        gender: previous && previous.gender === "female" ? "male" : "female",
-        age: new IntegerGenerator({ min: 0, max: 100 })
-      };
-    });
+    generator = new SequenceGenerator(producer);
   });
 
   it("uses the function to generate a sequence of values", () => {
@@ -60,70 +60,51 @@ describe("SequenceGenerator", () => {
       const generated = generator.take(1)[0];
       expect(generator.expand(generated), "to yield items", [
         [
-          { gender: "female", age: 80 },
-          { gender: "male", age: 96 },
-          { gender: "female", age: 18 },
-          { gender: "male", age: 73 },
-          { gender: "female", age: 78 },
+          { gender: "female", age: 46 },
+          { gender: "male", age: 87 },
+          { gender: "female", age: 33 },
           { gender: "male", age: 60 },
-          { gender: "female", age: 60 },
-          { gender: "male", age: 15 },
-          { gender: "female", age: 45 },
-          { gender: "male", age: 15 },
-          { gender: "female", age: 10 },
-
-          { gender: "male", age: 46 }
-        ],
-        [
-          { gender: "female", age: 80 },
-          { gender: "male", age: 96 },
-          { gender: "female", age: 18 },
-          { gender: "male", age: 73 },
-          { gender: "female", age: 78 },
-          { gender: "male", age: 60 },
-          { gender: "female", age: 60 },
-          { gender: "male", age: 15 },
-          { gender: "female", age: 45 },
-          { gender: "male", age: 15 },
-          { gender: "female", age: 10 },
-
-          { gender: "male", age: 33 },
-          { gender: "female", age: 60 },
-          { gender: "male", age: 14 },
-          { gender: "female", age: 71 },
-          { gender: "male", age: 65 },
-          { gender: "female", age: 2 },
-          { gender: "male", age: 5 },
-          { gender: "female", age: 97 },
-          { gender: "male", age: 72 },
-          { gender: "female", age: 84 },
-          { gender: "male", age: 94 },
-          { gender: "female", age: 21 },
-          { gender: "male", age: 0 },
-          { gender: "female", age: 18 },
-          { gender: "male", age: 100 },
-          { gender: "female", age: 18 },
-          { gender: "male", age: 62 }
-        ],
-        [
-          { gender: "female", age: 80 },
-          { gender: "male", age: 96 },
-          { gender: "female", age: 18 },
-          { gender: "male", age: 73 },
-          { gender: "female", age: 78 },
-          { gender: "male", age: 60 },
-          { gender: "female", age: 60 },
-          { gender: "male", age: 15 },
-          { gender: "female", age: 45 },
-          { gender: "male", age: 15 },
-          { gender: "female", age: 10 },
-
-          { gender: "male", age: 61 },
-          { gender: "female", age: 53 },
-          { gender: "male", age: 0 },
-          { gender: "female", age: 43 },
+          { gender: "female", age: 14 },
+          { gender: "male", age: 71 },
+          { gender: "female", age: 65 },
           { gender: "male", age: 2 },
-          { gender: "female", age: 29 }
+          { gender: "female", age: 5 },
+          { gender: "male", age: 97 },
+          { gender: "female", age: 72 },
+          { gender: "male", age: 84 },
+          { gender: "female", age: 94 }
+        ],
+        [
+          { gender: "female", age: 0 },
+          { gender: "male", age: 18 },
+          { gender: "female", age: 100 },
+          { gender: "male", age: 18 },
+          { gender: "female", age: 62 },
+          { gender: "male", age: 30 },
+          { gender: "female", age: 61 },
+          { gender: "male", age: 53 },
+          { gender: "female", age: 0 },
+          { gender: "male", age: 43 },
+          { gender: "female", age: 2 },
+          { gender: "male", age: 29 },
+          { gender: "female", age: 53 },
+          { gender: "male", age: 61 },
+          { gender: "female", age: 40 },
+          { gender: "male", age: 14 }
+        ],
+        [
+          { gender: "female", age: 29 },
+          { gender: "male", age: 98 },
+          { gender: "female", age: 37 },
+          { gender: "male", age: 23 },
+          { gender: "female", age: 46 },
+          { gender: "male", age: 9 },
+          { gender: "female", age: 79 },
+          { gender: "male", age: 62 },
+          { gender: "female", age: 20 },
+          { gender: "male", age: 38 },
+          { gender: "female", age: 51 },
+          { gender: "male", age: 99 }
         ]
       ]);
     });
@@ -131,8 +112,7 @@ describe("SequenceGenerator", () => {
 
   describe("when given a min and max", () => {
     beforeEach(() => {
-      generator.options.min = 3;
-      generator.options.max = 5;
+      generator = new SequenceGenerator(producer, { min: 3, max: 5 });
     });
 
     it("generates arrays between the limits", () => {
@@ -165,41 +145,29 @@ describe("SequenceGenerator", () => {
 
     describe("expand", () => {
       it("honors the length constraints", () => {
-        const generated = generator.take(1)[0];
+        const [generated] = generator.take(1);
+
         expect(generator.expand(generated), "to yield items", [
           [
-            { gender: "female", age: 80 },
-            { gender: "male", age: 96 },
-            { gender: "female", age: 18 },
-            { gender: "male", age: 73 },
-
-            { gender: "female", age: 60 }
-          ],
-          [
-            { gender: "female", age: 80 },
-            { gender: "male", age: 96 },
-            { gender: "female", age: 18 },
-            { gender: "male", age: 73 },
-
+            { gender: "female", age: 60 },
+            { gender: "male", age: 60 },
+            { gender: "female", age: 15 },
+            { gender: "male", age: 45 },
             { gender: "female", age: 15 }
           ],
           [
-            { gender: "female", age: 80 },
-            { gender: "male", age: 96 },
-            { gender: "female", age: 18 },
-            { gender: "male", age: 73 }
+            { gender: "female", age: 5 },
+            { gender: "male", age: 46 },
+            { gender: "female", age: 87 },
+            { gender: "male", age: 33 },
+            { gender: "female", age: 60 }
           ],
           [
-            { gender: "female", age: 80 },
-            { gender: "male", age: 96 },
-            { gender: "female", age: 18 },
-            { gender: "male", age: 73 }
-          ],
-          [
-            { gender: "female", age: 80 },
-            { gender: "male", age: 96 },
-            { gender: "female", age: 18 },
-            { gender: "male", age: 73 }
+            { gender: "female", age: 71 },
+            { gender: "male", age: 65 },
+            { gender: "female", age: 2 },
+            { gender: "male", age: 5 },
+            { gender: "female", age: 97 }
           ]
         ]);
       });

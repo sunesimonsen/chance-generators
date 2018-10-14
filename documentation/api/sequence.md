@@ -26,7 +26,7 @@ const createStateMachine = () =>
   });
 
 const eventProducer = (previous, context) => {
-  if (previous) {
+  if (context.fsm) {
     // transition the state machine with the previously generated event
     context.fsm[previous]();
   } else {
@@ -61,7 +61,10 @@ to `null`.
 Let's try to generate increasing integer sequences starting from 0:
 
 ```js
-const increasingIntegers = sequence(previous => previous + 1, { initialValue: -1, max: 10 });
+const increasingIntegers = sequence(previous => previous + 1, {
+  initialValue: -1,
+  max: 10
+});
 
 expect(increasingIntegers.take(3), "to equal", [
   [0, 1, 2, 3],

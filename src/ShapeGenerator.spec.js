@@ -2,6 +2,7 @@ const expect = require("../test/expect");
 const ShapeGenerator = require("./ShapeGenerator");
 const StringGenerator = require("./StringGenerator");
 const IntegerGenerator = require("./IntegerGenerator");
+const Producer = require("./Producer");
 const ArrayGenerator = require("./ArrayGenerator");
 const chanceCache = require("./chanceCache");
 
@@ -14,6 +15,7 @@ describe("ShapeGenerator", () => {
   beforeEach(() => {
     generator = new ShapeGenerator({
       nested: {
+        id: new Producer(last => last + 1, 0),
         numbers: [
           new IntegerGenerator({ min: 0, max: 100 }),
           new IntegerGenerator({ min: 500, max: 1000 })
@@ -30,6 +32,7 @@ describe("ShapeGenerator", () => {
     expect(generator, "to yield items", [
       {
         nested: {
+          id: 0,
           numbers: [37, 899],
           strings: ["25SSlGlheH#ySk0Wbe)19*pan]nTw", "aFb"]
         },
@@ -37,6 +40,7 @@ describe("ShapeGenerator", () => {
       },
       {
         nested: {
+          id: 1,
           numbers: [61, 700],
           strings: ["v[Br", "6T"]
         },
@@ -44,6 +48,7 @@ describe("ShapeGenerator", () => {
       },
       {
         nested: {
+          id: 2,
           numbers: [51, 992],
           strings: ["d@SYmHea(*)P7Cwbhr", "GYjT"]
         },
@@ -51,6 +56,7 @@ describe("ShapeGenerator", () => {
       },
       {
         nested: {
+          id: 3,
           numbers: [17, 955],
           strings: ["nX3xFMpOQnc)", "H*D%&"]
         },
@@ -58,6 +64,7 @@ describe("ShapeGenerator", () => {
       },
       {
         nested: {
+          id: 4,
           numbers: [8, 785],
           strings: ["d)y!C3", "9"]
         },
@@ -119,6 +126,7 @@ describe("ShapeGenerator", () => {
       expect(generator.shrink(value), "to yield items", [
         {
           nested: {
+            id: 0,
             numbers: [23, 659],
             strings: ["25SSGlheH#ySk0Wbe)19*pan]nTw", "a"]
           },
@@ -126,6 +134,7 @@ describe("ShapeGenerator", () => {
         },
         {
           nested: {
+            id: 1,
             numbers: [3, 814],
             strings: ["25SSlGlheH#ySk0Wbe9*pan]nTw", "ab"]
           },
@@ -133,6 +142,7 @@ describe("ShapeGenerator", () => {
         },
         {
           nested: {
+            id: 2,
             numbers: [1, 843],
             strings: ["25SSlGlheH#ySk0WbenTw", "Fb"]
           },
@@ -140,13 +150,18 @@ describe("ShapeGenerator", () => {
         },
         {
           nested: {
+            id: 3,
             numbers: [35, 886],
             strings: ["25SSlGlheH#ySk0WTw", "aFb"]
           },
           arrays: [12]
         },
         {
-          nested: { numbers: [26, 596], strings: ["25SSlGlheH#ySn]nTw", "b"] },
+          nested: {
+            id: 4,
+            numbers: [26, 596],
+            strings: ["25SSlGlheH#ySn]nTw", "b"]
+          },
           arrays: []
         }
       ]);
@@ -154,7 +169,7 @@ describe("ShapeGenerator", () => {
 
     it("shrinks towards the minimal structure", () => {
       expect(generator, "to shrink towards", {
-        nested: { numbers: [0, 500], strings: ["", ""] },
+        nested: { id: 0, numbers: [0, 500], strings: ["", ""] },
         arrays: []
       });
     });
@@ -166,6 +181,7 @@ describe("ShapeGenerator", () => {
       expect(generator.expand(value), "to yield items", [
         {
           nested: {
+            id: 0,
             numbers: [37, 899],
             strings: ["25SSlGlheH#ySk0Wbe)19*pan]nTw", "aFb"]
           },
@@ -173,6 +189,7 @@ describe("ShapeGenerator", () => {
         },
         {
           nested: {
+            id: 0,
             numbers: [37, 899],
             strings: ["25SSlGlheH#HSk0Wbe)19*pan]nTw", "taFbx"]
           },
@@ -180,6 +197,7 @@ describe("ShapeGenerator", () => {
         },
         {
           nested: {
+            id: 0,
             numbers: [37, 899],
             strings: ["25SSlGlheH#ySk0Wbe)19*pan]nTw", "aFb"]
           },
@@ -187,6 +205,7 @@ describe("ShapeGenerator", () => {
         },
         {
           nested: {
+            id: 0,
             numbers: [37, 899],
             strings: ["25SSlGlheH#ySk0Wbe)19*pan]nTw", "aFb"]
           },
@@ -194,6 +213,7 @@ describe("ShapeGenerator", () => {
         },
         {
           nested: {
+            id: 0,
             numbers: [37, 899],
             strings: ["25SSlGlheH#ySk0Wbe)19*pan]nTw", "aFb"]
           },
@@ -201,6 +221,7 @@ describe("ShapeGenerator", () => {
         },
         {
           nested: {
+            id: 0,
             numbers: [37, 899],
             strings: ["25SSlGlheH#ySk0Wbe)19*pan]nTw", "aFb"]
           },
@@ -208,6 +229,7 @@ describe("ShapeGenerator", () => {
         },
         {
           nested: {
+            id: 1,
             numbers: [93, 945],
             strings: ["25SSlGlheH#ySk0Wbe)19*pan]nTw", "aFb"]
           },

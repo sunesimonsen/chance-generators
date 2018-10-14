@@ -1,47 +1,50 @@
 const Generator = require("./Generator");
-const GeneratorIterator = require("./GeneratorIterator");
 const ConstantGenerator = require("./ConstantGenerator");
 const WeightedGenerator = require("./WeightedGenerator");
 const unwrap = require("./unwrap");
 
 class SequenceGenerator extends Generator {
-  constructor(producer, { min = 0, max = 30, initialValue = null } = {}) {
-    super("string", { producer, min, max, initialValue });
+  constructor(
+    producerFunction,
+    { min = 0, max = 30, initialValue = null } = {}
+  ) {
+    super("sequence", {
+      producer: producerFunction,
+      min,
+      max,
+      initialValue
+    });
 
-    if (typeof producer !== "function") {
+    if (typeof producerFunction !== "function") {
       throw new Error(
         "The sequence generator requires a producer function as first argument"
       );
     }
   }
 
-  values() {
-    return new GeneratorIterator(this);
-  }
-
   shrink(items) {
-    if (items.length === this.options.min) {
+    const { producer, min, initialValue } = this.options;
+
+    if (items.length === min) {
       return new ConstantGenerator(items);
     }
 
-    return new SequenceGenerator(this.options.producer, {
-      min: this.options.min,
-      max: items.length
+    return new SequenceGenerator(producer, {
+      min,
+      max: items.length,
+      initialValue
     });
   }
 
   expand(items) {
     const { producer, max, initialValue } = this.options;
 
-    const emptyContext = Object.keys(this.lastProducerContext).length === 0;
-
-    if (this.lastValue === items && items.length < max && emptyContext) {
+    if (items.length < max) {
       return new SequenceGenerator(producer, {
-        min: 0,
-        max: max - items.length,
-        initialValue:
-          items.length === 0 ? initialValue : items[items.length - 1]
-      }).map(tail => items.concat(tail));
+        min: items.length + 1,
+        max,
+        initialValue
+      });
     } else {
       return new WeightedGenerator([
         [this, 1],
@@ -61,17 +64,18 @@ class SequenceGenerator extends Generator {
     for (var i = 0; i < count; i += 1) {
       result.push(
         unwrap(
-          producer(i === 0 ? initialValue : result[i - 1], producerContext),
+          producer(
+            i === 0 ? initialValue : result[i - 1],
+            producerContext,
+            chance
+          ),
           chance,
           context
         )
       );
     }
 
-    this.lastValue = result;
-    this.lastProducerContext = producerContext;
-
-    return this.lastValue;
+    return result;
   }
 }
 
