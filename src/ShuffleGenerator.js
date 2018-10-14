@@ -36,13 +36,13 @@ class ShuffleGenerator extends Generator {
     ]);
   }
 
-  generate(chance) {
+  generate(chance, context) {
     const { items } = this.options;
 
     this.lastValue = chance.shuffle(items);
 
     this.lastUnwrappedValue = this.lastValue.map(
-      item => (item && item.isGenerator ? item.generate(chance) : item)
+      item => (item && item.isGenerator ? item.generate(chance, context) : item)
     );
 
     return this.lastUnwrappedValue;

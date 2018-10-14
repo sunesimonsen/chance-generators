@@ -36,11 +36,11 @@ class UniqueGenerator extends Generator {
     ]);
   }
 
-  generate(chance) {
+  generate(chance, context) {
     const { itemGenerator, min, max, comparator } = this.options;
 
     return chance.unique(
-      () => itemGenerator.generate(chance),
+      () => itemGenerator.generate(chance, context),
       chance.natural({ min, max }),
       comparator && { comparator }
     );

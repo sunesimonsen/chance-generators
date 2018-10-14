@@ -3,6 +3,7 @@ const createGeneratorFacade = require("./createGeneratorFacade");
 const IntegerGenerator = require("./IntegerGenerator");
 const ArrayGenerator = require("./ArrayGenerator");
 const Chance = require("chance");
+const Context = require("./Context");
 
 describe("createGeneratorFacade(IntegerGenerator)", () => {
   const array = (...args) => new ArrayGenerator(...args);
@@ -49,9 +50,9 @@ describe("createGeneratorFacade(IntegerGenerator)", () => {
 
   it("generates similarly to the raw generator", () => {
     expect(
-      integer.generate(new Chance(42)),
+      integer.generate(new Chance(42), new Context()),
       "to equal",
-      new IntegerGenerator().generate(new Chance(42))
+      new IntegerGenerator().generate(new Chance(42), new Context())
     );
   });
 

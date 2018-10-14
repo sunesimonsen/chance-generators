@@ -88,8 +88,8 @@ class ShapeGenerator extends Generator {
     }
   }
 
-  generate(chance) {
-    return unwrap(this.options, chance);
+  generate(chance, context) {
+    return unwrap(this.options, chance, context);
   }
 }
 

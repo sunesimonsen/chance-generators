@@ -1,6 +1,7 @@
 const Generator = require("./Generator");
 const ConstantGenerator = require("./ConstantGenerator");
 const WeightedGenerator = require("./WeightedGenerator");
+const unwrap = require("./unwrap");
 
 class PickoneGenerator extends Generator {
   constructor(items = []) {
@@ -31,15 +32,13 @@ class PickoneGenerator extends Generator {
     ]);
   }
 
-  generate(chance) {
+  generate(chance, context) {
     const { items } = this.options;
 
-    this.lastValue = chance.pickone(items);
+    const index = chance.natural({ max: items.length - 1 });
+    this.lastValue = items[index];
 
-    this.lastUnwrappedValue =
-      this.lastValue && this.lastValue.isGenerator
-        ? this.lastValue.generate(chance)
-        : this.lastValue;
+    this.lastUnwrappedValue = unwrap(this.lastValue, chance, context);
 
     return this.lastUnwrappedValue;
   }

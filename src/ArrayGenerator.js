@@ -42,11 +42,11 @@ class ArrayGenerator extends Generator {
     });
   }
 
-  generate(chance) {
+  generate(chance, context) {
     const { itemGenerator, min, max } = this.options;
 
     return chance.n(
-      () => itemGenerator.generate(chance),
+      () => itemGenerator.generate(chance, context),
       chance.natural({ min, max })
     );
   }

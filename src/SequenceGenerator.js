@@ -33,7 +33,7 @@ class SequenceGenerator extends Generator {
   expand(items) {
     const { producer, max, initialValue } = this.options;
 
-    const emptyContext = Object.keys(this.lastContext).length === 0;
+    const emptyContext = Object.keys(this.lastProducerContext).length === 0;
 
     if (this.lastValue === items && items.length < max && emptyContext) {
       return new SequenceGenerator(producer, {
@@ -50,10 +50,10 @@ class SequenceGenerator extends Generator {
     }
   }
 
-  generate(chance) {
+  generate(chance, context) {
     const { producer, min, max, initialValue } = this.options;
 
-    let context = {};
+    let producerContext = Object.create(null);
 
     const count = chance.natural({ min, max });
     const result = [];
@@ -61,14 +61,15 @@ class SequenceGenerator extends Generator {
     for (var i = 0; i < count; i += 1) {
       result.push(
         unwrap(
-          producer(i === 0 ? initialValue : result[i - 1], context),
-          chance
+          producer(i === 0 ? initialValue : result[i - 1], producerContext),
+          chance,
+          context
         )
       );
     }
 
     this.lastValue = result;
-    this.lastContext = context;
+    this.lastProducerContext = producerContext;
 
     return this.lastValue;
   }

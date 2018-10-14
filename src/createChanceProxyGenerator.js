@@ -7,8 +7,10 @@ const createChanceProxyGenerator = method => {
       super(method, args);
     }
 
-    generate(chance) {
-      return chance[this.generatorName](...unwrap(this.options, chance));
+    generate(chance, context) {
+      return chance[this.generatorName](
+        ...unwrap(this.options, chance, context)
+      );
     }
   }
 

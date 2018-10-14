@@ -28,10 +28,17 @@ class MappingGenerator extends Generator {
     }
   }
 
-  generate(chance) {
-    this.lastValue = this.parentGenerator.generate(chance);
+  generate(chance, context) {
+    this.lastValue = this.parentGenerator.generate(chance, context);
+
     const { mapper } = this.options;
-    this.lastMappedValue = unwrap(mapper(this.lastValue, chance), chance);
+
+    this.lastMappedValue = unwrap(
+      mapper(this.lastValue, chance),
+      chance,
+      context
+    );
+
     return this.lastMappedValue;
   }
 }

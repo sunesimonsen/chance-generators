@@ -85,13 +85,13 @@ class PicksetGenerator extends Generator {
     });
   }
 
-  generate(chance) {
+  generate(chance, context) {
     const { items, min, max } = this.options;
 
     this.lastValue = chance.pickset(items, chance.natural({ min, max }));
 
     this.lastUnwrappedValue = this.lastValue.map(
-      item => (item && item.isGenerator ? item.generate(chance) : item)
+      item => (item && item.isGenerator ? item.generate(chance, context) : item)
     );
 
     return this.lastUnwrappedValue;
