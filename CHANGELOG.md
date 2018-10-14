@@ -1,3 +1,7 @@
+### v3.3.0 (2018-10-14)
+
+- [#24](https://github.com/sunesimonsen/chance-generators/pull/24) Lint, build, changelog, publish site when releasing ([Sune Simonsen](mailto:sune@we-knowhow.dk))
+
 ### v3.2.0 (2018-10-14)
 
 - [#23](https://github.com/sunesimonsen/chance-generators/pull/23) Introduced a new custom producer ([Sune Simonsen](mailto:sune@we-knowhow.dk))
