@@ -135,4 +135,11 @@ const facade = {
   facade[method] = createChanceProxyGeneratorFacade(method);
 });
 
+facade.primitive = facade.weighted([
+  [facade.number, 10],
+  [facade.text, 10],
+  [facade.bool, 1],
+  [facade.pickone([null, undefined]), 1]
+]);
+
 module.exports = facade;
