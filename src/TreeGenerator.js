@@ -1,4 +1,14 @@
 const Generator = require("./Generator");
+const ConstantGenerator = require("./ConstantGenerator");
+const ShapeGenerator = require("./ShapeGenerator");
+
+const mapLeafs = (tree, mapper) =>
+  Array.isArray(tree) ? tree.map(v => mapLeafs(v, mapper)) : mapper(tree);
+
+const countItems = tree =>
+  Array.isArray(tree)
+    ? tree.map(countItems).reduce((sum, count) => sum + count, 0)
+    : 1;
 
 class TreeGenerator extends Generator {
   constructor(itemGenerator, { min = 0, max = 30 } = {}) {
@@ -13,6 +23,26 @@ class TreeGenerator extends Generator {
         "The tree generator requires an item generator as first argument"
       );
     }
+  }
+
+  shrink(value) {
+    if (value.length === 0) {
+      return new ConstantGenerator([]);
+    }
+
+    const itemGenerator = this.options.itemGenerator;
+    const size = countItems(value);
+
+    if (this.options.min === size) {
+      return new ShapeGenerator(
+        mapLeafs(value, leaf => itemGenerator.shrink(leaf))
+      );
+    }
+
+    return new TreeGenerator(itemGenerator, {
+      min: this.options.min,
+      max: size
+    });
   }
 
   generate(chance, context) {

@@ -51,6 +51,12 @@ describe("TreeGenerator", () => {
         ]
       ]);
     });
+
+    describe("shrink", () => {
+      it("shrinks towards the empty tree", () => {
+        expect(generator, "to shrink towards", []);
+      });
+    });
   });
 
   describe("when given a minimum", () => {
@@ -73,7 +79,14 @@ describe("TreeGenerator", () => {
         generator.options.max
       );
     });
+
+    describe("shrink", () => {
+      it("shrinks towards the minimum tree", () => {
+        expect(generator, "to shrink towards", [[0, 0], [0, 0]]);
+      });
+    });
   });
+
   describe("when given both a minimum and a maximum", () => {
     beforeEach(() => {
       generator = new TreeGenerator(
