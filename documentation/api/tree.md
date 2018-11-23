@@ -62,3 +62,35 @@ expect(tree(smallNumbers, { max: 4 }).take(10), "to equal", [
   [0]
 ]);
 ```
+
+In case you want the tree to have a different structure, you an easily map over
+it.
+
+```js
+const mapBranches = (tree, mapper) =>
+  Array.isArray(tree)
+    ? mapper(tree.map(child => mapBranches(child, mapper)))
+    : tree;
+
+const extendedTree = tree(smallNumbers).map(tree =>
+  mapBranches(tree, children => ({ value: smallNumbers, children }))
+);
+
+expect(extendedTree.take(1), "to equal", [
+  {
+    value: 0,
+    children: [
+      {
+        value: 4,
+        children: [
+          { value: 0, children: [5, 1] },
+          { value: 2, children: [0, { value: 5, children: [6, 7] }, 0] },
+          9,
+          8
+        ]
+      },
+      { value: 6, children: [1, { value: 3, children: [3, 5] }] }
+    ]
+  }
+]);
+```
