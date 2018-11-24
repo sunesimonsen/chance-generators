@@ -56,12 +56,11 @@ class TreeGenerator extends Generator {
     let remainding = count;
     const result = [];
     while (remainding > 0) {
-      const size = Math.min(
-        remainding,
+      const size = Math.max(
+        1,
         chance.natural({
-          min: 1,
-          max: Math.max(1, count - 1)
-        })
+          max: count
+        }) % remainding
       );
 
       if (size === 1) {

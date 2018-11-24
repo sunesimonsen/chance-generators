@@ -41,14 +41,17 @@ describe("TreeGenerator", () => {
 
     it("yields random trees of items generated with the given generator", () => {
       expect(generator, "to yield items", [
-        [[[60, 15], [5, [60, 71], 2], 97, 84], [18, [30, 53]]],
-        [],
-        [29, [[29, [46, 79]], [[59, 4], [17, 6]]], 95, [[30, 9], 69, 44]],
+        [[73, [[[5, 87], 60, 71], [97, 84], 21], 18], 18, 30],
         [
-          [84, 17, 39],
-          [[42, [57, 3], 85], [39, 93]],
-          [[57, [97, 85], [54, [97, 61, 27]], [16, 1], [39, 29]], 1]
-        ]
+          [[53, 40, 4, 98], [9, 62, 38], 99, 47],
+          86,
+          [45, 1, 95],
+          [38, 1, 23],
+          24,
+          69
+        ],
+        [[3, 91], 26],
+        [[42, 21, 57], 3, 85]
       ]);
     });
 
@@ -82,7 +85,7 @@ describe("TreeGenerator", () => {
 
     describe("shrink", () => {
       it("shrinks towards the minimum tree", () => {
-        expect(generator, "to shrink towards", [[0, 0], [0, 0]]);
+        expect(generator, "to shrink towards", [0, 0, 0, 0]);
       });
     });
   });
