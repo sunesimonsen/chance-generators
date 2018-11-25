@@ -6,8 +6,8 @@ Random tree [generator](../generator/).
 const { natural, tree } = require("chance-generators");
 ```
 
-When only given a generator, it generates random trees with leafs containing
-items produced with the given generator. The number of leafs is between 0 to 30.
+When only given a generator, it generates random trees with leaves containing
+items produced with the given generator. The number of leaves is between 0 to 30.
 
 ```js
 const smallNumbers = natural({ max: 9 });

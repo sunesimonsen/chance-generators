@@ -45,8 +45,8 @@ const arrayToTree = (items, chance) => {
   return sliceToTree(items, 0, items.length, chance);
 };
 
-const mapLeafs = (tree, mapper) =>
-  Array.isArray(tree) ? tree.map(v => mapLeafs(v, mapper)) : mapper(tree);
+const mapLeaves = (tree, mapper) =>
+  Array.isArray(tree) ? tree.map(v => mapLeaves(v, mapper)) : mapper(tree);
 
 const countItems = tree =>
   Array.isArray(tree)
