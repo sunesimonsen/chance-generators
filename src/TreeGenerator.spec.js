@@ -41,23 +41,57 @@ describe("TreeGenerator", () => {
 
     it("yields random trees of items generated with the given generator", () => {
       expect(generator, "to yield items", [
-        [[73, [[[5, 87], 60, 71], [97, 84], 21], 18], 18, 30],
+        [80, [96, [18, 73], 78, 60], [[60, 15], 45], 15, 10],
         [
-          [[53, 40, 4, 98], [9, 62, 38], 99, 47],
-          86,
-          [45, 1, 95],
-          [38, 1, 23],
-          24,
-          69
+          [[84, 94], [21, 0, 18, 100], 18, 62],
+          [[[30, 61], 53, 0, 43], 2, 29, 53],
+          61,
+          40,
+          14,
+          4,
+          29,
+          98
         ],
-        [[3, 91], 26],
-        [[42, 21, 57], 3, 85]
+        [
+          [[38, 30, [1, 9], [23, 69, 24], 44], 69, [[12, 61], 50], 84, 3],
+          [17, 91],
+          [39, [26, 18, 66], 76],
+          [31, 42],
+          52,
+          21
+        ],
+        [
+          [[83, 59, 36, 97, 28], [61, 54], [[27, 14], 29], [81, 16], 7],
+          1,
+          99,
+          42
+        ]
       ]);
     });
 
     describe("shrink", () => {
       it("shrinks towards the empty tree", () => {
         expect(generator, "to shrink towards", []);
+      });
+    });
+
+    describe("expand", () => {
+      it("produces a generator that will generate trees similar to the given value", () => {
+        const [value] = generator.take(1);
+
+        expect(value, "to equal", [
+          80,
+          [96, [18, 73], 78, 60],
+          [[60, 15], 45],
+          15,
+          10
+        ]);
+
+        expect(generator.expand(value).take(3), "to equal", [
+          [45, [[15, 96], 43], [80, 60, 60, 18, 78], 73, 10, 15],
+          [60, 96, [18, 73], [10, [15, 15], 45], 45, 80, 78, 60],
+          [15, [[96, [73, 60], 26], 45], 15]
+        ]);
       });
     });
   });
@@ -85,7 +119,22 @@ describe("TreeGenerator", () => {
 
     describe("shrink", () => {
       it("shrinks towards the minimum tree", () => {
-        expect(generator, "to shrink towards", [0, 0, 0, 0]);
+        expect(generator, "to shrink towards", [[0, 0, 0], 0]);
+      });
+    });
+
+    describe("expand", () => {
+      it("honor the constaints", () => {
+        const [value] = generator.take(1);
+
+        expect(
+          generator.expand(value),
+          "to yield items satisfying",
+          "to have size satisfying",
+          "to be within",
+          generator.options.min,
+          generator.options.max
+        );
       });
     });
   });
@@ -110,6 +159,21 @@ describe("TreeGenerator", () => {
         generator.options.min,
         generator.options.max
       );
+    });
+
+    describe("expand", () => {
+      it("honor the constaints", () => {
+        const [value] = generator.take(1);
+
+        expect(
+          generator.expand(value),
+          "to yield items satisfying",
+          "to have size satisfying",
+          "to be within",
+          generator.options.min,
+          generator.options.max
+        );
+      });
     });
   });
 });

@@ -1,6 +1,49 @@
 const Generator = require("./Generator");
-const ConstantGenerator = require("./ConstantGenerator");
-const ShapeGenerator = require("./ShapeGenerator");
+const ArrayGenerator = require("./ArrayGenerator");
+
+const sliceToTree = (items, start, end, chance) => {
+  const size = end - start;
+
+  if (size === 1) {
+    return items[start];
+  }
+
+  if (size === 2) {
+    return items.slice(start, end);
+  }
+
+  let offset = 0;
+  const result = [];
+
+  while (offset + start < end) {
+    const remainding = end - (start + offset);
+    const count = Math.max(1, chance.natural({ max: size }) % remainding);
+    const tree = sliceToTree(
+      items,
+      start + offset,
+      start + offset + count,
+      chance
+    );
+
+    if (count === size) {
+      result.push(...tree);
+    } else {
+      result.push(tree);
+    }
+
+    offset += count;
+  }
+
+  return result;
+};
+
+const arrayToTree = (items, chance) => {
+  if (items.length < 3) {
+    return items;
+  }
+
+  return sliceToTree(items, 0, items.length, chance);
+};
 
 const mapLeafs = (tree, mapper) =>
   Array.isArray(tree) ? tree.map(v => mapLeafs(v, mapper)) : mapper(tree);
@@ -23,61 +66,23 @@ class TreeGenerator extends Generator {
         "The tree generator requires an item generator as first argument"
       );
     }
+
+    this.composedGenerator = new ArrayGenerator(itemGenerator, {
+      min,
+      max
+    }).map(arrayToTree);
+  }
+
+  expand(value) {
+    return this.composedGenerator.expand(value);
   }
 
   shrink(value) {
-    if (value.length === 0) {
-      return new ConstantGenerator([]);
-    }
-
-    const itemGenerator = this.options.itemGenerator;
-    const size = countItems(value);
-
-    if (this.options.min === size) {
-      return new ShapeGenerator(
-        mapLeafs(value, leaf => itemGenerator.shrink(leaf))
-      );
-    }
-
-    return new TreeGenerator(itemGenerator, {
-      min: this.options.min,
-      max: size
-    });
+    return this.composedGenerator.shrink(value);
   }
 
   generate(chance, context) {
-    const { itemGenerator, min, max } = this.options;
-
-    if (max === 0) {
-      return [];
-    }
-
-    const count = chance.natural({ min, max });
-    let remainding = count;
-    const result = [];
-    while (remainding > 0) {
-      const size = Math.max(
-        1,
-        chance.natural({
-          max: count
-        }) % remainding
-      );
-
-      if (size === 1) {
-        result.push(itemGenerator.generate(chance, context));
-      } else {
-        result.push(
-          new TreeGenerator(itemGenerator, { min: size, max: size }).generate(
-            chance,
-            context
-          )
-        );
-      }
-
-      remainding -= size;
-    }
-
-    return result;
+    return this.composedGenerator.generate(chance, context);
   }
 }
 
