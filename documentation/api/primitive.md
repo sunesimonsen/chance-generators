@@ -18,7 +18,7 @@ expect(primitive.take(10), "to equal", [
   "an]nTwTMaFbvMTDkdv[BrHg6ToCM[",
   "sof",
   -97.3471,
-  false,
-  undefined
+  undefined,
+  false
 ]);
 ```
