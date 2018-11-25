@@ -3,7 +3,7 @@
 Random tree [generator](../generator/).
 
 ```js#evaluate:false
-const { tree } = require("chance-generators");
+const { natural, tree } = require("chance-generators");
 ```
 
 When only given a generator, it generates random trees with leafs containing
