@@ -1,3 +1,8 @@
+### v3.4.0 (2018-11-26)
+
+- [#27](https://github.com/sunesimonsen/chance-generators/pull/27) Tree generator ([Sune Simonsen](mailto:sune@we-knowhow.dk))
+- [#26](https://github.com/sunesimonsen/chance-generators/pull/26) Added a primitive value generator ([Sune Simonsen](mailto:sune@we-knowhow.dk))
+
 ### v3.3.0 (2018-10-14)
 
 - [#24](https://github.com/sunesimonsen/chance-generators/pull/24) Lint, build, changelog, publish site when releasing ([Sune Simonsen](mailto:sune@we-knowhow.dk))
