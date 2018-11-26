@@ -20,6 +20,7 @@ const ShuffleGenerator = require("./ShuffleGenerator");
 const StringGenerator = require("./StringGenerator");
 const StringSplicerGenerator = require("./StringSplicerGenerator");
 const TextGenerator = require("./TextGenerator");
+const TreeGenerator = require("./TreeGenerator");
 const UniqueGenerator = require("./UniqueGenerator");
 const WeightedGenerator = require("./WeightedGenerator");
 
@@ -44,6 +45,7 @@ const facade = {
   string: createGeneratorFacade(StringGenerator),
   stringSplicer: (...args) => new StringSplicerGenerator(...args),
   text: createGeneratorFacade(TextGenerator),
+  tree: (...args) => new TreeGenerator(...args),
   unique: (...args) => new UniqueGenerator(...args),
   weighted: (...args) => new WeightedGenerator(...args)
 };
