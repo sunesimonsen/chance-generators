@@ -64,6 +64,8 @@ module.exports = require("unexpected")
   .addAssertion(
     "<Generator> to shrink towards <any>",
     (expect, subject, value) => {
+      expect.errorMode = "nested";
+
       let count = 0;
       let iterator = subject.values();
       while (iterator.isShrinkable && count < 100) {
@@ -73,7 +75,6 @@ module.exports = require("unexpected")
       }
 
       if (count === 100) {
-        expect.errorMode = "nested";
         expect.fail("Could not shrink in 100 iterations");
       }
 
