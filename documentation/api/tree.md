@@ -3,7 +3,7 @@
 Random tree [generator](../generator/).
 
 ```js#evaluate:false
-const { natural, tree } = require("chance-generators");
+const { natural, tree, word } = require("chance-generators");
 ```
 
 When only given a generator, it generates random trees with leaves containing
@@ -79,16 +79,19 @@ const mapBranches = (tree, mapper) =>
     : tree;
 
 const extendedTree = tree(smallNumbers).map(tree =>
-  mapBranches(tree, children => ({ value: smallNumbers, children }))
+  mapBranches(tree, children => ({ value: word, children }))
 );
 
 expect(extendedTree.take(1), "to equal", [
   {
-    value: 7,
+    value: "ofaufjom",
     children: [
       7,
-      { value: 8, children: [9, { value: 9, children: [1, 7] }, 7, 5] },
-      { value: 2, children: [{ value: 0, children: [5, 1] }, 4] },
+      {
+        value: "be",
+        children: [9, { value: "mabuj", children: [1, 7] }, 7, 5]
+      },
+      { value: "do", children: [{ value: "lisib", children: [5, 1] }, 4] },
       1,
       0
     ]
