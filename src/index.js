@@ -12,6 +12,7 @@ const NaturalGenerator = require("./NaturalGenerator");
 const NumberGenerator = require("./NumberGenerator");
 const PickoneGenerator = require("./PickoneGenerator");
 const PicksetGenerator = require("./PicksetGenerator");
+const PrimitiveGenerator = require("./PrimitiveGenerator");
 const Producer = require("./Producer");
 const SequenceGenerator = require("./SequenceGenerator");
 const ShapeGenerator = require("./ShapeGenerator");
@@ -35,13 +36,14 @@ const facade = {
   number: createGeneratorFacade(NumberGenerator),
   pickone: (...args) => new PickoneGenerator(...args),
   pickset: (...args) => new PicksetGenerator(...args),
+  primitive: createGeneratorFacade(PrimitiveGenerator),
+  producer: (...args) => new Producer(...args),
   sequence: (...args) => new SequenceGenerator(...args),
   shape: (...args) => new ShapeGenerator(...args),
   shuffle: (...args) => new ShuffleGenerator(...args),
   string: createGeneratorFacade(StringGenerator),
   stringSplicer: (...args) => new StringSplicerGenerator(...args),
   text: createGeneratorFacade(TextGenerator),
-  producer: (...args) => new Producer(...args),
   unique: (...args) => new UniqueGenerator(...args),
   weighted: (...args) => new WeightedGenerator(...args)
 };
