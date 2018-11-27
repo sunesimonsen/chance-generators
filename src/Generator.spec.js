@@ -76,6 +76,16 @@ describe("Generator", () => {
   });
 
   describe("take", () => {
+    it("fails when given no arguments", () => {
+      expect(
+        () => {
+          generator.take();
+        },
+        "to throw",
+        "The take method requires a positive number as parameter"
+      );
+    });
+
     it("returns the given number of items from the generator", () => {
       expect(generator.take(5), "to equal", [37, 80, 96, 18, 73]);
     });

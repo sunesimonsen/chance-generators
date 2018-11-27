@@ -35,6 +35,12 @@ class GeneratorIterator {
   }
 
   take(count) {
+    if (typeof count !== "number" || count < 1) {
+      throw new Error(
+        "The take method requires a positive number as parameter"
+      );
+    }
+
     const result = new Array(count);
     for (var i = 0; i < count; i += 1) {
       result[i] = this.next();
