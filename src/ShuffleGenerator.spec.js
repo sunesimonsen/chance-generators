@@ -27,7 +27,13 @@ describe("ShuffleGenerator", () => {
   });
 
   it("create arrays by picking subsets of the given items", () => {
-    expect(generator, "to yield items", []);
+    expect(generator, "to yield items", [
+      ["b", "c", "a"],
+      ["a", "b", "c"],
+      ["b", "c", "a"],
+      ["b", "a", "c"],
+      ["a", "c", "b"]
+    ]);
   });
 
   describe("expand", () => {
