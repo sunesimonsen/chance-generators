@@ -20,9 +20,7 @@ class PicksetGenerator extends Generator {
     }
 
     const shrinkableData =
-      items.length < 10 &&
-      items === this.lastUnwrappedValue &&
-      (this.lastValue || []).some(g => g && g.shrink);
+      items.length < 10 && (this.lastValue || []).some(g => g && g.shrink);
 
     let shrinkable = items.length < this.options.max || shrinkableData;
 
@@ -90,11 +88,9 @@ class PicksetGenerator extends Generator {
 
     this.lastValue = chance.pickset(items, chance.natural({ min, max }));
 
-    this.lastUnwrappedValue = this.lastValue.map(
+    return this.lastValue.map(
       item => (item && item.isGenerator ? item.generate(chance, context) : item)
     );
-
-    return this.lastUnwrappedValue;
   }
 }
 

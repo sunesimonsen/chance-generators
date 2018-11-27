@@ -69,8 +69,8 @@ module.exports = require("unexpected")
       let count = 0;
       let iterator = subject.values();
       while (iterator.isShrinkable && count < 100) {
-        const value = iterator.next();
-        iterator.shrink(value);
+        iterator.next();
+        iterator.shrink();
         count++;
       }
 

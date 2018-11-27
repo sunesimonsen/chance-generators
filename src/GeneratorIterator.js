@@ -18,17 +18,17 @@ class GeneratorIterator {
     }
   }
 
-  shrink(value) {
+  shrink() {
     if (this.isShrinkable) {
-      this.generator = this.generator.shrink(value);
+      this.generator = this.generator.shrink(this.lastValue);
       this.context = new Context();
       this.isShrinkable = Boolean(this.generator.shrink);
     }
   }
 
-  expand(value) {
+  expand() {
     if (this.isExpandable) {
-      this.generator = this.generator.expand(value);
+      this.generator = this.generator.expand(this.lastValue);
       this.context = new Context();
       this.isExpandable = Boolean(this.generator.expand);
     }
@@ -49,7 +49,8 @@ class GeneratorIterator {
   }
 
   next() {
-    return this.generator.generate(this.chance, this.context);
+    this.lastValue = this.generator.generate(this.chance, this.context);
+    return this.lastValue;
   }
 }
 

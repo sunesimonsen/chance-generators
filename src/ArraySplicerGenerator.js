@@ -16,9 +16,7 @@ class ArraySplicerGenerator extends Generator {
     }
 
     const shrinkableData =
-      items.length < 10 &&
-      items === this.lastUnwrappedValue &&
-      (this.lastValue || []).some(g => g && g.shrink);
+      items.length < 10 && (this.lastValue || []).some(g => g && g.shrink);
 
     let shrinkable = this.options.min < items.length || shrinkableData;
 
@@ -56,11 +54,9 @@ class ArraySplicerGenerator extends Generator {
     this.lastValue = items.slice();
     this.lastValue.splice(from, length);
 
-    this.lastUnwrappedValue = this.lastValue.map(
+    return this.lastValue.map(
       item => (item && item.isGenerator ? item.generate(chance, context) : item)
     );
-
-    return this.lastUnwrappedValue;
   }
 }
 

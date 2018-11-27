@@ -14,9 +14,7 @@ class ShuffleGenerator extends Generator {
   }
 
   shrink(items) {
-    const shrinkable =
-      items === this.lastUnwrappedValue &&
-      (this.lastValue || []).some(g => g && g.shrink);
+    const shrinkable = (this.lastValue || []).some(g => g && g.shrink);
 
     if (shrinkable) {
       return new ShuffleGenerator(
@@ -41,11 +39,9 @@ class ShuffleGenerator extends Generator {
 
     this.lastValue = chance.shuffle(items);
 
-    this.lastUnwrappedValue = this.lastValue.map(
+    return this.lastValue.map(
       item => (item && item.isGenerator ? item.generate(chance, context) : item)
     );
-
-    return this.lastUnwrappedValue;
   }
 }
 
