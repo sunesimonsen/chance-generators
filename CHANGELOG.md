@@ -1,3 +1,8 @@
+### v3.5.0 (2018-11-27)
+
+- [#29](https://github.com/sunesimonsen/chance-generators/pull/29) Added a first method to the generators ([Sune Simonsen](mailto:sune@we-knowhow.dk))
+- [#28](https://github.com/sunesimonsen/chance-generators/pull/28) Fail the take method if the user forgets to provide a count ([Sune Simonsen](mailto:sune@we-knowhow.dk))
+
 ### v3.4.0 (2018-11-26)
 
 - [#27](https://github.com/sunesimonsen/chance-generators/pull/27) Tree generator ([Sune Simonsen](mailto:sune@we-knowhow.dk))
