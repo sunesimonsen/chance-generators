@@ -75,6 +75,22 @@ describe("Generator", () => {
     });
   });
 
+  describe("first", () => {
+    it("returns the first item from the generator", () => {
+      expect(generator.first(), "to equal", 37);
+    });
+
+    it("advances the random values", () => {
+      expect(generator.first(), "not to equal", generator.first());
+    });
+
+    describe("when given a seed", () => {
+      it("generate an item with the given seed", () => {
+        expect(generator.first({ seed: 666 }), "to equal", 70);
+      });
+    });
+  });
+
   describe("take", () => {
     it("returns the given number of items from the generator", () => {
       expect(generator.take(5), "to equal", [37, 80, 96, 18, 73]);

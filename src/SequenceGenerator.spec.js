@@ -57,7 +57,7 @@ describe("SequenceGenerator", () => {
 
   describe("expand", () => {
     it("expands the given sequence", () => {
-      const generated = generator.take(1)[0];
+      const generated = generator.first();
       expect(generator.expand(generated), "to yield items", [
         [
           { gender: "female", age: 46 },
@@ -145,7 +145,7 @@ describe("SequenceGenerator", () => {
 
     describe("expand", () => {
       it("honors the length constraints", () => {
-        const [generated] = generator.take(1);
+        const generated = generator.first();
 
         expect(generator.expand(generated), "to yield items", [
           [

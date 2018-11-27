@@ -75,7 +75,7 @@ describe("ShapeGenerator", () => {
 
   describe("shrink", () => {
     it("returns a new shape generator where all generators in the structure has been shunken", () => {
-      const value = generator.take(1)[0];
+      const value = generator.first();
       expect(generator.shrink(value), "to satisfy", {
         isGenerator: true,
         generatorName: "shape",
@@ -122,7 +122,7 @@ describe("ShapeGenerator", () => {
     });
 
     it("shrinks all of the generators in the shape with regards to the given structure", () => {
-      const value = generator.take(1)[0];
+      const value = generator.first();
       expect(generator.shrink(value), "to yield items", [
         {
           nested: {
@@ -177,7 +177,7 @@ describe("ShapeGenerator", () => {
 
   describe("expand", () => {
     it("expands all of the generators in the shape with regards to the given structure", () => {
-      const value = generator.take(1)[0];
+      const value = generator.first();
       expect(generator.expand(value), "to yield items", [
         {
           nested: {

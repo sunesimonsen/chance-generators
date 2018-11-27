@@ -42,6 +42,22 @@ expect(ranges.take(5), "to equal", [
 ]);
 ```
 
+### first([options])
+
+Calls `values` and returns the first item:
+
+```js
+expect(integer.first(), "to equal", -2260084377780223);
+```
+
+Any options will be forwarded to the `values` method:
+
+```js
+expect(integer.first({ seed: 666 }), "to equal", 3610754225799169);
+```
+
+Notice, don't use this method to generate multiple values, you should either use `values` to get an iterator and call `next` on that, or use the `take` method seen below. This is only for cases where you just need one value generated.
+
 ### take(n, [options])
 
 Calls `values` and takes the `n` first items from the iterator:

@@ -77,7 +77,7 @@ describe("TreeGenerator", () => {
 
     describe("expand", () => {
       it("produces a generator that will generate trees similar to the given value", () => {
-        const [value] = generator.take(1);
+        const value = generator.first();
 
         expect(value, "to equal", [
           80,
@@ -125,7 +125,7 @@ describe("TreeGenerator", () => {
 
     describe("expand", () => {
       it("honor the constaints", () => {
-        const [value] = generator.take(1);
+        const value = generator.first();
 
         expect(
           generator.expand(value),
@@ -163,7 +163,7 @@ describe("TreeGenerator", () => {
 
     describe("expand", () => {
       it("honor the constaints", () => {
-        const [value] = generator.take(1);
+        const value = generator.first();
 
         expect(
           generator.expand(value),

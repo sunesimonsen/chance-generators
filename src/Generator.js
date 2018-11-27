@@ -11,6 +11,10 @@ class Generator {
     return new GeneratorIterator(this, options);
   }
 
+  first(options) {
+    return this.values(options).next();
+  }
+
   take(count, options) {
     return this.values(options).take(count);
   }
