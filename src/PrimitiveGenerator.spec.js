@@ -29,7 +29,7 @@ describe("PrimitiveGenerator", () => {
 
   describe("shrink", () => {
     it("shrinks the primitive value", () => {
-      const [value] = generator.take(1);
+      const value = generator.first();
 
       expect(value, "to equal", 9015);
       expect(generator.shrink(value), "to shrink towards", 0);
@@ -38,7 +38,7 @@ describe("PrimitiveGenerator", () => {
 
   describe("expand", () => {
     it("expands the primitive value", () => {
-      const [value] = generator.take(1);
+      const value = generator.first();
 
       expect(value, "to equal", 9015);
 

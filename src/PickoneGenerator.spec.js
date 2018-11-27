@@ -67,7 +67,7 @@ describe("PickoneGenerator", () => {
 
     describe("shrink", () => {
       it("returns the shrunken generator that it was given", () => {
-        const value = generator.take(1)[0];
+        const value = generator.first();
         expect(generator.shrink(value), "to satisfy", {
           generatorName: "integer",
           options: { min: 0, max: 80 }

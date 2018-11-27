@@ -82,19 +82,17 @@ const extendedTree = tree(smallNumbers).map(tree =>
   mapBranches(tree, children => ({ value: word, children }))
 );
 
-expect(extendedTree.take(1), "to equal", [
-  {
-    value: "ofaufjom",
-    children: [
-      7,
-      {
-        value: "be",
-        children: [9, { value: "mabuj", children: [1, 7] }, 7, 5]
-      },
-      { value: "do", children: [{ value: "lisib", children: [5, 1] }, 4] },
-      1,
-      0
-    ]
-  }
-]);
+expect(extendedTree.first(), "to equal", {
+  value: "ofaufjom",
+  children: [
+    7,
+    {
+      value: "be",
+      children: [9, { value: "mabuj", children: [1, 7] }, 7, 5]
+    },
+    { value: "do", children: [{ value: "lisib", children: [5, 1] }, 4] },
+    1,
+    0
+  ]
+});
 ```

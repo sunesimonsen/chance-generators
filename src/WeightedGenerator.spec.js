@@ -79,7 +79,7 @@ describe("WeightedGenerator", () => {
 
     describe("shrink", () => {
       it("returns the shrunken generator that it was given", () => {
-        const value = generator.take(1)[0];
+        const value = generator.first();
         expect(generator.shrink(value), "to satisfy", {
           generatorName: "stringSplicer",
           options: { text: "n25SSlGlheH#ySk0Wbe)19*pa", min: 5 }
@@ -89,7 +89,7 @@ describe("WeightedGenerator", () => {
 
     describe("expand", () => {
       it("returns a weighted generator where the found item is expanded and the weight is increased", () => {
-        const value = generator.take(1)[0];
+        const value = generator.first();
 
         expect(generator.expand(value), "to yield items", [
           "TwTMaFbvMTDkdv[BrHg6ToCM[RId@S",
