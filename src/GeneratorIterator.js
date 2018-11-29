@@ -29,7 +29,7 @@ class GeneratorIterator {
     }
 
     if (this.isShrinkable) {
-      this.generator = this.generator.shrink(this.generated);
+      this.generator = this.generator.shrink(this.generated, this.context);
       this.context = new Context();
       this.isShrinkable = Boolean(this.generator.shrink);
     }

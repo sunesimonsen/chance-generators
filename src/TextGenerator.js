@@ -29,8 +29,8 @@ class TextGenerator extends Generator {
     ]);
   }
 
-  shrink(text) {
-    return new StringGenerator({ max: text.length }).shrink(text);
+  shrink(text, context) {
+    return new StringGenerator({ max: text.length }).shrink(text, context);
   }
 
   expand(text) {

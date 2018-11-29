@@ -14,7 +14,7 @@ class PicksetGenerator extends Generator {
     }
   }
 
-  shrink(items) {
+  shrink(items, context) {
     if (items.length === 0) {
       return new ConstantGenerator([]);
     }
@@ -30,7 +30,7 @@ class PicksetGenerator extends Generator {
 
     if (shrinkableData) {
       items = this.lastValue.map(
-        (g, i) => (g && g.shrink ? g.shrink(items[i]) : items[i])
+        (g, i) => (g && g.shrink ? g.shrink(items[i], context) : items[i])
       );
     } else {
       items = this.lastValue;

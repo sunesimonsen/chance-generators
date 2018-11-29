@@ -77,8 +77,8 @@ class TreeGenerator extends Generator {
     return this.composedGenerator.expand(value);
   }
 
-  shrink(value) {
-    return this.composedGenerator.shrink(value);
+  shrink(value, context) {
+    return this.composedGenerator.shrink(value, context);
   }
 
   generate(chance, context) {

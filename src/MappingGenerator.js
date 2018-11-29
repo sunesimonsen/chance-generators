@@ -8,9 +8,9 @@ class MappingGenerator extends Generator {
     this.parentGenerator = generator;
 
     if (generator.shrink) {
-      this.shrink = value => {
+      this.shrink = (value, context) => {
         if (value === this.lastMappedValue) {
-          return generator.shrink(this.lastValue).map(mapper);
+          return generator.shrink(this.lastValue, context).map(mapper);
         } else {
           return this;
         }

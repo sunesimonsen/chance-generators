@@ -63,8 +63,8 @@ class NumberGenerator extends Generator {
     this.composedGenerator = new WeightedGenerator(generators);
   }
 
-  shrink(number) {
-    return this.composedGenerator.shrink(number);
+  shrink(number, context) {
+    return this.composedGenerator.shrink(number, context);
   }
 
   expand(number) {

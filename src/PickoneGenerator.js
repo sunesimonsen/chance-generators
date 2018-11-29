@@ -14,9 +14,9 @@ class PickoneGenerator extends Generator {
     }
   }
 
-  shrink(item) {
+  shrink(item, context) {
     if (this.lastValue && this.lastValue.shrink) {
-      return this.lastValue.shrink(item);
+      return this.lastValue.shrink(item, context);
     } else {
       return new ConstantGenerator(item);
     }

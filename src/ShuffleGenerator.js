@@ -13,13 +13,13 @@ class ShuffleGenerator extends Generator {
     }
   }
 
-  shrink(items) {
+  shrink(items, context) {
     const shrinkable = (this.lastValue || []).some(g => g && g.shrink);
 
     if (shrinkable) {
       return new ShuffleGenerator(
         this.lastValue.map(
-          (g, i) => (g && g.shrink ? g.shrink(items[i]) : items[i])
+          (g, i) => (g && g.shrink ? g.shrink(items[i], context) : items[i])
         )
       );
     } else {

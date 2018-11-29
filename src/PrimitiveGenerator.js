@@ -17,8 +17,8 @@ class PrimitiveGenerator extends Generator {
     ]);
   }
 
-  shrink(value) {
-    return this.composedGenerator.shrink(value);
+  shrink(value, context) {
+    return this.composedGenerator.shrink(value, context);
   }
 
   expand(value) {
