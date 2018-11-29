@@ -21,8 +21,8 @@ class PrimitiveGenerator extends Generator {
     return this.composedGenerator.shrink(value, context);
   }
 
-  expand(value) {
-    return this.composedGenerator.expand(value);
+  expand(value, context) {
+    return this.composedGenerator.expand(value, context);
   }
 
   generate(chance, context) {

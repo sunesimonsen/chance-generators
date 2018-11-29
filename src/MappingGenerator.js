@@ -18,9 +18,9 @@ class MappingGenerator extends Generator {
     }
 
     if (generator.expand) {
-      this.expand = value => {
+      this.expand = (value, context) => {
         if (value === this.lastMappedValue) {
-          return generator.expand(this.lastValue).map(mapper);
+          return generator.expand(this.lastValue, context).map(mapper);
         } else {
           return this;
         }

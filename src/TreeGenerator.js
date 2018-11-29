@@ -73,8 +73,8 @@ class TreeGenerator extends Generator {
     }).map(arrayToTree);
   }
 
-  expand(value) {
-    return this.composedGenerator.expand(value);
+  expand(value, context) {
+    return this.composedGenerator.expand(value, context);
   }
 
   shrink(value, context) {

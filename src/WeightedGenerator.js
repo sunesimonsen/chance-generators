@@ -21,9 +21,11 @@ class WeightedGenerator extends Generator {
     }
   }
 
-  expand(item) {
+  expand(item, context) {
     const expandableItem = this.lastValue && this.lastValue.expand;
-    const expandedItem = expandableItem ? this.lastValue.expand(item) : item;
+    const expandedItem = expandableItem
+      ? this.lastValue.expand(item, context)
+      : item;
 
     const maxWeight = this.options.reduce(
       (result, [item, weight]) => Math.max(result, weight),

@@ -42,7 +42,7 @@ class PicksetGenerator extends Generator {
     });
   }
 
-  expand(data) {
+  expand(data, context) {
     return this.map((items, chance) => {
       const margin = Math.max(
         Math.min(

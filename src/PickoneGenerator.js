@@ -22,12 +22,12 @@ class PickoneGenerator extends Generator {
     }
   }
 
-  expand(item) {
+  expand(item, context) {
     const expandableItem = this.lastValue && this.lastValue.expand;
 
     return new WeightedGenerator([
       [this, 10],
-      [expandableItem ? this.lastValue.expand(item) : item, 15]
+      [expandableItem ? this.lastValue.expand(item, context) : item, 15]
     ]);
   }
 

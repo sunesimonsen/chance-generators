@@ -33,8 +33,8 @@ class TextGenerator extends Generator {
     return new StringGenerator({ max: text.length }).shrink(text, context);
   }
 
-  expand(text) {
-    return new StringGenerator({ max: text.length + 10 }).expand(text);
+  expand(text, context) {
+    return new StringGenerator({ max: text.length + 10 }).expand(text, context);
   }
 
   generate(chance, context) {

@@ -37,7 +37,7 @@ class ArraySplicerGenerator extends Generator {
     });
   }
 
-  expand(items) {
+  expand(items, context) {
     return new WeightedGenerator([
       [this, 1],
       [new ConstantGenerator(items), 1.5]

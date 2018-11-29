@@ -43,7 +43,7 @@ class GeneratorIterator {
     }
 
     if (this.isExpandable) {
-      this.generator = this.generator.expand(this.generated);
+      this.generator = this.generator.expand(this.generated, this.context);
       this.context = new Context();
       this.isExpandable = Boolean(this.generator.expand);
     }

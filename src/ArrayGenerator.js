@@ -33,7 +33,7 @@ class ArrayGenerator extends Generator {
     });
   }
 
-  expand(items) {
+  expand(items, context) {
     const { itemGenerator, min, max } = this.options;
 
     return new PicksetGenerator([itemGenerator, ...items], {
