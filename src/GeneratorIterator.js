@@ -22,13 +22,7 @@ class GeneratorIterator {
   }
 
   shrink() {
-    if (this.generated === uninitialized) {
-      throw new Error(
-        "You can't shrink an iterator that hasn't generated any values yet."
-      );
-    }
-
-    if (this.isShrinkable) {
+    if (this.generated !== uninitialized && this.isShrinkable) {
       this.generator = this.generator.shrink(this.generated, this.context);
       this.context = new Context();
       this.isShrinkable = Boolean(this.generator.shrink);
@@ -36,13 +30,7 @@ class GeneratorIterator {
   }
 
   expand() {
-    if (this.generated === uninitialized) {
-      throw new Error(
-        "You can't expand an iterator that hasn't generated any values yet."
-      );
-    }
-
-    if (this.isExpandable) {
+    if (this.generated !== uninitialized && this.isExpandable) {
       this.generator = this.generator.expand(this.generated, this.context);
       this.context = new Context();
       this.isExpandable = Boolean(this.generator.expand);
