@@ -14,11 +14,12 @@ class ShuffleGenerator extends Generator {
   }
 
   shrink(items, context) {
-    const shrinkable = (this.lastValue || []).some(g => g && g.shrink);
+    const lastValue = context.childContext(this).get("lastValue");
+    const shrinkable = (lastValue || []).some(g => g && g.shrink);
 
     if (shrinkable) {
       return new ShuffleGenerator(
-        this.lastValue.map(
+        lastValue.map(
           (g, i) => (g && g.shrink ? g.shrink(items[i], context) : items[i])
         )
       );
@@ -37,9 +38,11 @@ class ShuffleGenerator extends Generator {
   generate(chance, context) {
     const { items } = this.options;
 
-    this.lastValue = chance.shuffle(items);
+    const value = chance.shuffle(items);
 
-    return this.lastValue.map(
+    context.childContext(this).set("lastValue", value);
+
+    return value.map(
       item => (item && item.isGenerator ? item.generate(chance, context) : item)
     );
   }
