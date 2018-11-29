@@ -9,37 +9,29 @@ class MappingGenerator extends Generator {
 
     if (generator.shrink) {
       this.shrink = (value, context) => {
-        if (value === this.lastMappedValue) {
-          return generator.shrink(this.lastValue, context).map(mapper);
-        } else {
-          return this;
-        }
+        const lastValue = context.childContext(this).get("lastValue");
+
+        return generator.shrink(lastValue, context).map(mapper);
       };
     }
 
     if (generator.expand) {
       this.expand = (value, context) => {
-        if (value === this.lastMappedValue) {
-          return generator.expand(this.lastValue, context).map(mapper);
-        } else {
-          return this;
-        }
+        const lastValue = context.childContext(this).get("lastValue");
+
+        return generator.expand(lastValue, context).map(mapper);
       };
     }
   }
 
   generate(chance, context) {
-    this.lastValue = this.parentGenerator.generate(chance, context);
+    const value = this.parentGenerator.generate(chance, context);
+
+    context.childContext(this).set("lastValue", value);
 
     const { mapper } = this.options;
 
-    this.lastMappedValue = unwrap(
-      mapper(this.lastValue, chance),
-      chance,
-      context
-    );
-
-    return this.lastMappedValue;
+    return unwrap(mapper(value, chance), chance, context);
   }
 }
 
