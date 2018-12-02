@@ -5,7 +5,6 @@ const MagicFloatingGenerator = require("./MagicFloatingGenerator");
 const MagicIntegerGenerator = require("./MagicIntegerGenerator");
 const WeightedGenerator = require("./WeightedGenerator");
 const PickoneGenerator = require("./PickoneGenerator");
-const { getMagicIntegers, getMagicFloating } = require("./magicValues");
 
 class NumberGenerator extends Generator {
   constructor({
@@ -17,13 +16,16 @@ class NumberGenerator extends Generator {
     const options = {};
     const generators = [];
 
+    const hasInstrumentation =
+      typeof global === "object" && Boolean(global.recordLocation);
+
     if (floating) {
       options.floating = true;
       generators.push([new FloatingGenerator({ min: -100, max: 100 }), 30]);
       generators.push([new FloatingGenerator({ min: -10000, max: 10000 }), 20]);
       generators.push([new FloatingGenerator(), 5]);
 
-      if (getMagicFloating().length) {
+      if (hasInstrumentation) {
         generators.push([new MagicFloatingGenerator(), 5]);
       }
     }
@@ -35,7 +37,7 @@ class NumberGenerator extends Generator {
       generators.push([new IntegerGenerator(), 5]);
       generators.push([new PickoneGenerator([-0, +0]), 0.1]);
 
-      if (getMagicIntegers().length) {
+      if (hasInstrumentation) {
         generators.push([new MagicIntegerGenerator(), 5]);
         generators.push([new MagicIntegerGenerator().map(v => v + 1), 5]);
         generators.push([new MagicIntegerGenerator().map(v => v - 1), 5]);
