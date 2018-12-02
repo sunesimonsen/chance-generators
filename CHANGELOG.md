@@ -1,3 +1,7 @@
+### v3.5.1 (2018-12-02)
+
+- [#31](https://github.com/sunesimonsen/chance-generators/pull/31) Fix check for magic values in the number generator ([Sune Simonsen](mailto:sune@we-knowhow.dk))
+
 ### v3.5.0 (2018-11-27)
 
 - [#29](https://github.com/sunesimonsen/chance-generators/pull/29) Added a first method to the generators ([Sune Simonsen](mailto:sune@we-knowhow.dk))
