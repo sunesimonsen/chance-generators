@@ -48,7 +48,7 @@ expect(users.take(3), "to equal", [
 ]);
 ```
 
-All generators supports [mapping](../generator/#map-mapper-) over the generated
+All generators supports [mapping](api/generator/#map-mapper-) over the generated
 values.
 
 You have more than hundred generators available:
