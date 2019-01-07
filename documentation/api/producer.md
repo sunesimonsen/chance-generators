@@ -79,19 +79,19 @@ expect(customGenerator.take(6), "to equal", [
   {
     name: "Violet Simmons",
     age: 53,
-    updateAt: "10/19/2078",
+    updateAt: "10/19/2079",
     updateBy: "Todd Houston"
   },
   {
     name: "Louise Dennis",
     age: 49,
-    updateAt: "1/31/2023",
+    updateAt: "1/31/2024",
     updateBy: "Patrick Wilkerson"
   },
   {
     name: "Lydia Parks",
     age: 43,
-    updateAt: "1/1/2061",
+    updateAt: "1/1/2062",
     updateBy: "Daniel Robertson"
   },
   { name: "Adam Nguyen", age: 22, updateAt: null, updateBy: null },
