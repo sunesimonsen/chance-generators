@@ -1,4 +1,5 @@
 --reporter spec
 --recursive
 --require ./bootstrap-unexpected-markdown
---compilers md:unexpected-markdown,js:babel-core/register
+--require unexpected-markdown
+--require babel-core/register
