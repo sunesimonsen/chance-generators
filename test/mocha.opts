@@ -1,5 +1,5 @@
 --reporter spec
 --recursive
+--require babel-core/register
 --require ./bootstrap-unexpected-markdown
 --require unexpected-markdown
---require babel-core/register
