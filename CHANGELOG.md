@@ -1,3 +1,7 @@
+### v3.5.2 (2019-09-27)
+
+- [#32](https://github.com/sunesimonsen/chance-generators/pull/32) unwrap: Let non-plain objects through ([Andreas Lind](mailto:andreaslindpetersen@gmail.com))
+
 ### v3.5.1 (2018-12-02)
 
 - [#31](https://github.com/sunesimonsen/chance-generators/pull/31) Fix check for magic values in the number generator ([Sune Simonsen](mailto:sune@we-knowhow.dk))
