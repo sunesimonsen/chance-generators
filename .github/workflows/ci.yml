@@ -1,0 +1,31 @@
+name: Checks
+
+on: [push]
+
+jobs:
+  ci:
+    name: "Test on Node.js ${{ matrix.node-version }}"
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [6, 8, 10, 12, 14, 16]
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+    - name: setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install
+      run: npm install
+    - name: Lint
+      if: ${{ matrix.node-version == 16 }}
+      run: npm run lint
+      env:
+        CI: true
+    - name: Test
+      run: npm test
+      env:
+        CI: true
