@@ -1,8 +1,8 @@
 {
   "name": "chance-generators",
   "description": "Random generators based on changejs",
-  "author": "Sune Simonsen",
   "license": "MIT",
+  "author": "Sune Simonsen",
   "version": "3.5.2",
   "main": "lib/index.js",
   "files": [
@@ -17,7 +17,6 @@
     "lint-staged": "lint-staged",
     "prepare": "npm run lint && npm run build",
     "test": "mocha ./documentation/**/*.md ./src/**/*.js ./test/**/*.js",
-    "travis": "npm run lint && npm run coverage && npm run build",
     "update-examples": "generate-site --require ./bootstrap-unexpected-markdown.js --update-examples",
     "postversion": "npm run changelog && git add CHANGELOG.md && git commit --allow-empty -m 'Update changelog' && deploy-site.sh"
   },
