@@ -31,7 +31,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "es6-set": "^0.1.5",
     "eslint": "^3.19.0",
-    "eslint-config-pretty-standard": "^0.2.2",
+    "eslint-config-pretty-standard": "^1.0.0",
     "imocha": "^0.3.0",
     "istanbul": "^0.4.2",
     "javascript-state-machine": "^2.3.5",
