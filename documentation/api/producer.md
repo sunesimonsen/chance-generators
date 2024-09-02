@@ -6,7 +6,7 @@ This is one the most advanced and custom generators we offer. You should only
 use this generator if non of the other generators as capable of doing the job.
 
 ```js#evaluate:false
-const { age, date, name, producer, shape } = require("chance-generators")
+const { age, date, name, producer, shape } = require("chance-generators");
 ```
 
 You can use the previous value to compute the next. The second argument is an
@@ -70,7 +70,13 @@ const customGenerator = producer((previous, context, chance) => {
   return {
     name,
     age,
-    updateAt: includeDate ? date({ string: true }) : null,
+    updateAt: includeDate
+      ? date({
+          string: true,
+          min: new Date("2018-01-01T00:00:00Z"),
+          max: new Date("2024-01-01T00:00:00Z")
+        })
+      : null,
     updateBy: includeDate ? name : null
   };
 });
@@ -79,23 +85,33 @@ expect(customGenerator.take(6), "to equal", [
   {
     name: "Violet Simmons",
     age: 53,
-    updateAt: "10/19/2082",
-    updateBy: "Todd Houston"
+    updateAt: "9/5/2022",
+    updateBy: "Winifred Barnes"
   },
   {
-    name: "Louise Dennis",
-    age: 49,
-    updateAt: "1/31/2027",
-    updateBy: "Patrick Wilkerson"
+    name: "Kevin King",
+    age: 40,
+    updateAt: "3/13/2023",
+    updateBy: "Elijah Watson"
   },
   {
-    name: "Lydia Parks",
-    age: 43,
-    updateAt: "1/1/2065",
-    updateBy: "Daniel Robertson"
+    name: "Ida Hernandez",
+    age: 64,
+    updateAt: null,
+    updateBy: null
   },
-  { name: "Adam Nguyen", age: 22, updateAt: null, updateBy: null },
-  { name: "Dora Lawrence", age: 42, updateAt: null, updateBy: null },
-  { name: "Sophia Lee", age: 59, updateAt: null, updateBy: null }
+  { name: "Ophelia Woods", age: 18, updateAt: null, updateBy: null },
+  {
+    name: "Pearl Norris",
+    age: 32,
+    updateAt: "9/2/2021",
+    updateBy: "Emma Meyer"
+  },
+  {
+    name: "Nathaniel Parks",
+    age: 37,
+    updateAt: "11/2/2018",
+    updateBy: "Harry Bryan"
+  }
 ]);
 ```
