@@ -38,11 +38,19 @@ describe("PickoneGenerator", () => {
         ConstantGenerator
       );
     });
+
+    it("does not break when the generator emits falsy values", () => {
+      new PickoneGenerator([null]).shrink().first();
+    });
   });
 
   describe("expand", () => {
     it("returns a new generator that is more likely to pick the given item", () => {
       expect(generator.expand(5), "to yield items", [7, 5, 7, 5, 5, 5, 4, 0]);
+    });
+
+    it("does not break when the generator emits falsy values", () => {
+      new PickoneGenerator([null]).expand().first();
     });
   });
 

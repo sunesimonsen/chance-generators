@@ -15,7 +15,11 @@ class PickoneGenerator extends Generator {
   }
 
   shrink(item) {
-    if (this.lastUnwrappedValue === item && this.lastValue.shrink) {
+    if (
+      this.lastUnwrappedValue === item &&
+      this.lastValue &&
+      this.lastValue.shrink
+    ) {
       return this.lastValue.shrink(item);
     } else {
       return new ConstantGenerator(item);
@@ -24,7 +28,9 @@ class PickoneGenerator extends Generator {
 
   expand(item) {
     const expandableItem =
-      this.lastUnwrappedValue === item && this.lastValue.expand;
+      this.lastUnwrappedValue === item &&
+      this.lastValue &&
+      this.lastValue.expand;
 
     return new WeightedGenerator([
       [this, 10],
