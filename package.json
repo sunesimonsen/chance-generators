@@ -45,7 +45,7 @@
     "unexpected": "^10.37.1",
     "unexpected-documentation-site-generator": "^4.6.1",
     "unexpected-generator": "^0.1.1",
-    "unexpected-markdown": "^1.7.4"
+    "unexpected-markdown": "^6.0.1"
   },
   "keywords": [
     "random",
